@@ -1,0 +1,88 @@
+﻿ LogDT = 8/10/2022 11:21:26 PM 
+ LogMsg = CarouselController => Post => name:1 
+ LogDesc = Msg=CarouselController => Post => name:1;Ex.Msg=An error occurred while updating the entries. See the inner exception for details.;InEx.Msg=The value for property 'Carousel.IsShow' cannot be set to null because its type is 'bool' which is not a nullable type.; 
+
+********************************************** 
+
+LogDT = 8/10/2022 11:21:26 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'Carousel'.; 
+
+********************************************** 
+
+LogDT = 8/10/2022 11:23:19 PM 
+ LogMsg = CarouselController => Post => name:1 
+ LogDesc = Msg=CarouselController => Post => name:1;Ex.Msg=An error occurred while updating the entries. See the inner exception for details.;InEx.Msg=The value for property 'Carousel.IsShow' cannot be set to null because its type is 'bool' which is not a nullable type.; 
+
+********************************************** 
+
+LogDT = 8/10/2022 11:23:19 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'Carousel'.; 
+
+********************************************** 
+
+LogDT = 8/16/2022 11:08:55 PM 
+ LogMsg = WaeklyController => GetAll 
+ LogDesc = Msg=WaeklyController => GetAll;Ex.Msg=Could not find stored procedure 'dbo.GetWaeklyAll'.; 
+
+********************************************** 
+
+LogDT = 8/16/2022 11:08:55 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'dbo'.; 
+
+********************************************** 
+
+LogDT = 8/16/2022 11:08:56 PM 
+ LogMsg = WaeklyController => GetAll 
+ LogDesc = Msg=WaeklyController => GetAll;Ex.Msg=Could not find stored procedure 'dbo.GetWaeklyAll'.; 
+
+********************************************** 
+
+LogDT = 8/16/2022 11:08:56 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'dbo'.; 
+
+********************************************** 
+
+LogDT = 8/30/2022 10:54:55 PM 
+ LogMsg = PremiumController => Print 
+ LogDesc = Msg=PremiumController => Print;Ex.Msg=Unable to cast object of type 'Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1[<>f__AnonymousType34`8[System.String,System.String,System.String,System.DateTime,System.Decimal,System.Decimal,System.Decimal,System.Boolean]]' to type 'SystemSchool.Models.Entity.PremiumDetails'.; 
+
+********************************************** 
+
+LogDT = 8/30/2022 10:54:55 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'Microsoft'.
+The identifier that starts with '<>f__AnonymousType34`8[System.String,System.String,System.String,System.DateTime,System.Decimal,System.Decimal,System.Decimal,Sy' is too long. Maximum length is 128.
+Unclosed quotation mark after the character string '<>f__AnonymousType34`8[System.String,System.String,System.String,System.DateTime,System.Decimal,System.Decimal,System.Decimal,Sys'.; 
+
+********************************************** 
+
+LogDT = 8/30/2022 10:55:17 PM 
+ LogMsg = PremiumController => Print 
+ LogDesc = Msg=PremiumController => Print;Ex.Msg=Unable to cast object of type 'Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1[<>f__AnonymousType34`8[System.String,System.String,System.String,System.DateTime,System.Decimal,System.Decimal,System.Decimal,System.Boolean]]' to type 'SystemSchool.Models.Entity.PremiumDetails'.; 
+
+********************************************** 
+
+LogDT = 8/30/2022 10:55:17 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'Microsoft'.
+The identifier that starts with '<>f__AnonymousType34`8[System.String,System.String,System.String,System.DateTime,System.Decimal,System.Decimal,System.Decimal,Sy' is too long. Maximum length is 128.
+Unclosed quotation mark after the character string '<>f__AnonymousType34`8[System.String,System.String,System.String,System.DateTime,System.Decimal,System.Decimal,System.Decimal,Sys'.; 
+
+********************************************** 
+
+LogDT = 8/30/2022 11:22:01 PM 
+ LogMsg = PremiumController => Print 
+ LogDesc = Msg=PremiumController => Print;Ex.Msg=Unable to cast object of type 'Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1[<>f__AnonymousType34`8[System.String,System.String,System.String,System.DateTime,System.Decimal,System.Decimal,System.Decimal,System.Boolean]]' to type 'SystemSchool.Models.Entity.PremiumDetails'.; 
+
+********************************************** 
+
+LogDT = 8/30/2022 11:22:01 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=A transport-level error has occurred when sending the request to the server. (provider: Session Provider, error: 19 - Physical connection is not usable); 
+
+********************************************** 
+

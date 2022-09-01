@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AppSmartKid.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AppSmartKid"
+ Shell.NavBarHasShadow="true" 
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <ShellContent Title="صفحة الرئيسية"
+                       Icon="cat.png" 
+                      ContentTemplate="{DataTemplate local:MainPage}"
+                      Route="MainPage">
+        </ShellContent>
+        <ShellContent Title="الاشعارات"
+                   Icon="cat.png" 
+                      ContentTemplate="{DataTemplate local:ViewItem}"
+                      Route="ViewItem">
+        </ShellContent>
+        <ShellContent Title="الطلبات"
+                      Icon="cat.png" 
+                      ContentTemplate="{DataTemplate local:ViewType}"
+                      Route="ViewType">
+        </ShellContent>
+        <ShellContent Title="السلة"
+                   Icon="cat.png" 
+                      ContentTemplate="{DataTemplate local:ReportItem}"
+                      Route="ReportItem">
+        </ShellContent>
+    </TabBar>
+
+</Shell>
