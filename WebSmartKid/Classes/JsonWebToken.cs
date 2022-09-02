@@ -20,7 +20,7 @@ namespace WebSmartKid.Classes
             SecurityToken stoken = tokenHandler.CreateToken(
                 new SecurityTokenDescriptor
                 {
-                    Issuer = "School",
+                    Issuer = "smartkids",
                     Audience = "Subscriber", 
                     Expires = Key.DateTimeIQ.AddDays(30),
                     Subject = new ClaimsIdentity(new[] {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppSmartKid.VM
 {
-    internal class DetailItemVM
+    public partial class DetailItemVM  :BaseVM
     {
     }
 }

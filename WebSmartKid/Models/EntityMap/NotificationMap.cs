@@ -14,6 +14,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.Property(x => x.Title).IsRequired();
             builder.Property(x => x.Details).IsRequired();
             builder.Property(x => x.DateInsert).IsRequired();     
+            builder.Property(x => x.UserId).IsRequired();     
         }
     }
 }

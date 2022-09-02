@@ -13,10 +13,10 @@ namespace Entity.Entity
         public DateTime OrderDate { get; set; }
         public int UserId { get; set; }
         public decimal Total { get; set; }
+        public decimal TotalDiscount { get; set; }
+        public decimal NetAmount { get; set; }
         public bool IsCancel { get; set; }
         public bool IsApporve { get; set; }
-        public bool IsDone { get; set; }
-        public bool IsDiscount { get; set; }
-        public string TypeDiscount { get; set; }
+        public bool IsDone { get; set; }            
     }
 }

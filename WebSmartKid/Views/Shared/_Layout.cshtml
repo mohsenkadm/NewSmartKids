@@ -22,24 +22,14 @@
   <link href="~/lib/assets/demo/demo.css" rel="stylesheet" />
 </head>
 <body style="font-family: 'Tajawal'; " class="dark-edition">
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/LookUps.js" asp-append-version="true"></script>
-    <script src="~/js/BranchStage.js" asp-append-version="true"></script>
-    <script src="~/js/TeacherBranchStageItem.js" asp-append-version="true"></script>
-    <script src="~/js/Users.js" asp-append-version="true"></script>
-    <script src="~/js/Degrees.js" asp-append-version="true"></script>
-    <script src="~/js/Student.js" asp-append-version="true"></script>
-    <script src="~/js/Teacher.js" asp-append-version="true"></script>
-    <script src="~/js/Duties.js" asp-append-version="true"></script>
-    <script src="~/js/PremuimMaster.js" asp-append-version="true"></script>
-    <script src="~/js/Salary.js" asp-append-version="true"></script>
-    <script src="~/js/Absence.js" asp-append-version="true"></script>
-    <script src="~/js/Carousel.js" asp-append-version="true"></script>
-    <script src="~/js/Waekly.js" asp-append-version="true"></script>
-    <script src="~/js/Expenses.js" asp-append-version="true"></script>
-    <script src="~/js/Exams.js" asp-append-version="true"></script>
-    
-       <!-- CUT FROM HERE --> 
+    <script src="~/js/site.js" asp-append-version="true"></script> 
+    <script src="~/js/Carousel.js" asp-append-version="true"></script> 
+    <script src="~/js/Admin.js" asp-append-version="true"></script>
+    <script src="~/js/Posts.js" asp-append-version="true"></script>
+    <script src="~/js/TblAges.js" asp-append-version="true"></script>
+    <script src="~/js/Countries.js" asp-append-version="true"></script>
+
+    <!-- CUT FROM HERE --> 
        
   <div class="wrapper ">
     <header>
@@ -50,7 +40,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo"><a  class="simple-text logo-normal">
-          نظام ادارة المدارس
+          نظام ادارة تطبيق طفل العبقري
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
@@ -61,107 +51,41 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Users')">
+            <a class="nav-link" onclick="call_Action('Home/Countries')">
+              <i class="material-icons">person</i>
+              <p>المحافظات</p>
+            </a>
+          </li>  
+          <li class="nav-item ">
+            <a class="nav-link" onclick="call_Action('Home/TblAges')">
+              <i class="material-icons">person</i>
+              <p>الاعمار</p>
+            </a>
+          </li>  
+          <li class="nav-item ">
+            <a class="nav-link" onclick="call_Action('Home/Posts')">
+              <i class="material-icons">person</i>
+              <p>المنشورات</p>
+            </a>
+          </li>  
+          <li class="nav-item ">
+              <a class="nav-link" onclick="call_Action('Home/Notification')">
+              <i class="material-icons">person</i>
+              <p>الاشعارات</p>
+            </a>
+          </li>  
+          <li class="nav-item ">
+            <a class="nav-link" onclick="call_Action('Home/Admin')">
               <i class="material-icons">person</i>
               <p>المستخدمين</p>
             </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Teacher')">
-              <i class="material-icons">person</i>
-              <p>المدرسين</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Student')">
-              <i class="material-icons">person</i>
-              <p>الطلاب</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/BranchStage')">
-              <i class="material-icons">person</i>
-              <p>ادراج الصفوف  الى الشعب</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Degrees')">
-              <i class="material-icons">person</i>
-              <p>تسجيل الدرجات</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/TeacherBranchStageItem')">
-              <i class="material-icons">person</i>
-              <p>ادراج الاساتذة مع المواد</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Duties')">
-              <i class="material-icons">person</i>
-              <p>الواجبات</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Premuim')">
-              <i class="material-icons">person</i>
-              <p>الاقساط</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-               <a class="nav-link" onclick="call_Action('Home/PremiumUnpaid')">
-              <i class="material-icons">person</i>
-              <p>كشف الاقساط الغير مسددة</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-               <a class="nav-link" onclick="call_Action('Home/PremiumPaid')">
-              <i class="material-icons">person</i>
-              <p>كشف الاقساط المسددة</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Salary')">
-              <i class="material-icons">person</i>
-              <p>رواتب المدرسين</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Absence')">
-              <i class="material-icons">person</i>
-              <p>سجل الغياب</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-              <a class="nav-link" onclick="call_Action('Home/Waekly')">
-              <i class="material-icons">person</i>
-              <p>الجدول الاسبوعي</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-                            <a class="nav-link" onclick="call_Action('Home/Exams')">
-              <i class="material-icons">person</i>
-              <p>جدول الامتحانات</p>
-            </a>
-          </li> 
-          <li class="nav-item ">
-              <a class="nav-link" onclick="call_Action('Home/Expenses')">
-              <i class="material-icons">person</i>
-              <p>مصاريف المدرسة</p>
-            </a>
-          </li> 
+          </li>  
           <li class="nav-item ">
             <a class="nav-link" onclick="call_Action('Home/Carousel')">
               <i class="material-icons">person</i>
               <p>الصور</p>
             </a>
-          </li> 
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/LookUps')">
-              <i class="material-icons">person</i>
-              <p>الاخرى</p>
-            </a>
-          </li> 
+          </li>  
         </ul>
       </div>
     </div> 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppSmartKid.VM
 {
-    internal class OrdersVM
+    public partial class OrdersVM   :BaseVM
     {
     }
 }

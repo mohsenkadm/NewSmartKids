@@ -86,3 +86,27 @@ LogDT = 8/30/2022 11:22:01 PM
 
 ********************************************** 
 
+LogDT = 9/2/2022 3:10:12 PM 
+ LogMsg = AdminController => GetAdminAll 
+ LogDesc = Msg=AdminController => GetAdminAll;Ex.Msg=Unable to cast object of type 'System.Int32' to type 'System.String'.; 
+
+********************************************** 
+
+LogDT = 9/2/2022 3:10:12 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'System'.; 
+
+********************************************** 
+
+LogDT = 9/2/2022 3:10:22 PM 
+ LogMsg = AdminController => GetAdminAll 
+ LogDesc = Msg=AdminController => GetAdminAll;Ex.Msg=Unable to cast object of type 'System.Int32' to type 'System.String'.; 
+
+********************************************** 
+
+LogDT = 9/2/2022 3:10:22 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'System'.; 
+
+********************************************** 
+

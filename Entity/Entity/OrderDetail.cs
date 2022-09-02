@@ -10,7 +10,7 @@ namespace Entity.Entity
     {
         public int OrderDetailId { get; set; }
         public int OrderId { get; set; }
-        public int ItemId { get; set; }  
+        public int ProductsId { get; set; }  
 
         public decimal Price { get; set; }
 
@@ -24,7 +24,7 @@ namespace Entity.Entity
         public bool IsCancel { get; set; }
         public bool IsApporve { get; set; }
         public bool IsDone { get; set; }            
-        public bool IsDiscount { get; set; }
-        public string TypeDiscount { get; set; }
+        public decimal NetAmount { get; set; }
+        public decimal TotalDiscount { get; set; }
     }
 }

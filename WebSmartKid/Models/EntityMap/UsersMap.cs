@@ -11,7 +11,11 @@ namespace WebSmartKid.Model.EntityMap
         {
             builder.ToTable("Users", "dbo");
             builder.HasKey(x => x.UserId);
-          //  builder.Property(x => x.PersonId).IsRequired();       
+            builder.Property(x => x.Name).IsRequired();       
+            builder.Property(x => x.Phone).IsRequired();          
+            builder.Ignore(x => x.Token);       
+            builder.Property(x => x.Details).IsRequired();       
+            builder.Property(x => x.CountryId).IsRequired();       
         }
     }
 }

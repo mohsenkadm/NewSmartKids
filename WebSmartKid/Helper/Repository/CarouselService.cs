@@ -13,20 +13,17 @@ namespace WebSmartKid.Helper.Repository
     public class CarouselService : ICarouselService, IRegisterScopped
     {
         // cotext only apply scopped 
-        private readonly DBContext _context;
-        private readonly IDapperRepository<Carousel> _CarouselRepository;
+        private readonly DB_Context _context;                             
 
         public CarouselService(
-            DBContext context,
-            IDapperRepository<Carousel> userRepository)
+            DB_Context context )
         {
-            _context = context;
-            _CarouselRepository = userRepository;
+            _context = context;                   
         }
 
         public async Task<ResObj> GetAll()
         {
-            List<Carousel> data = await _CarouselRepository.GetEntityListAsync("dbo.GetCarouselAll", new { });
+            List<Carousel> data = await _context.Carousel.ToListAsync() ;
             return Result.Return(true, data);
         }
 
@@ -70,8 +67,7 @@ namespace WebSmartKid.Helper.Repository
 
         public async Task<Carousel> GetCarouselById(int Id)
         {
-            return await _CarouselRepository.GetEntityAsync("dbo.GetCarouselById",
-                new { Id });
+            return await _context.Carousel.Where(i => i.CarouseId == Id).FirstOrDefaultAsync();
         }
 
         public async Task<ResObj> GetById(int Id)

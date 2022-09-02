@@ -10,5 +10,6 @@ namespace Entity.Entity
         public string Details { get; set; }
         public string Title { get; set; }
         public DateTime DateInsert { get; set; }  
+        public int UserId { get; set; }  
     }
 }

@@ -16,7 +16,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         cfg.RequireHttpsMetadata = false;
         cfg.TokenValidationParameters = new()
         {
-            ValidIssuer = "School",
+            ValidIssuer = "smartkids",
             ValidAudience = "Subscriber",
             ValidateLifetime = true,
             RequireExpirationTime = true,
@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 builder.Services.AddAuthorization();
-builder.Services.AddDbContext<DBContext>(option => option.UseSqlServer(DBConn.ConnectionString),
+builder.Services.AddDbContext<DB_Context>(option => option.UseSqlServer(DBConn.ConnectionString),
     ServiceLifetime.Scoped, ServiceLifetime.Scoped);
 
 AppRegisterServices.RegisterServices<IRegisterScopped>(builder.Services);
