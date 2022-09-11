@@ -13,6 +13,6 @@ namespace Entity.Entity
         public string Phone { get; set; }    
         public string Details { get; set; }    
         public string Token { get; set; }       
-        public string CountryId { get; set; }       
+        public int CountryId { get; set; }       
     }
 }

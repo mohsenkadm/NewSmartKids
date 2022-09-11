@@ -35,7 +35,8 @@ namespace WebSmartKid.Controllers
         }
         #endregion
 
-        #region Get Info Posts    
+        #region Get Info Posts   
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

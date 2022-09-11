@@ -12,6 +12,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.ToTable("TblAges", "dbo");
             builder.HasKey(x => x.AgeId);
             builder.Property(x => x.AgeName).IsRequired();                       
+            builder.Ignore(x => x.State) ;                       
         }
     }
 }

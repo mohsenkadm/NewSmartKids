@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppSmartKid.View.Notification"
-             Title="Notification">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:entity="clr-namespace:Entity.Entity;assembly=Entity"
+             x:Class="AppSmartKids.View.Notification" NavigationPage.HasNavigationBar="False"
+               BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
+    <ContentPage.Content>  
+                <VerticalStackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                    <Label    Style="{StaticResource Key=TitleLabel}" Text="الاشعارات" ></Label>
+                    <VerticalStackLayout  HorizontalOptions="FillAndExpand"  >
+                        <Border Padding="0,20,10,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="40,40,0,0"></RoundRectangle>
+                        </Border.StrokeShape>
+                        <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
+                            <CollectionView   ItemsSource="{Binding Items}" >
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="entity:Notification">
+                                        <Border StrokeThickness="2" Margin="20,15,20,5" Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  BackgroundColor="{x:StaticResource white}" >
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="50,0,0,50"></RoundRectangle>
+                                            </Border.StrokeShape>
+                                             
+                                            <StackLayout>
+                                                <StackLayout>
+                                                    <HorizontalStackLayout>
+                                                        <Label VerticalTextAlignment="End" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" Style="{x:StaticResource sublabel}" FontSize="16" Margin="5" Text="{Binding Title}"/>
+                                                        <Label TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  VerticalTextAlignment="Start" Style="{x:StaticResource sublabel}" FontSize="16" Margin="3" Text="{Binding DateInsert}"/>
+                                                    </HorizontalStackLayout>
+                                                    <Label TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" HorizontalTextAlignment="Center" Style="{x:StaticResource sublabel}" FontSize="16" Margin="5" Text="{Binding Details}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </RefreshView>
+                    </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout> 
+    </ContentPage.Content>
 </ContentPage>

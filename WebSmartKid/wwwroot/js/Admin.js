@@ -12,7 +12,8 @@ function filltableAdmin(data) {
             "<td>" + item.adminNo + "</td>" +   
             "<td>" + item.adminName + "</td>"
             + "<td> <button type='button' rel='tooltip' title='' class='btn btn-white btn-link btn-sm'  onclick='deleteAdmin(" + item.adminId + ")'  ><i class='material-icons'>delete</i> </button>" +
-            "  |  <button type='button'  rel='tooltip' title='' class='btn btn-white btn-link btn-sm' onclick='updateAdmin(" + item.adminId + ")'  data-toggle='modal' data-target='#AdminModal'><i class='material-icons'>edit</i> </button></td></tr>";
+            "  |  <button type='button'  rel='tooltip' title='' class='btn btn-white btn-link btn-sm' onclick='updateAdmin(" + item.adminId + ")'  data-toggle='modal' data-target='#AdminModal'><i class='material-icons'>edit</i> </button>"+
+        "  |  <button type='button'  rel='tooltip' title='' class='btn btn-white btn-link btn-sm' onclick='GetPermissionUser(" + item.adminId + ")'  data-toggle='modal' data-target='#PermissionModal'>صلاحية </button></td></tr>";
         $('#tableAdmin').append(rows); 
     });
 }
@@ -103,4 +104,14 @@ function aftersaveAdmin() {
     $("#Password").val(''); 
     _AdminId = 0;
     RefreshAdmin();
+}
+
+
+function logut() {
+    call_ajax("Get", "Admin/Logout", null, afterlogout);
+};
+function afterlogout() {
+    document.cookie = "token2= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    call_Action("Home/Login")
+
 }

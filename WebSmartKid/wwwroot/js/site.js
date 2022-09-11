@@ -65,6 +65,8 @@ function call_Action(url) {
             for (var i = 0; i < scripts.length; i++) { 
                 eval(scripts[i].innerText);
             }
+
+            call_ajax("GET", "Admin/GetPermissionForLayout", null, filllayout);
             $('.loader').fadeOut();
         }
     });

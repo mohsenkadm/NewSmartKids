@@ -1,8 +1,9 @@
-﻿using AppSmartKid.Helper;
-using AppSmartKid.View;
+﻿using AppSmartKids.Helper;
+using AppSmartKids.View;
+using AppSmartKids.View;
 using AppSmartKids.VM;
 
-namespace AppSmartKid;
+namespace AppSmartKids;
 
 public partial class AppShell : Shell 
 {
@@ -20,6 +21,7 @@ public partial class AppShell : Shell
 		Routes.Add(nameof(OrderSeccess), typeof(OrderSeccess));
 		Routes.Add(nameof(SendOrder), typeof(SendOrder));
 		Routes.Add(nameof(ShoppingCart), typeof(ShoppingCart));
+		Routes.Add(nameof(ProductsView), typeof(ProductsView)); 
 		foreach (var item in Routes)
 			Routing.RegisterRoute(item.Key,item.Value);
 	}

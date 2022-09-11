@@ -1,6 +1,7 @@
 ﻿using WebSmartKid.Classes;       
 using System.Threading.Tasks;
 using Entity.Entity;
+using Entity.Entity;
 
 namespace WebSmartKid.Helper.Interface
 {
@@ -16,5 +17,9 @@ namespace WebSmartKid.Helper.Interface
         Task<ResObj> DeleteImageForPost(int id);
         Task<ResObj> PostImages(Images images);  
         Task<ResObj> GetImagesByProductsId(int Id);
+        Task<ResObj> GetProdForApp(Products productFilter);
+
+        Task<ResObj> RemoveLike(int ProductsId, int userId);
+        Task<ResObj> PostLike(Like like);
     }
 }

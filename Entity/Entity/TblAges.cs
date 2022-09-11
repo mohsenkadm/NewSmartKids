@@ -9,6 +9,7 @@ namespace Entity.Entity
     public class TblAges
     {
         public int AgeId { get; set; }
-        public int AgeName { get; set; }
+        public string AgeName { get; set; }
+        public bool State { get; set; }
     }
 }

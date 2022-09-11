@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppSmartKid.View.ChooseAge"
-             Title="ChooseAge">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="AppSmartKids.View.ChooseAge"
+             xmlns:entity="clr-namespace:Entity.Entity;assembly=Entity"
+             Title="اختيار العمر" x:Name="page"
+    BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
+    <ContentPage.Content> 
+        <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            <Label    Style="{StaticResource Key=TitleLabel}" Text="اختيار العمر" ></Label>
+                <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Border  VerticalOptions="CenterAndExpand" StrokeThickness="0" Padding="0,20,10,0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="40,40,0,0"></RoundRectangle>
+                        </Border.StrokeShape>
+                        <StackLayout>
+                        <RefreshView  Command="{Binding RefreshCommand}" VerticalOptions="CenterAndExpand"  IsRefreshing="{Binding IsRefreshing}" >
+                            <CollectionView   ItemsSource="{Binding ListAgeParam}" >
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical"
+                        Span="2" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="entity:TblAges">
+                                        <Border StrokeThickness="2" Margin="20,15,20,5" Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  BackgroundColor="{x:StaticResource white}" >
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="50,0,0,50"></RoundRectangle>
+                                            </Border.StrokeShape>
+                                            <Border.Shadow>
+                                                <Shadow 
+                                                    Brush="{StaticResource Black}"
+                                                    Radius="40"
+                                                    Offset="20,20"
+                                                    Opacity="0.5" >
+                                                </Shadow>
+                                            </Border.Shadow>
+                                            <StackLayout>
+                                                <StackLayout>
+                                                    <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                            FontSize="16" Margin="5" Text="{Binding AgeName}"/>
+                                                    <CheckBox HeightRequest="30" WidthRequest="30"  IsChecked="{Binding State}"></CheckBox>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </RefreshView>
+                            <StackLayout Margin="0,20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <Button   Margin="30,20,30,5"    Command="{Binding OpenProductCommand}" Text="اختيار"/>
+                            </StackLayout>
+                        </StackLayout>
+                        
+                    </Border>
+                    
+                </StackLayout> 
+            </StackLayout> 
+    </ContentPage.Content>
 </ContentPage>

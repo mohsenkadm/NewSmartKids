@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace AppSmartKid.Helper
+namespace AppSmartKids.Helper
 {
     public class Response<TEntity>
     {

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSmartKids.View.PostsView"
+             xmlns:entity="clr-namespace:Entity.Entity;assembly=Entity"
+             Title="منشورات" NavigationPage.HasNavigationBar="False" x:Name="page"
+               BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
+    <ContentPage.Content>
+        <VerticalStackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            <Label    Style="{StaticResource Key=TitleLabel}" Text="منشورات" ></Label>
+            <VerticalStackLayout  HorizontalOptions="FillAndExpand"  >
+                <Border Padding="0,20,10,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40,40,0,0"></RoundRectangle>
+                    </Border.StrokeShape>
+                    <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
+                        <CollectionView   ItemsSource="{Binding Items}" >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="entity:Posts">
+                                    <Border StrokeThickness="2" Margin="20,15,20,5" Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  BackgroundColor="{x:StaticResource white}" >
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="50,0,0,50"></RoundRectangle>
+                                        </Border.StrokeShape>
+                                        <Border.Shadow>
+                                            <Shadow 
+                                                    Brush="{StaticResource Black}"
+                                                    Radius="40"
+                                                    Offset="20,20"
+                                                    Opacity="0.8" >
+                                            </Shadow>
+                                        </Border.Shadow>
+                                        <StackLayout>
+                                            <StackLayout> 
+                                                    <Label VerticalTextAlignment="End"  TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" Style="{x:StaticResource sublabel}" FontSize="16" Margin="10" Text="{Binding Title}"/>
+
+                                                <Button  Text="فتح الرابط"  Margin="5" Command="{Binding Source={x:Reference page}, Path=BindingContext.OpenUrlCommand}" 
+                                                             HorizontalOptions="CenterAndExpand"      CommandParameter="{Binding Url}"   ></Button>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </Border>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage> 

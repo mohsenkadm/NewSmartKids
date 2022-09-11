@@ -12,6 +12,7 @@ namespace Entity.Entity
         public string Name { get; set; }
         public string Detail { get; set; }
         public decimal Price { get; set; }   
+        public int Count { get; set; }   
         public int CategoriesId { get; set; }
         public int NoOfBuyers { get; set; }
         public int DiscountPercentage { get; set; }     
@@ -19,5 +20,14 @@ namespace Entity.Entity
         public int LikeCount { get; set; }        
         public string SourceLike { get; set; }
         public string CategoriesName { get; set; }
+
+
+        // for filter                     
+        public List<AgeFilter>? AgeFilter { get; set; }
+
+    }
+    public class AgeFilter
+    {
+        public int? Id;
     }
 }

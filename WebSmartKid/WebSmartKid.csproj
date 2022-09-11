@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -26,7 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Uplouds\CarouselImage\" />
     <Folder Include="wwwroot\Uplouds\CategoriesImage\" />
+    <Folder Include="wwwroot\Uplouds\Images\" />
   </ItemGroup>
 
 </Project>

@@ -1,44 +1,44 @@
-﻿using AppSmartKid.Helper;
-using AppSmartKid.Helper.IServices;
+﻿using AppSmartKids.Helper;
+using AppSmartKids.Helper.IServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Entity.Entity;
+using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Threading.Tasks;  
 
-namespace AppSmartKid.VM
+namespace AppSmartKids.VM
 {
     public partial class NotificationVM  :BaseVM
     {
         #region prop
         [ObservableProperty]
-        public List<Notification> _Items;
+        public List<Notification> items;
         IGetDataUrlService<Notification> urlService;
         #endregion
 
         #region const
-        public NotificationVM(IGetDataUrlService<Notification> urlService)
+        public NotificationVM()
         {                                 
-            this.urlService = urlService;
-
-           // Task.Run(() => GetData());
+            this.urlService = new GetDataUrlService<Notification>();   
         }
         #endregion
 
         #region pull to refresh data  
-        public ICommand RefreshCommand => new Command(async () =>
+        [ICommand]
+        public async void Refresh()
         {
             IsRefreshing = true;
-            await GetData();
+            GetData();
             IsRefreshing = false;
-        });
+        }
         #endregion
 
         #region GetData
-        public async Task GetData()
+        [ICommand]
+        public async void GetData()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace AppSmartKid.VM
                 {
                     await AppShell.Current.DisplayAlert("خطا","لا يوجد اتصال بلانترنت","نعم"); return;
                 }                                                    
-                ResponseList<Notification> response = await urlService.GetListAllAsync("Notification/GetAll?UserId=" + InfoAccess.Id);
+                ResponseList<Notification> response = await urlService.GetListAllAsync("Notification/GetNotificationAll?UserId=" + InfoAccess.Id);
 
                 if (response.success == false)
                 {
@@ -54,7 +54,7 @@ namespace AppSmartKid.VM
                 }
                 else
                 {
-                    _Items = response.data;
+                    Items = response.data;
                 }
             }
             catch (Exception ex)

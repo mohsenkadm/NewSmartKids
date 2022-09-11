@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="AppSmartKid.AppShell"
+    x:Class="AppSmartKids.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:AppSmartKid"
-    xmlns:local1="clr-namespace:AppSmartKid.View"
- Shell.NavBarHasShadow="true" FlowDirection="RightToLeft" 
+    xmlns:local="clr-namespace:AppSmartKids"
+    xmlns:local1="clr-namespace:AppSmartKids.View"
+    xmlns:local2="clr-namespace:AppSmartKids.View"
+ Shell.NavBarHasShadow="true"  
     Shell.FlyoutBehavior="Flyout">
 
-    <TabBar>
-        <ShellContent Title="صفحة الرئيسية"
-                       Icon="dotnet_bot.svg" FlyoutItemIsVisible="True" 
+    <!--<TabBar>
+        <ShellContent Title="صفحة الرئيسية"  
                       ContentTemplate="{DataTemplate local:MainPage}"
                       Route="MainPage">
         </ShellContent>
-        <ShellContent Title="الاشعارات"
-                   Icon="dotnet_bot.svg" FlyoutItemIsVisible="True"  
+        <ShellContent Title="الاشعارات" 
                       ContentTemplate="{DataTemplate local1:Notification}"
                       Route="Notification">
         </ShellContent>
-        <ShellContent Title="الطلبات"
-                      Icon="dotnet_bot.svg" FlyoutItemIsVisible="True"  
+        <ShellContent Title="الطلبات" 
                       ContentTemplate="{DataTemplate local1:Orders}"
                       Route="Orders">
         </ShellContent>
-        <ShellContent Title="السلة" FlyoutItemIsVisible="True"
-                   Icon="dotnet_bot.svg" Shell.FlyoutBehavior="Disabled"
+        <ShellContent Title="السلة"   
                       ContentTemplate="{DataTemplate local1:ShoppingCart}"
                       Route="ShoppingCart">
-        </ShellContent>
-    </TabBar>
-    <FlyoutItem Title="الطفل العبقري لوسائل التعليم"  FlyoutDisplayOptions="AsMultipleItems">
+        </ShellContent>  
+    </TabBar>-->
+    <FlyoutItem Title="الطفل العبقري لوسائل التعليم"  FlyoutIcon="dotnet_bot.svg"  FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Icon="dotnet_bot.svg" Title="صفحة الرئيسية" ContentTemplate="{DataTemplate local:MainPage}"></ShellContent>
+        <ShellContent Icon="dotnet_bot.svg" Title="الاشعارات" ContentTemplate="{DataTemplate local1:Notification}"></ShellContent>
+        <ShellContent Icon="dotnet_bot.svg" Title="الطلبات" ContentTemplate="{DataTemplate local1:Orders}"></ShellContent>
         <ShellContent Icon="dotnet_bot.svg" Title="سلة التسوق" ContentTemplate="{DataTemplate local1:ShoppingCart}"></ShellContent>
-        <ShellContent Icon="dotnet_bot.svg" Title="الطلبات" ContentTemplate="{DataTemplate local1:ShoppingCart}"></ShellContent>
+        <ShellContent Icon="dotnet_bot.svg" Title="المنشورات" ContentTemplate="{DataTemplate   local2:PostsView}"></ShellContent>
         <ShellContent Icon="dotnet_bot.svg" Title="دردشة" ContentTemplate="{DataTemplate local1:ShoppingCart}"></ShellContent>
-        <ShellContent Icon="dotnet_bot.svg" Title="الاشعارات" ContentTemplate="{DataTemplate local1:ShoppingCart}"></ShellContent>
         <ShellContent Icon="dotnet_bot.svg" Title="الاقسام" ContentTemplate="{DataTemplate local1:ShoppingCart}"></ShellContent>
-        <ShellContent  Icon="dotnet_bot.svg" Title="مشاركة التطبيق" ></ShellContent>
+        <ShellContent Icon="dotnet_bot.svg" Title="مشاركة التطبيق" ></ShellContent>
     </FlyoutItem>
     <Shell.FlyoutHeader>
         <StackLayout>

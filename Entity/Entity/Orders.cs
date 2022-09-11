@@ -15,6 +15,13 @@ namespace Entity.Entity
         public decimal Total { get; set; }
         public decimal TotalDiscount { get; set; }
         public decimal NetAmount { get; set; }
+        // USER INFO
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Details { get; set; }
+        public string CountryName { get; set; }
+        public string AgeName { get; set; }
+
         public bool IsCancel { get; set; }
         public bool IsApporve { get; set; }
         public bool IsDone { get; set; }            

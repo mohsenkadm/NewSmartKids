@@ -11,12 +11,18 @@ namespace Entity.Entity
         public int OrderDetailId { get; set; }
         public int OrderId { get; set; }
         public int ProductsId { get; set; }  
-
+        public int AgeId { get; set; }  
+        public int DiscountPercentage { get; set; }  
         public decimal Price { get; set; }
+        public int Count { get; set; }
 
         // for show
         public string Name { get; set; }     
+        //detail for product
         public string Detail { get; set; }      
+        public string Phone { get; set; }      
+        public int CountryId { get; set; }      
+        public string AgeName { get; set; }      
         public int OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
         public int UserId { get; set; }

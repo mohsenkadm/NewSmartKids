@@ -7,18 +7,22 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entity.Entity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Xml.Linq;
 
 namespace WebSmartKid.Helper.Repository
 {
     public class TblAgesService : ITblAgesService, IRegisterScopped
     {
         // cotext only apply scopped 
-        private readonly DB_Context _context;                             
+        private readonly DB_Context _context;
+        private readonly IDapperRepository<ProductAndAge> _prodService;
 
         public TblAgesService(
-            DB_Context context )
+            DB_Context context,IDapperRepository<ProductAndAge> prodService)
         {
-            _context = context;                   
+            _context = context;
+            _prodService = prodService;
         }
 
         public async Task<ResObj> GetAll()
@@ -68,6 +72,21 @@ namespace WebSmartKid.Helper.Repository
         {
             TblAges TblAges = await GetTblAgesById(Id);
             return Result.Return(true, TblAges);
+        }
+        public async Task<ResObj> SetProductAndAge(ProductAndAge productAndAge)
+        {
+            var re = await _context.ProductAndAge.FirstOrDefaultAsync(i => i.Id == productAndAge.Id);
+            
+            re.State=productAndAge.State;
+            _context.Entry(re).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Result.Return(true, "تم الحفظ");
+        }
+
+        public async Task<ResObj> GetProductAndAge(int Id)
+        {
+            List<ProductAndAge> data = await _prodService.GetEntityListAsync("dbo.GetProductAndAge", new { Id});
+            return Result.Return(true, data);
         }
     }
 }

@@ -2,12 +2,10 @@
 @{
     ViewData["Title"] = "المنتجات";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
+} 
 <div class="content">
     <div class="content dark-edition">
-        <div class="container-fluid">
-
+        <div class="container-fluid"> 
             <div class="container alignright" style="margin:2% 0;">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 ">
@@ -97,28 +95,28 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-6  alignright">
-                        <label class="text-primary">اسم</label>
-                        <input type="text" id="Name" autocomplete="off" name="Name" class="form-control alignright" placeholder="اكتب رقم المستخدم" />
+                        <label class="text-primary">التفاصيل</label>
+                        <input type="text" id="Detail" autocomplete="off" name="Detail" class="form-control alignright" placeholder="اكتب التفاصيل" />
                     </div>
                     <div class="form-group col-md-6  alignright">
-                        <label class="text-primary">التفاصيل</label>
-                        <input type="text" id="Detail" autocomplete="off" name="Detail" class="form-control alignright" placeholder="اكتب كلمة المرور" />
+                        <label class="text-primary">اسم</label>
+                        <input type="text" id="Name" autocomplete="off" name="Name" class="form-control alignright" placeholder="اكتب اسم المنتج" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6  alignright">
                         <label class="text-primary">السعر</label>
-                        <input type="number" id="Price" autocomplete="off" name="Price" class="form-control alignright" placeholder="اكتب رقم المستخدم" />
+                        <input type="number" id="Price" autocomplete="off" name="Price" class="form-control alignright" placeholder="اكتب السعر" />
                     </div>
                     <div class="form-group col-md-6  alignright">
                         <label class="text-primary">نسبة الخصم</label>
-                        <input type="text" id="DiscountPercentage" autocomplete="off" name="DiscountPercentage" class="form-control alignright" placeholder="اكتب كلمة المرور" />
+                        <input type="text" id="DiscountPercentage" autocomplete="off" name="DiscountPercentage" class="form-control alignright" placeholder="اكتب نسبة الخصم" />
                     </div>
                 </div>
                 <div class="row"> 
                     <div class="form-group col-md-12 text-right">
                         <p>اختيار الصنف</p>
-                        <select class="form-control text-right" name="CategoriesId" id="CategoriesId">
+                        <select class="form-control text-right"  style="background-color: #1a2035;" name="CategoriesId" id="CategoriesId">
                         </select>
                     </div>
                 </div>
@@ -126,7 +124,7 @@
                 <div class="row">
                     <div class="row col-md-6 alignright">
                         <label class="text-primary">اختيار صورة</label>
-                        <input type="file" placeholder="اختيار الصورة" class=" alignright" autocomplete="off" name="imageca" id="imageca" />
+                        <input type="file" placeholder="اختيار الصورة" class=" alignright" autocomplete="off" name="imageca" id="imageca" multiple/>
                     </div>
                     <div class="form-group col-md-6  alignright">
                         <label class="text-primary">خصم</label>
@@ -152,7 +150,7 @@
 <!-- Modal -->
 <div class="modal fade" id="ImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content  dark-edition">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">صور المنشور</h5>
                 <button type="button" style="margin-left:10%;" class="close" data-dismiss="modal" aria-label="Close">
@@ -160,7 +158,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table   table-striped table-hover table-bordered text-center">
+                <table class="table  table-hover table-bordered text-center">
                     <thead class="thead-dark ">
                         <tr>
                             <th scope="col">الصورة</th>
@@ -178,6 +176,37 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="AgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content  dark-edition">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">تضمين العمر مع المنتج</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table  table-hover table-bordered text-center">
+                    <thead class="thead-dark ">
+                        <tr>
+                            <th scope="col">تضمين</th>
+                            <th scope="col">العمر</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableAge">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="mydiv">
     <script> 
         function selectCategoriesId(data) {

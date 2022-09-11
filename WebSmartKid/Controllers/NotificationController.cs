@@ -1,4 +1,5 @@
 ﻿using Entity.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using WebSmartKid.Model;
 
 namespace WebSmartKid.Controllers
 {
+    [Authorize]
     public class NotificationController : MasterController
     {
         #region Readonly 
@@ -19,6 +21,7 @@ namespace WebSmartKid.Controllers
         #endregion
 
         #region Const
+
         public NotificationController(
             ILoggerRepository logger,
             INotificationService NotificationServices,
@@ -27,6 +30,25 @@ namespace WebSmartKid.Controllers
             _logger = logger;
             _NotificationServices = NotificationServices;
             _Context=dB_Context;
+        }
+        #endregion
+
+        #region Get Notification
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetNotificationAll(int? UserId)
+        {
+            try
+            {
+                ResObj res = await _NotificationServices.GetNotificationAll(UserId);
+
+                return Response(res.success, res.data);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "PostsController => GetNotificationAll ");
+                return Response(false, "حدث خطا");
+            }
         }
         #endregion
 

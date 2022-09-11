@@ -11,8 +11,8 @@
                         <div class="card-icon">
                             <i class="material-icons">person</i>
                         </div>
-                        <p class="card-category">عدد الطلاب</p>
-                        <h3 class="card-title" id="CountStudent">
+                        <p class="card-category">عدد الزبائن</p>
+                        <h3 class="card-title" id="CountUser">
                         </h3>
                     </div>
                     <div class="card-footer">
@@ -28,8 +28,8 @@
                         <div class="card-icon">
                             <i class="material-icons">person</i>
                         </div>
-                        <p class="card-category">عدد المدرسين</p>
-                        <h3 class="card-title" id="CountTeacher"></h3>
+                        <p class="card-category">عدد القوائم</p>
+                        <h3 class="card-title" id="CountOrder"></h3>
                     </div>
 
                     <div class="card-footer">
@@ -45,8 +45,8 @@
                         <div class="card-icon">
                             <i class="material-icons">attach_money</i>
                         </div>
-                        <p class="card-category">اجمالي الاقساط لهذه السنة</p>
-                        <h3 class="card-title" id="PricePremium">90</h3>
+                        <p class="card-category">اجمالي المبيعات</p>
+                        <h3 class="card-title" id="PriceSale">90</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -61,8 +61,8 @@
                         <div class="card-icon">
                             <i class="material-icons">attach_money</i>
                         </div>
-                        <p class="card-category">اجمالي صرف الرواتب لهذه السنة</p>
-                        <h3 class="card-title" id="Pricesalary">90</h3>
+                        <p class="card-category">عدد المواد</p>
+                        <h3 class="card-title" id="CountItem">90</h3>
                     </div>
 
                     <div class="card-footer">
@@ -72,25 +72,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">attach_money</i>
-                        </div>
-                        <p class="card-category">اجمالي الصرف  لهذه السنة</p>
-                        <h3 class="card-title" id="PriceExpenses">90</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-warning">attach_money</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div> 
     </div>
 </div>
 <div class="container-fluid">
@@ -105,14 +87,13 @@
 <div id="mydiv">
     <script>
         $(document).ready(function () {
-           // call_ajax("GET", "Home/GetCountForMain", null, filldatacount);
+            call_ajax("GET", "Home/GetCountForMain", null, filldatacount);
         });
-        function filldatacount(data) {
-            $("#CountStudent").html(data.countStudent);
-            $("#CountTeacher").html(data.countTeacher);
-            $("#PricePremium").html(data.pricePremium);
-            $("#Pricesalary").html(data.pricesalary);
-            $("#PriceExpenses").html(data.priceExpenses);
+        function filldatacount(data) { 
+            $("#CountUser").html(data.countUser);
+            $("#CountOrder").html(data.countOrder);
+            $("#PriceSale").html(data.priceSale);
+            $("#CountItem").html(data.countItem);
         }
     </script>
 </div>

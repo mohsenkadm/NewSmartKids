@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace AppSmartKid;
+namespace AppSmartKids;
 
 [Application]
 public class MainApplication : MauiApplication

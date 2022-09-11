@@ -1,11 +1,13 @@
 ﻿ 
-using AppSmartKid.Helper;
-using AppSmartKid.Helper.IServices;
-using AppSmartKid.View;
-using AppSmartKid.VM;
 using AppSmartKids.Helper;
+using AppSmartKids.Helper.IServices;
+using AppSmartKids.View;
+using AppSmartKids.VM;
+using AppSmartKids.Helper;
+using AppSmartKids.View;
+using AppSmartKids.VM;
 
-namespace AppSmartKid;
+namespace AppSmartKids;
 
 public static class MauiProgram
 {
@@ -21,7 +23,7 @@ public static class MauiProgram
 			});
 
         // Services
-        builder.Services.AddSingleton(typeof(IGetDataUrlService<Empty>),typeof(GetDataUrlService<Empty>));      
+       // builder.Services.AddSingleton(typeof(IGetDataUrlService<Empty>),typeof(GetDataUrlService<Empty>));      
 
         //Views Registration
         builder.Services.AddSingleton<ChooseAge>();
@@ -33,6 +35,8 @@ public static class MauiProgram
         builder.Services.AddTransient<Orders>();
         builder.Services.AddTransient<SendOrder>();
         builder.Services.AddTransient<ShoppingCart>();
+        builder.Services.AddTransient<ProductsView>();
+        builder.Services.AddTransient<PostsView>();
 
         //View Modles 
         builder.Services.AddSingleton<ChooseAgeVM>();
@@ -44,6 +48,8 @@ public static class MauiProgram
         builder.Services.AddTransient<OrdersVM>();
         builder.Services.AddTransient<SendOrderVM>();
         builder.Services.AddTransient<ShoppingCartVM>();
+        builder.Services.AddTransient<ProductsVM>();
+        builder.Services.AddTransient<PostsVM>();
         return builder.Build();
 	}
 }

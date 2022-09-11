@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entity.Entity;
+using System.Xml.Linq;               
 
 namespace WebSmartKid.Helper.Repository
 {
@@ -33,7 +34,20 @@ namespace WebSmartKid.Helper.Repository
         {                        
             await _context.Products.AddAsync(Products);
             await _context.SaveChangesAsync();
-
+            var ages = await _context.TblAges.ToListAsync();
+            if (ages != null)
+            {
+                List<ProductAndAge> productAndAges = new();
+                foreach(var item in ages)
+                {    
+                    if(item.AgeId==1) 
+                    productAndAges.Add(new() { ProductsId = Products.ProductsId, AgeId=item.AgeId , State=true }); 
+                    else
+                    productAndAges.Add(new() { ProductsId = Products.ProductsId, AgeId=item.AgeId , State=false });  
+                }
+                await _context.ProductAndAge.AddRangeAsync(productAndAges);
+                await _context.SaveChangesAsync();
+            }
             return Result.Return(true, "تم الحفظ بنجاح",Products);
         }
 
@@ -46,14 +60,28 @@ namespace WebSmartKid.Helper.Repository
             Products1.Name = Products.Name;
             Products1.Detail = Products.Detail;
             Products1.Price = Products.Price;
-            Products1.CategoriesId = Products.CategoriesId;
-            Products1.NoOfBuyers = Products.NoOfBuyers;
+            Products1.CategoriesId = Products.CategoriesId;  
             Products1.DiscountPercentage = Products.DiscountPercentage;
-            Products1.IsDiscount = Products.IsDiscount;
-            Products1.LikeCount = Products.LikeCount;
+            Products1.IsDiscount = Products.IsDiscount;   
+
             _context.Entry(Products1).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-
+            // set prod and age
+            await _prodService.RunScriptAsync("delete from ProductAndAge where ProductsId="+Products.ProductsId);
+            var ages = await _context.TblAges.ToListAsync();
+            if (ages != null)
+            {
+                List<ProductAndAge> productAndAges = new();
+                foreach (var item in ages)
+                {
+                    if (item.AgeId == 1)
+                        productAndAges.Add(new() { ProductsId = Products.ProductsId, AgeId = item.AgeId, State = true });
+                    else
+                        productAndAges.Add(new() { ProductsId = Products.ProductsId, AgeId = item.AgeId, State = false });
+                }
+                await _context.ProductAndAge.AddRangeAsync(productAndAges);
+                await _context.SaveChangesAsync();
+            }
             return Result.Return(true, "تم الحفظ بنجاح",Products1);
         }
 
@@ -102,6 +130,38 @@ namespace WebSmartKid.Helper.Repository
         {
             List<Images> img=await _context.Images.Where(i=>i.ProductsId==Id).ToListAsync();
             return Result.Return(true, img);
+        }
+
+        public async Task<ResObj> GetProdForApp(Products productFilter)
+        {
+            string? Name = productFilter.Name;
+            int? CategoriesId = productFilter.CategoriesId;
+            string wherecode = " and 1=1 ";
+            if(productFilter.AgeFilter!=null)
+            {
+                wherecode += " and ( ";
+                foreach(var item in productFilter.AgeFilter)
+                {
+                    wherecode += $" AgeId={item.Id} or";
+                }
+                wherecode += " 1=1)";
+            }
+            List<Products> data = await _prodService.GetEntityListAsync("dbo.GetProdForApp", new { Name, CategoriesId , wherecode });
+            return Result.Return(true, data);
+        }
+        public async Task<ResObj> RemoveLike(int ProductsId, int userId)
+        {
+            await _prodService.RunScriptAsync("delete from [Like] where ProductsId=" + ProductsId + " and UserId=" + userId +
+                " update Products set LikeCount=isnull(LikeCount,0)-1 where ProductsId=" + ProductsId);
+            return Result.Return(true);
+        }
+
+        public async Task<ResObj> PostLike(Like like)
+        {
+            await _prodService.RunScriptAsync("INSERT INTO [Like] ([ProductsId],[UserId]) VALUES ("
+                + like.ProductsId + "," + like.UserId+")" +
+                " update Products set LikeCount=isnull(LikeCount,0)+1 where ProductsId=" + like.ProductsId);
+            return Result.Return(true);
         }
     }
 }

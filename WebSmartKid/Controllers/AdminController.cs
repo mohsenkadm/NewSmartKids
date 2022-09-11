@@ -177,7 +177,20 @@ namespace WebSmartKid.Controllers
             }
         }
         #endregion
-
-
+        #region logout
+        [HttpGet]     
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {                                                                                                 
+                return Response(true, "تم تسجيل الخروج بنجاح");
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "AdminController => Logout");
+                return Response(false, "حدث خطا اثناء عملية جلب البيانات");
+            }
+        }
+        #endregion
     }
 }

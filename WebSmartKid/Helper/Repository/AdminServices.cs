@@ -11,12 +11,14 @@ namespace WebSmartKid.Helper.Repository
     {
         private readonly DB_Context _context;
         private readonly IDapperRepository<Permission> _permissionService;
+        private readonly IDapperRepository<Admin> _adminService;
 
         public AdminServices(
-            DB_Context context, IDapperRepository<Permission>  dapperRepository)
+            DB_Context context, IDapperRepository<Permission>  dapperRepository, IDapperRepository<Admin> adminService)
         {
             _context = context;
             _permissionService = dapperRepository;
+            _adminService = adminService;
         }
         public async Task<ResObj> Login(string AdminNo, string password)
         {
@@ -36,7 +38,8 @@ namespace WebSmartKid.Helper.Repository
         }
         public async Task<ResObj> GetCountForMain()
         {
-            Admin admin = new Admin();  
+            Admin admin = await _adminService.GetEntityAsync("dbo.GetCountForMain", new {  });
+
             return Result.Return(true, admin);
         }
 
@@ -74,7 +77,8 @@ namespace WebSmartKid.Helper.Repository
             Admin1.Password = Encyptmethod.EncryptStringToBytes_Aes(Admin.Password);  
 
             _context.Entry(Admin1).State = EntityState.Modified;
-            await _context.SaveChangesAsync();    
+            await _context.SaveChangesAsync();
+                                                               
             return Result.Return(true, "تم الحفظ بنجاح");
 
         }

@@ -1,4 +1,4 @@
-﻿namespace AppSmartKid;
+﻿namespace AppSmartKids;
 
 public partial class App : Application
 {

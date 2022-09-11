@@ -75,7 +75,15 @@ namespace WebSmartKid.Controllers
         public IActionResult Products()
         {
             return View();
-        }      
+        }
+        public IActionResult Orders()
+        {
+            return View();
+        }   
+        public IActionResult TypeDiscount()
+        {
+            return View();
+        }
 
     }
 }

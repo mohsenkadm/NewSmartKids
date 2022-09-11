@@ -1,6 +1,6 @@
 ﻿
 var _ProductsId = 0;
-var ProductsId2 = 0;
+var ProductsId2 = 0; 
 function filltableProducts(data) {
     $('#tableProducts').empty();
     $.each(data, function (i, item) {
@@ -22,10 +22,37 @@ function filltableProducts(data) {
             "<td>" + item.name + "</td>" +
              "<td> <button type='button' class='btn btn-info' onclick='ShowImage(" + item.productsId + ")'  data-toggle='modal' data-target='#ImageModal' >عرض الصور</button>"
             +" | <button type = 'button' class='btn btn-danger' onclick = 'deleteProducts(" + item.productsId + ")' > حذف</button > " +
-            "  |  <button type='button' class='btn btn-primary' onclick='updateProducts(" + item.productsId + ")'  data-toggle='modal' data-target='#ProductsModal'>تعديل</button></td></tr>";
+            "  |  <button type='button' class='btn btn-primary' onclick='updateProducts(" + item.productsId + ")'  data-toggle='modal' data-target='#ProductsModal'>تعديل</button>"+
+        "  |  <button type='button' class='btn btn-primary' onclick='GetAge(" + item.productsId + ")'  data-toggle='modal' data-target='#AgeModal'>العمر</button></td></tr>";
         $('#tableProducts').append(rows);
         $('#IsDiscount' + item.productsId).attr('checked', item.isDiscount);
     });
+}
+
+
+function GetAge(id) {
+    var object1 = {
+        Id: id
+    };
+    call_ajax("GET", "TblAges/GetProductAndAge", object1, filltableAge);
+}
+
+function filltableAge(data) {
+    $('#tableAge').empty();
+    $.each(data, function (i, item) {
+        var rows = "<tr>" +
+            "<td><input type='checkbox' id='state" + item.id + "' onclick='SetProductAndAge(this," + item.id + ")' /></td>" +
+            "<td>" + item.ageName + "</td></tr>";
+        $('#tableAge').append(rows);
+        $('#state' + item.id).attr('checked', item.state);
+    });
+}
+
+function SetProductAndAge(state, id) {
+    var object = {
+        State: state.checked, Id: id,
+    };
+    call_ajax("POST", "TblAges/SetProductAndAge", object, null);
 }
 
 function deleteProducts(id) {
@@ -43,11 +70,14 @@ function RefreshProducts() {
 }
 
 function updateProducts(id) {
-    var object1 = {
-        Id: id
-    };
-    call_ajax("GET", "Products/GetById", object1, setdataProducts);
-    _ProductsId = id;
+    var result = confirm("سيتم تحديث جدول الاعمار ايضا اذا قمت بعملية التعديل؟!");
+    if (result == true) {
+        var object1 = {
+            Id: id
+        };
+        call_ajax("GET", "Products/GetById", object1, setdataProducts);
+        _ProductsId = id;
+    }
 }
 
 function setdataProducts(data) {
@@ -68,7 +98,7 @@ function aftersaveProducts(data) {
     var files = input.files;
     var formData = new FormData();
     if (files.length > 0) {
-        var userToken = getCookie("token1");
+        var userToken = getCookie("token2");
         for (var i = 0; i != files.length; i++) {
             formData.append(files[i].name, files[i]);
         }
@@ -79,10 +109,10 @@ function aftersaveProducts(data) {
                 'Authorization': `Bearer ${userToken}`,
             },
             success: function (message) {
-                toust.success("تم  تحميل الصورة بنجاح");
+                md.showNotification("تم  تحميل الصورة بنجاح");
             },
             error: function () {
-                toust.error("عذرا حدث خطا اثناء  تحميل الصورة");
+                md.showNotification("عذرا حدث خطا اثناء  تحميل الصورة");
             },
         });
     }

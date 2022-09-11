@@ -13,9 +13,15 @@ namespace WebSmartKid.Model.EntityMap
             builder.HasKey(x => x.OrderDetailId);
             builder.Property(x => x.OrderId).IsRequired();
             builder.Property(x => x.ProductsId).IsRequired(); 
+            builder.Property(x => x.AgeId).IsRequired(); 
             builder.Property(x => x.Price).IsRequired(); 
+            builder.Property(x => x.Count).IsRequired(); 
+            builder.Property(x => x.DiscountPercentage).IsRequired(); 
             builder.Ignore(x => x.Name); 
             builder.Ignore(x => x.Detail); 
+            builder.Ignore(x => x.Phone); 
+            builder.Ignore(x => x.CountryId); 
+            builder.Ignore(x => x.AgeName); 
             builder.Ignore(x => x.OrderNo); 
             builder.Ignore(x => x.OrderDate); 
             builder.Ignore(x => x.UserId); 

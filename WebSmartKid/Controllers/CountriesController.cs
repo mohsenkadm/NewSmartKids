@@ -32,6 +32,7 @@ namespace WebSmartKid.Controllers
         #endregion
 
         #region Get Info Countries    
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

@@ -100,6 +100,12 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Label" x:Key="TitleLabel"> 
+        <Setter Property="Margin" Value="0,10,0,0"></Setter>
+        <Setter Property="FontSize" Value="30"></Setter> 
+        <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>  
+        <Setter Property="TextColor" Value="{StaticResource White}"></Setter>
+    </Style>
     <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -225,9 +231,15 @@
     </Style>
 
     <Style TargetType="RefreshView">
-        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />
+        <Setter Property="RefreshColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
     </Style>
 
+
+    <Style TargetType="StackLayout" x:Key="forsum">
+        <Setter Property="VerticalOptions" Value="Center"></Setter>
+        <Setter Property="HeightRequest" Value="80"></Setter>
+        <Setter Property="Margin" Value="10,0,10,0"></Setter>
+    </Style>
     <Style TargetType="SearchBar">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}" />

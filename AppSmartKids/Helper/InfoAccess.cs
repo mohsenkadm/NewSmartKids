@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AppSmartKid.Helper
+namespace AppSmartKids.Helper
 {
     public static class InfoAccess
     { 

@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace AppSmartKid;
+namespace AppSmartKids;
 
 public class Program
 {

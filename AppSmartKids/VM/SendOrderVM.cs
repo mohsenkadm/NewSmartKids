@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppSmartKid.VM
+namespace AppSmartKids.VM
 {
     public partial class SendOrderVM:BaseVM
     {

@@ -13,6 +13,8 @@ namespace WebSmartKid.Model.EntityMap
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ProductsId).IsRequired();                       
             builder.Property(x => x.AgeId).IsRequired();                       
+            builder.Property(x => x.State).IsRequired();                       
+            builder.Ignore(x => x.AgeName);                       
         }
     }
 }

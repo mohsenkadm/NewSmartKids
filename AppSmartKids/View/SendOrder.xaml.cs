@@ -1,7 +1,7 @@
-using AppSmartKid.Helper;
-using AppSmartKid.VM;
+using AppSmartKids.Helper;
+using AppSmartKids.VM;
 
-namespace AppSmartKid.View;
+namespace AppSmartKids.View;
 
 public partial class SendOrder : ContentPage  
 {

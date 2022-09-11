@@ -10,6 +10,7 @@ using Microsoft.Net.Http.Headers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using WebSmartKid.Helper.Repository;
 
 namespace WebSmartKid.Controllers
 {                       
@@ -31,7 +32,26 @@ namespace WebSmartKid.Controllers
         }
         #endregion
 
-        #region Get Info TblAges    
+        #region Get Info ProductAndAge by ProductId    
+        [HttpGet]
+        public async Task<IActionResult> GetProductAndAge(int Id)
+        {
+            try
+            {
+                ResObj res = await _TblAgesService.GetProductAndAge(Id);
+
+                return Response(res.success, res.data);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "TblAgesController => GetAll => name:" + UserManager.Id);
+                return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
+            }
+        }
+        #endregion 
+
+        #region Get Info TblAges 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -108,6 +128,26 @@ namespace WebSmartKid.Controllers
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }
-        #endregion   
+        #endregion
+
+        #region SetProductAndAge  
+        [HttpPost]
+        public async Task<IActionResult> SetProductAndAge(ProductAndAge productAndAge)
+        {
+            try
+            {
+
+                ResObj res = await _TblAgesService.SetProductAndAge(productAndAge);
+
+                return Response(res.success, res.data);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "TblAgeController => SetProductAndAge ");
+                return Response(false, "حدث خطا اثناء عملية جلب البيانات");
+            }
+        }
+        #endregion 
     }
+
 }

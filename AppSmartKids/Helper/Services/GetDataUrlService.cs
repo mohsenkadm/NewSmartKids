@@ -1,5 +1,5 @@
 ﻿//using Com.OneSignal;
-using AppSmartKid.Helper.IServices;   
+using AppSmartKids.Helper.IServices;   
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;   
 using Entity.Entity;
 
-namespace AppSmartKid.Helper
+namespace AppSmartKids.Helper
 {
     public class GetDataUrlService<TEntity>: IGetDataUrlService<TEntity> 
     { 
-        public readonly string BaseUrl = "http://smartserveriq-001-site4.htempurl.com/";
+        public readonly string BaseUrl = "http://smartserveriq-001-site5.htempurl.com/";
 
         /// <summary>
         /// GetListAllAsync
@@ -101,6 +101,38 @@ namespace AppSmartKid.Helper
             }
         }
         /// <summary>
+        /// PostAsync
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+
+        public async Task<ResponseCollection<TEntity>> PostToGetCollectionAsync(string url, TEntity entity)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(BaseUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                if (InfoAccess.Token != "" && InfoAccess.Token != null)
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", InfoAccess.Token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var json = JsonConvert.SerializeObject(entity);
+                StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(url, data);
+                if (response.ReasonPhrase == "Unauthorized")
+                {
+                    await LoginAfetrAuthrize();
+                }
+                var json1 = await response.Content.ReadAsStringAsync();
+                ResponseCollection<TEntity> res = JsonConvert.DeserializeObject<ResponseCollection<TEntity>>(json1);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+            /// <summary>
         /// PostAsync
         /// </summary>
         /// <param name="url"></param>

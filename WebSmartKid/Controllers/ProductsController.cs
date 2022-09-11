@@ -10,6 +10,7 @@ using Microsoft.Net.Http.Headers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Entity.Entity;
 
 namespace WebSmartKid.Controllers
 {                       
@@ -34,6 +35,25 @@ namespace WebSmartKid.Controllers
             _hostEnvironment=hostEnvironment;
         }
         #endregion
+
+        #region Get Info Products 
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> GetProdForApp([FromBody]Products productFilter)
+        {
+            try
+            {
+                ResObj res = await _ProductsService.GetProdForApp(productFilter);
+
+                return Response(res.success, res.data);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "ProductsController => GetProdForApp => name:" + UserManager.Id);
+                return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
+            }
+        }
+        #endregion  
 
         #region Get Info Products       
         [HttpGet]
@@ -75,7 +95,7 @@ namespace WebSmartKid.Controllers
         #region UploadFileAsync
         [HttpPost]
         [Route("Products/UploadFile/{id}")]  
-        public async Task UploadFile3Async(int PostId)
+        public async Task UploadFile3Async(int id)
         {
             try
             {
@@ -91,7 +111,7 @@ namespace WebSmartKid.Controllers
                     var stream = new FileStream(imgsave, FileMode.Create);
                     await file.CopyToAsync(stream);
                     string path = Key.CurrentUrl + $@"/Uplouds/Images/image-{r}{imgex}";
-                    Images images = new Images() { ImagePath = path, ProductsId = PostId };
+                    Images images = new Images() { ImagePath = path, ProductsId = id };
                     await _ProductsService.PostImages(images);
                     // }
                 }
@@ -183,5 +203,40 @@ namespace WebSmartKid.Controllers
             }
         }
         #endregion
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> PostLike([FromBody] Like Like)
+        {
+            try
+            {
+                ResObj res = await _ProductsService.PostLike(Like);
+
+                return Response(res.success);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "ProductsController => PostLike => name:" + UserManager.Id);
+                return Response(false, "حدث خطا اثناء عملية جلب البيانات");
+            }
+
+        }
+        [AllowAnonymous]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveLike(int ProductsId, int UserId)
+        {
+            try
+            {
+                ResObj res = await _ProductsService.RemoveLike(ProductsId, UserId);
+
+                return Response(res.success);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "ProductsController => RemoveLike => name:" + UserManager.Id);
+                return Response(false, "حدث خطا اثناء عملية جلب البيانات");
+            }
+
+        }
     }
 }

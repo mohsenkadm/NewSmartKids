@@ -15,6 +15,10 @@ namespace WebSmartKid.Model.EntityMap
             builder.Property(x => x.AdminNo).IsRequired();       
             builder.Property(x => x.Password).IsRequired();          
             builder.Ignore(x => x.Token);                       
+            builder.Ignore(x => x.CountItem);                       
+            builder.Ignore(x => x.CountOrder);                       
+            builder.Ignore(x => x.CountUser);                       
+            builder.Ignore(x => x.PriceSale);                       
         }
     }
 }

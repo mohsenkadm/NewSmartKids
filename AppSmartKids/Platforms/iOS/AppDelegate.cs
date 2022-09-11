@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace AppSmartKid;
+namespace AppSmartKids;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

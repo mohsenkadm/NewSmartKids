@@ -11,5 +11,8 @@ namespace Entity.Entity
         public int Id { get; set; }
         public int AgeId { get; set; }
         public int ProductsId { get; set; }
+        public bool State { get; set; }
+
+        public string AgeName { get; set; }
     }
 }

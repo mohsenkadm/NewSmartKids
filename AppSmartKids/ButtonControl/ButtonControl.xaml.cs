@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace AppSmartKid.ButtonControl;
+namespace AppSmartKids.ButtonControl;
 
 public partial class ButtonControl : Frame
 {

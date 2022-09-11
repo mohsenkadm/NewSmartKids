@@ -1,18 +1,24 @@
-﻿using AppSmartKid.Helper;
+﻿using AppSmartKids.Helper;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Entity.Entity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppSmartKid.VM
+namespace AppSmartKids.VM
 {
     public partial class BaseVM: ObservableObject   
     {
         [ObservableProperty]
         private bool isRefreshing;
+        [ObservableProperty]
+        private bool isRunning;
 
+        [ObservableProperty]
+        protected static ObservableCollection<Products> _ListCart;
         #region CheckConnection
         public bool CheckConnection()
         {

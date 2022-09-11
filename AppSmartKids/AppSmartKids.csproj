@@ -15,7 +15,7 @@
 		<ApplicationTitle>الطفل العبقري</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.appsmartkids</ApplicationId>
+		<ApplicationId>com.companyname.AppSmartKids</ApplicationId>
 		<ApplicationIdGuid>FEBA590E-26A2-476E-9EBD-820F9034BA20</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -66,10 +66,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Platforms\Android\Resources\mipmap\appicon.png" />
+		<MauiSplashScreen Include="Resources\Splash\splash.png" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -83,12 +83,35 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\mipmap\appicon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\mipmap\appicon.png" />
+	  <None Remove="Resources\Splash\splash.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Entity\Entity.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\PostsView.xaml">
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ProductsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 	</ItemGroup>
 
 </Project>

@@ -28,6 +28,10 @@
     <script src="~/js/Posts.js" asp-append-version="true"></script>
     <script src="~/js/TblAges.js" asp-append-version="true"></script>
     <script src="~/js/Countries.js" asp-append-version="true"></script>
+    <script src="~/js/Orders.js" asp-append-version="true"></script>
+    <script src="~/js/TypeDiscount.js" asp-append-version="true"></script>
+    <script src="~/js/Categories.js" asp-append-version="true"></script>
+    <script src="~/js/Products.js" asp-append-version="true"></script>
 
     <!-- CUT FROM HERE --> 
        
@@ -43,50 +47,8 @@
           نظام ادارة تطبيق طفل العبقري
         </a></div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item  ">
-            <a class="nav-link"  onclick="call_Action('Home/Index')">
-              <i class="material-icons">dashboard</i>
-              <p>الصفحة الرئيسية</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Countries')">
-              <i class="material-icons">person</i>
-              <p>المحافظات</p>
-            </a>
-          </li>  
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/TblAges')">
-              <i class="material-icons">person</i>
-              <p>الاعمار</p>
-            </a>
-          </li>  
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Posts')">
-              <i class="material-icons">person</i>
-              <p>المنشورات</p>
-            </a>
-          </li>  
-          <li class="nav-item ">
-              <a class="nav-link" onclick="call_Action('Home/Notification')">
-              <i class="material-icons">person</i>
-              <p>الاشعارات</p>
-            </a>
-          </li>  
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Admin')">
-              <i class="material-icons">person</i>
-              <p>المستخدمين</p>
-            </a>
-          </li>  
-          <li class="nav-item ">
-            <a class="nav-link" onclick="call_Action('Home/Carousel')">
-              <i class="material-icons">person</i>
-              <p>الصور</p>
-            </a>
-          </li>  
-        </ul>
+                    <ul class="nav" id="nav">
+                    </ul>
       </div>
     </div> 
      

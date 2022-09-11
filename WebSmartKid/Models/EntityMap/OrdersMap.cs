@@ -20,6 +20,11 @@ namespace WebSmartKid.Model.EntityMap
             builder.Property(x => x.IsCancel).IsRequired(); 
             builder.Property(x => x.IsApporve).IsRequired(); 
             builder.Property(x => x.IsDone).IsRequired();       
+            builder.Ignore(x => x.Name);       
+            builder.Ignore(x => x.Details);       
+            builder.Ignore(x => x.Phone);       
+            builder.Ignore(x => x.AgeName);       
+            builder.Ignore(x => x.CountryName);       
         }
     }
 }

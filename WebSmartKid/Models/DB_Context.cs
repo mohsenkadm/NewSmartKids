@@ -1,6 +1,7 @@
 ﻿using WebSmartKid.Model.EntityMap;  
 using Microsoft.EntityFrameworkCore;  
 using Entity.Entity;
+using WebSmartKid.Models.EntityMap;
 
 namespace WebSmartKid.Model
 {
@@ -32,6 +33,8 @@ namespace WebSmartKid.Model
             modelBuilder.ApplyConfiguration(new AdminMap());   
             modelBuilder.ApplyConfiguration(new PostsMap());   
             modelBuilder.ApplyConfiguration(new PermissionMap());   
+            modelBuilder.ApplyConfiguration(new TypeDiscountMap());   
+            modelBuilder.ApplyConfiguration(new ProductAndAgeMap());   
         }
                                       
         public DbSet<Users> Users { get; set; }         
@@ -48,5 +51,7 @@ namespace WebSmartKid.Model
         public DbSet<Admin> Admin { get; set; }        
         public DbSet<Posts> Posts { get; set; }        
         public DbSet<Permission> Permission { get; set; }        
+        public DbSet<TypeDiscount> TypeDiscount { get; set; }        
+        public DbSet<ProductAndAge> ProductAndAge { get; set; }        
     }
 }

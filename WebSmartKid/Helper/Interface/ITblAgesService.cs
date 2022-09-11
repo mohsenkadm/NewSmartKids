@@ -12,5 +12,7 @@ namespace WebSmartKid.Helper.Interface
         Task<ResObj> Delete(int Id);
         Task<TblAges> GetTblAgesById(int Id);
         Task<ResObj> GetById(int Id);
+        Task<ResObj> SetProductAndAge(ProductAndAge productAndAge);
+        Task<ResObj> GetProductAndAge(int id);
     }
 }
