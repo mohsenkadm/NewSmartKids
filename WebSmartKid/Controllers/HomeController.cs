@@ -84,6 +84,13 @@ namespace WebSmartKid.Controllers
         {
             return View();
         }
+        [Route("Home/Chat/{Id}")]
+        public IActionResult Chat(int Id)
+        {
+           HttpContext.Session.SetInt32("Id", Id);
+            return View();
+        }
+
 
     }
 }

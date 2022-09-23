@@ -1,4 +1,4 @@
-using AndroidX.Lifecycle;
+ 
 using AppSmartKids.VM;
 using Entity.Entity;
 
@@ -13,7 +13,7 @@ public partial class PostsView : ContentPage
 		InitializeComponent();
 		this.BindingContext = postsVM;
         _viewmodel = postsVM;
-
+        _viewmodel.IsBusy = false;
     }
     protected override void OnAppearing()
     {

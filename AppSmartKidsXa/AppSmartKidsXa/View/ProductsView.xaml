@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:entity="clr-namespace:AppSmartKidsXa.Entity"
+             x:Class="AppSmartKidsXa.View.ProductsView" x:Name="page" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout   >
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Frame Margin="0,-40,0,0" CornerRadius="50" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+
+                </Frame>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
+                </StackLayout>
+                <Label Style="{StaticResource TitleLabel} " Margin="0,30,0,0" Text="المنتجات"></Label>
+                <Frame Grid.Row="0" CornerRadius="10"  BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
+                           Padding="2" Margin="20,70,20,20"   VerticalOptions="CenterAndExpand" >
+                    <SearchBar   Text="{Binding Searchtxt}" Placeholder="بحث عن اسم المنتج "></SearchBar>
+                </Frame>
+            </Grid>
+            <StackLayout>
+                
+            </StackLayout>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
+                    <CollectionView   ItemsSource="{Binding Items}" >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical"
+                        Span="2" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="entity:Products"> 
+                                <StackLayout>
+                                    <Frame CornerRadius="10" Padding="0" Margin="5" BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  > 
+                                        <StackLayout>
+                                            <Grid>
+                                                <Grid.RowDefinitions/>
+                                                <Image   Margin="2,2,2,0"  Aspect="Fill" Source="{Binding Image}" HeightRequest="150" WidthRequest="100" ></Image>
+                                                <Frame HasShadow="True"   HorizontalOptions="Start" BackgroundColor="White"  CornerRadius="50" 
+                                                                 VerticalOptions="Start" Margin="10" WidthRequest="30" HeightRequest="30" Padding="0">
+                                                    <ImageButton BackgroundColor="Transparent" Command="{Binding Source={x:Reference page}, Path=BindingContext.BtnLikeValue}" CommandParameter="{Binding ProductsId}" Margin="5,7,5,5"  HorizontalOptions="CenterAndExpand"
+                                                                 VerticalOptions="CenterAndExpand" Source="{Binding SourceLike}" /> 
+                                                </Frame>
+                                            </Grid>
+                                            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                            FontSize="16"   Text="{Binding Name}"/>
+                                            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                            FontSize="16"  Text="{Binding Price}"/> 
+                                                <StackLayout  Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+                                                    <Label   FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="{Binding NoOfBuyers}"></Label>
+
+                                                    <Label     FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="عدد المشترون"></Label>
+                                                </StackLayout>
+                                                <StackLayout  Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+                                                    <Label  FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="{Binding LikeCount}"></Label>
+                                                    <Label  FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="عدد الاعجابات"></Label>
+                                                </StackLayout> 
+                                           
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,5">
+                                                <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtn}"  CommandParameter="{Binding ProductsId}"   FontSize="20" Text="+" WidthRequest="40" HeightRequest="40" Padding="0"/>
+                                                <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MinBtn}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding ProductsId}"  
+                                                        Command="{Binding Source={x:Reference page}, Path=BindingContext.ShowItem}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+            <StackLayout Margin="0,0,0,5"   >
+                <Button   Margin="30,5,30,5"    Command="{Binding ShoppingCartBtn}" Text="السلة"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

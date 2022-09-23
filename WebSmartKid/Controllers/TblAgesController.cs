@@ -44,7 +44,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "TblAgesController => GetAll => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "TblAgesController => GetAll => name:"  );
                 return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
             }
         }
@@ -63,7 +63,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "TblAgesController => GetAll => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "TblAgesController => GetAll => name:"  );
                 return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
             }
         }
@@ -88,7 +88,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "TblAgesController => Post => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "TblAgesController => Post => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحفظ");
             }
         }
@@ -106,7 +106,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "TblAgesController => Delete => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "TblAgesController => Delete => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحذف");
             }
         }
@@ -124,7 +124,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "TblAgesController => GetById => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "TblAgesController => GetById => name:"  );
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }

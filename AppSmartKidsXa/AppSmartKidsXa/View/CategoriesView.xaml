@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:entity="clr-namespace:AppSmartKidsXa.Entity"
+             x:Class="AppSmartKidsXa.View.CategoriesView"  x:Name="page"
+             Title="CategoriesView" NavigationPage.HasNavigationBar="False">
+    <StackLayout> 
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+            <Frame Margin="0,-50,0,0" CornerRadius="50"   HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+                     
+                </Frame>
+            <Label Style="{StaticResource TitleLabel}" Margin="0,30,0,0" Text="الفئات"></Label>
+            <StackLayout HorizontalOptions="FillAndExpand">
+                <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
+            </StackLayout>
+            <Frame Grid.Row="0" CornerRadius="10" BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
+                               Padding="2" Margin="20,50,20,0"   VerticalOptions="CenterAndExpand" > 
+                    <SearchBar Keyboard="Text" SearchCommand="{Binding GetDataCommand}"  Text="{Binding Searchtxt}" Placeholder="بحث عن الفئة"></SearchBar>
+                </Frame>
+            </Grid>
+            <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
+                <CollectionView   Margin="0,0"  ItemsSource="{Binding Items}">
+                    <CollectionView.Header>
+                        <Label  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" FontSize="20" Text="الفئات"></Label>
+                    </CollectionView.Header>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                        Span="2" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="entity:Categories">
+                            <StackLayout Margin="0,0">
+                                <Frame Padding="3" CornerRadius="5" Margin="10" BorderColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" 
+                                                BackgroundColor="{x:DynamicResource White2}" >
+                                    <Grid  HorizontalOptions="FillAndExpand"  >
+                                        <Image  Aspect="AspectFill" VerticalOptions="StartAndExpand"     HorizontalOptions="FillAndExpand"  
+                            Source="{Binding Image}" BackgroundColor="Transparent"  ></Image>
+                                        <Frame CornerRadius="25" VerticalOptions="End" Margin="10"  Padding="0" BackgroundColor="{StaticResource Primary}" HorizontalOptions="Center">
+                                            <Label  TextColor="{x:StaticResource White}" Margin="15,5"  FontSize="18" HorizontalTextAlignment="Center"
+                                                    Text="{Binding CategoriesName}" VerticalOptions="End" />
+                                        </Frame>
+                                    </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding CategoriesId}"  
+                                                        Command="{Binding Source={x:Reference page}, Path=BindingContext.OpenAgeCommand}"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+  
+    </StackLayout>
+</ContentPage>

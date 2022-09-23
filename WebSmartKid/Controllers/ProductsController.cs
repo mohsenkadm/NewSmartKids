@@ -49,7 +49,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "ProductsController => GetProdForApp => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "ProductsController => GetProdForApp => name:"  );
                 return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
             }
         }
@@ -67,7 +67,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "ProductsController => GetAll => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "ProductsController => GetAll => name:"  );
                 return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
             }
         }
@@ -75,6 +75,7 @@ namespace WebSmartKid.Controllers
 
 
         #region Get Info GetImagesByProductsId 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetImagesByProductsId(int Id)
         {
@@ -143,7 +144,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "ProductsController => Post => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "ProductsController => Post => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحفظ");
             }
         }
@@ -162,13 +163,14 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "ProductsController => Delete => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "ProductsController => Delete => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحذف");
             }
         }
         #endregion
 
         #region Get Products ById Info Products 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetById(int Id)
         {
@@ -180,7 +182,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "ProductsController => GetById => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "ProductsController => GetById => name:"  );
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }
@@ -216,7 +218,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "ProductsController => PostLike => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "ProductsController => PostLike => name:"  );
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
 
@@ -233,7 +235,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "ProductsController => RemoveLike => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "ProductsController => RemoveLike => name:"  );
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
 

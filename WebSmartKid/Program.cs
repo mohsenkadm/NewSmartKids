@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using WebSmartKid;
 using WebSmartKid.Classes;
 using WebSmartKid.Helper;
 using WebSmartKid.Model;
-
+                                  
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,7 +28,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 builder.Services.AddDbContext<DB_Context>(option => option.UseSqlServer(DBConn.ConnectionString),
     ServiceLifetime.Scoped, ServiceLifetime.Scoped);
-
+builder.Services.AddSignalR();
+builder.Services.AddSession(o => {
+    o.IdleTimeout = TimeSpan.FromDays(10);
+});
 AppRegisterServices.RegisterServices<IRegisterScopped>(builder.Services);
 AppRegisterServices.RegisterServices<IRegisterSingleton>(builder.Services);
 var app = builder.Build();
@@ -40,14 +44,18 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCors("CorsPolicy");
+app.MapHub<Signalr>("/Signalr");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Login}/{id?}");

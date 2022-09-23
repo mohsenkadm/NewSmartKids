@@ -17,6 +17,7 @@ function filltableProducts(data) {
             "</td>" + 
             "<td>" + item.discountPercentage + "</td>" +
             "<td>" + item.categoriesName + "</td>" +
+            "<td>" + item.count + "</td>" +
             "<td>" + item.price + "</td>" +
             "<td>" + item.detail + "</td>" +
             "<td>" + item.name + "</td>" +
@@ -90,6 +91,7 @@ function setdataProducts(data) {
     $("#Name").val(data.name);  
     $("#Detail").val(data.detail);  
     $("#Price").val(data.price);  
+    $("#Count").val(data.count);  
     $("#DiscountPercentage").val(data.discountPercentage);  
     $("#CategoriesId").val(data.categoriesId).change();
 }
@@ -120,6 +122,7 @@ function aftersaveProducts(data) {
     $("#Name").val('');  
     $("#Detail").val('');  
     $("#Price").val('');  
+    $("#Count").val('');  
     $("#DiscountPercentage").val('');  
     _ProductsId = 0;
     RefreshProducts();

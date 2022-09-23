@@ -88,24 +88,33 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\mipmap\appicon.png" />
+	  <None Remove="Resources\Raw\deliverymotorbike.json" />
+	  <None Remove="Resources\Raw\successful.json" />
 	  <None Remove="Resources\Splash\splash.png" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.9" />
 	  <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
+	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Entity\Entity.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
+	  <MauiXaml Update="View\CategoriesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ChatView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\PostsView.xaml">
 	    <Generator></Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProductsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\RegisterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

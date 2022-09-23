@@ -3,18 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppSmartKids.View.ProductsView"
              xmlns:entity="clr-namespace:Entity.Entity;assembly=Entity"
-             Title="المنتجات" x:Name="page"
-    BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
+             Title="المنتجات" x:Name="page" >
     <ContentPage.Content>
-        <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
-            <Label    Style="{StaticResource Key=TitleLabel}" Text="المنتجات" ></Label>
-            <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <Border  VerticalOptions="FillAndExpand" StrokeThickness="0" Padding="0,20,10,0">
+        <StackLayout   >
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border  Margin="0" StrokeThickness="0" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="40,40,0,0"></RoundRectangle>
+                        <RoundRectangle CornerRadius="0,0,50,50"></RoundRectangle>
                     </Border.StrokeShape>
-                    <StackLayout>
-                        <RefreshView  Command="{Binding RefreshCommand}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsRefreshing="{Binding IsRefreshing}" >
+                </Border>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <ImageButton Style="{StaticResource back}" Source="dotnet_bot.svg"></ImageButton>
+                </StackLayout>
+                <Label Style="{StaticResource TitleLabel}" Text="المنتجات"></Label>
+                <Border Grid.Row="0"  Stroke="{StaticResource Primary}"  Grid.RowSpan="2"  
+                           Padding="2" Margin="20,100,20,20"   VerticalOptions="CenterAndExpand" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"></RoundRectangle>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="10,10"  Opacity="0.5"></Shadow>
+                    </Border.Shadow>
+                    <SearchBar Keyboard="Text" SearchCommand="{Binding GetDataCommand}"  Text="{Binding Searchtxt}" Placeholder="بحث عن المنتج"></SearchBar>
+                </Border>
+            </Grid>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
                             <CollectionView   ItemsSource="{Binding Items}" >
                                 <CollectionView.ItemsLayout>
                                     <GridItemsLayout Orientation="Vertical"
@@ -22,51 +40,50 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="entity:Products">
-                                        <Border StrokeThickness="2" Margin="10,15,10,5" Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  BackgroundColor="{x:StaticResource white}" >
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
-                                            </Border.StrokeShape>
-                                            <Border.Shadow>
-                                                <Shadow Brush="Black"
+                                <Border StrokeThickness="2" Margin="5,5,5,5" Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  BackgroundColor="{x:StaticResource white}" >
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+                                    </Border.StrokeShape> 
+                                    <Border.Shadow>
+                                        <Shadow Brush="Black"
                                                         Offset="10,10"  Opacity="0.5"></Shadow>
-                                            </Border.Shadow>
-                                            <StackLayout>
-                                                <StackLayout>
-                                                    <Grid>
-                                                        <Grid.RowDefinitions/> 
-                                                        <Image Source="dotnet_bot.svg" WidthRequest="100" ></Image>
-                                                        <Border    HorizontalOptions="End"  StrokeThickness="1" Stroke="{StaticResource Primary}"
+                                    </Border.Shadow>
+                                    <StackLayout>
+                                        <StackLayout>
+                                            <Grid>
+                                                <Grid.RowDefinitions/>
+                                                <Image Source="dotnet_bot.svg" WidthRequest="100" ></Image>
+                                                <Border    HorizontalOptions="Start"  StrokeThickness="1" Stroke="{StaticResource Primary}"
                                                                  VerticalOptions="Start" Margin="10" WidthRequest="30" HeightRequest="30" Padding="3">
-                                                            <ImageButton Source="dotnet_bot.svg" />
-                                                            <Border.StrokeShape>
-                                                                <RoundRectangle CornerRadius="50,50,50,50"></RoundRectangle>
-                                                            </Border.StrokeShape>
-                                                        </Border>
-                                                       
-                                                    </Grid>
-                                                    <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                    <ImageButton Source="dotnet_bot.svg" />
+                                                    <Border.StrokeShape>
+                                                        <RoundRectangle CornerRadius="50,50,50,50"></RoundRectangle>
+                                                    </Border.StrokeShape>
+                                                </Border> 
+                                            </Grid>
+                                            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
                                                             FontSize="16" Margin="3" Text="{Binding Name}"/>
-                                                    <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
-                                                            FontSize="16" Margin="3" Text="{Binding Price}"/>
-                                                    <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,5">
-                                                        <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtnCommand}"  CommandParameter="{Binding ProductsId}"   FontSize="20" Text="+" WidthRequest="40" HeightRequest="40" Padding="0"/>
-                                                        <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MinBtnCommand}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
-                                                    </HorizontalStackLayout>
-                                                </StackLayout>
-                                            </StackLayout>
-                                        </Border>
-                                    </DataTemplate>
+                                            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                            FontSize="16" Margin="3" Text="{Binding Price}"/> 
+                                            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,5">
+                                                <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtnCommand}"  CommandParameter="{Binding ProductsId}"   FontSize="20" Text="+" WidthRequest="40" HeightRequest="40" Padding="0"/>
+                                                <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MinBtnCommand}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
+                                            </HorizontalStackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding ProductsId}"  
+                                                        Command="{Binding Source={x:Reference page}, Path=BindingContext.ShowItemCommand}"/>
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
-                        </RefreshView>
-
-                        <StackLayout Margin="0,20" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                            <Button   Margin="30,20,30,5"    Command="{Binding ShoppingCartBtnCommand}" Text="السلة"/>
-                        </StackLayout>
-                    </StackLayout>
-
-                </Border>
-            </StackLayout>
+                        </RefreshView> 
+                    </StackLayout> 
+                    <StackLayout Margin="0,5"  >
+                        <Button   Margin="30,20,30,5"    Command="{Binding ShoppingCartBtnCommand}" Text="السلة"/>
+                    </StackLayout>  
         </StackLayout>
     </ContentPage.Content>
 </ContentPage> 

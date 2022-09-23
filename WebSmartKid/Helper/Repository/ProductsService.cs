@@ -63,6 +63,7 @@ namespace WebSmartKid.Helper.Repository
             Products1.CategoriesId = Products.CategoriesId;  
             Products1.DiscountPercentage = Products.DiscountPercentage;
             Products1.IsDiscount = Products.IsDiscount;   
+            Products1.Count = Products.Count;   
 
             _context.Entry(Products1).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -136,17 +137,18 @@ namespace WebSmartKid.Helper.Repository
         {
             string? Name = productFilter.Name;
             int? CategoriesId = productFilter.CategoriesId;
+            int? UserId = productFilter.UserId;
             string wherecode = " and 1=1 ";
             if(productFilter.AgeFilter!=null)
             {
-                wherecode += " and ( ";
+                wherecode = wherecode+ " and ( ";
                 foreach(var item in productFilter.AgeFilter)
                 {
-                    wherecode += $" AgeId={item.Id} or";
+                    wherecode =wherecode+ " AgeId="+item.Id+" or ";
                 }
-                wherecode += " 1=1)";
+                wherecode =wherecode+ " 1=0)";
             }
-            List<Products> data = await _prodService.GetEntityListAsync("dbo.GetProdForApp", new { Name, CategoriesId , wherecode });
+            List<Products> data = await _prodService.GetEntityListAsync("dbo.GetProdForApp", new { Name, CategoriesId , wherecode, UserId });
             return Result.Return(true, data);
         }
         public async Task<ResObj> RemoveLike(int ProductsId, int userId)

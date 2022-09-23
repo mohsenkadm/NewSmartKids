@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppSmartKids.View.ShoppingCart"
+             x:Class="AppSmartKids.View.ShoppingCart" x:Name="page"
              xmlns:entity="clr-namespace:Entity.Entity;assembly=Entity"
              Title="السلة">
     <ContentPage.Content> 
@@ -27,10 +27,20 @@
                             <Shadow Brush="Black"
                                                         Offset="10,10"  Opacity="0.5"></Shadow>
                         </Border.Shadow>
-                        <StackLayout HeightRequest="50"  Orientation="Horizontal" Style="{StaticResource forsum}"  >
-                            <Label Text="{Binding Sum}"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  FontSize="20"/>
-                            <Label Text="المجموع" VerticalOptions="CenterAndExpand" TextColor="{x:StaticResource Primary}" FontSize="24"  />
-                            </StackLayout> 
+                        <StackLayout HeightRequest="120"    >
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="المجموع" Margin="60,10,10,0"   TextColor="{x:StaticResource Black}" FontSize="24"  />
+                            <Label Text="{Binding Sum}"  Margin="5,10,0,0" TextColor="{x:StaticResource Primary}"  FontSize="20"/>
+                            </StackLayout>
+                        <StackLayout  Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                            <Label Text="الخصم" Margin="60,10,10,0"   TextColor="{x:StaticResource Black}" FontSize="20"  />
+                            <Label Text="{Binding TotalDiscount}"   Margin="20,10,0,0"  TextColor="{x:StaticResource Primary}" FontSize="20"/>
+                            </StackLayout>
+                        <StackLayout  Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                            <Label Text="صافي المبلغ" Margin="60,10,10,0"   TextColor="{x:StaticResource Black}" FontSize="20"  />
+                            <Label Text="{Binding NetAmount}"   Margin="20,10,0,0"  TextColor="{x:StaticResource Primary}" FontSize="20"/>
+                            </StackLayout>
+                    </StackLayout> 
                     </Border>
                 </Grid> 
                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  >
@@ -38,14 +48,10 @@
                  Command="{Binding RefreshCommand}" >
                         <CollectionView     ItemsSource="{Binding Items}">
                             <CollectionView.Header>
-                                <Label  TextColor="{x:StaticResource Primary}" Margin="0,20,0,10" HorizontalOptions="CenterAndExpand" FontSize="20" Text="سلة التسوق"></Label>
-                            </CollectionView.Header>
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical"
-                        Span="2" />
-                            </CollectionView.ItemsLayout>
+                                <Label  TextColor="{x:StaticResource Primary}" Margin="0,20,0,10" HorizontalOptions="CenterAndExpand" FontSize="20" Text="عربة التسوق"></Label>
+                            </CollectionView.Header> 
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="entity:Products">
+                                <DataTemplate x:DataType="entity:OrderDetail">
                                     <StackLayout>
                                     <Border   Stroke="{StaticResource Primary}"    
                                              Padding="2" Margin="20,0,10,10"   VerticalOptions="CenterAndExpand" >
@@ -55,17 +61,30 @@
                                         <Border.Shadow>
                                             <Shadow Brush="Black" Offset="10,10"  Opacity="0.5"></Shadow>
                                         </Border.Shadow>
-                                        <StackLayout Orientation="Horizontal">
-                                                <StackLayout  HorizontalOptions="EndAndExpand"  >
-                                                <Button HeightRequest="45" WidthRequest="50"  Text="X" FontSize="20" Command="{Binding Source={x:Reference page}, Path=BindingContext.RemoveFromCartCommand}" 
-                                                             HorizontalOptions="StartAndExpand"      CommandParameter="{Binding ProductsId}" BackgroundColor="Transparent" TextColor="Red" ></Button>
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal">  
+                                                    <StackLayout  HorizontalOptions="EndAndExpand">
+                                                        <Button HeightRequest="45" WidthRequest="50"  Text="X" FontSize="20" Command="{Binding Source={x:Reference page}, Path=BindingContext.RemoveFromCartCommand}" 
+                                                                        HorizontalOptions="StartAndExpand"      CommandParameter="{Binding ProductsId}" BackgroundColor="Transparent" TextColor="Red" ></Button>
+                                                    </StackLayout>
+                                                <StackLayout    VerticalOptions="FillAndExpand"  > 
+                                                    <StackLayout  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  Spacing="10" Margin="0,0,0,0" >
+                                                        <Label  TextColor="{x:StaticResource Black}"   FontSize="20" Text="{Binding Name}"  />
+                                                        <Label TextColor="{x:StaticResource Primary}"  FontSize="16" Text="{Binding Price}"   /> 
+                                                    </StackLayout>  
+                                                    <HorizontalStackLayout VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand"  Spacing="10" Margin="10,5,10,5">
+                                                        <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtnCommand}"  CommandParameter="{Binding ProductsId}"   FontSize="20" Text="+" WidthRequest="40" HeightRequest="40" Padding="0"/>
+                                                        <Label TextColor="{x:StaticResource Primary}" VerticalTextAlignment="Center"  FontSize="16" Text="{Binding Count}"   />
+                                                        <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MinBtnCommand}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
+                                                    </HorizontalStackLayout>  
+                                                </StackLayout>
+                                                <Image Source="dotnet_bot.svg"  WidthRequest="100" ></Image>
                                             </StackLayout>
-                                            <StackLayout  HorizontalOptions="CenterAndExpand" Padding="10" >
-                                                <Label  TextColor="{x:StaticResource black}"   FontSize="20" Text="{Binding Name}"  />
-                                                <Label TextColor="{x:StaticResource Primary}"  FontSize="16" Text="{Binding Price}"   />
-                                            </StackLayout>
-                                        </StackLayout>
-
+                                        </StackLayout> 
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding ProductsId}"  
+                                                        Command="{Binding Source={x:Reference page}, Path=BindingContext.ShowItemCommand}"/>
+                                        </Border.GestureRecognizers>
                                     </Border>
                                     </StackLayout>
                                 </DataTemplate>
@@ -74,7 +93,7 @@
                     </RefreshView> 
                 </StackLayout>
                 <StackLayout Margin="0,20">
-                    <Button   Margin="30,20,30,5"   Command="{Binding PaymentMethodsBtn}" Text="انهاء الطلب"/>
+                <Button   Margin="30,20,30,5"   Command="{Binding SendOrderBtnCommand}" Text="أتمام عملية الشراء"/>
                 </StackLayout>
             </StackLayout> 
     </ContentPage.Content>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:entity="clr-namespace:AppSmartKidsXa.Entity"
+             x:Class="AppSmartKidsXa.View.Notification" x:Name="page" NavigationPage.HasNavigationBar="False"
+               BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
+    <ContentPage.Content>
+        <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            <StackLayout HorizontalOptions="FillAndExpand">
+                <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
+            </StackLayout>
+            <Label    Style="{StaticResource Key=TitleLabel}" Text="الاشعارات" ></Label>
+            <StackLayout  HorizontalOptions="FillAndExpand"  >
+                <Frame Padding="20" CornerRadius="40" Margin="0,0,0,-10"> 
+                    <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
+                        <CollectionView   ItemsSource="{Binding Items}" >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="entity:Notification">
+                                    <StackLayout Margin="0,0,0,10" HorizontalOptions="CenterAndExpand">
+                                        <Frame CornerRadius="25"   Padding="0"  BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
+
+                                            <StackLayout>
+                                                <Label HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"   FontSize="18" Margin="2" Text="{Binding Title}"/>
+
+                                                <Label TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}"
+                                                       HorizontalTextAlignment="Center"   FontSize="16" Margin="5" Text="{Binding Details}"/>
+                                                <Label TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  HorizontalTextAlignment="Center"   FontSize="12" Margin="2,5,5,10" Text="{Binding DateInsert}"/>
+
+                                            </StackLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </Frame>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

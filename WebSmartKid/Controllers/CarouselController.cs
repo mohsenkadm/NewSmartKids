@@ -48,7 +48,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CarouselController => GetAll => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CarouselController => GetAll");
                 return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
             }
         }
@@ -114,7 +114,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CarouselController => Post => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CarouselController => Post => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحفظ");
             }
         }
@@ -132,7 +132,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CarouselController => Delete => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CarouselController => Delete => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحذف");
             }
         }
@@ -150,7 +150,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CarouselController => GetById => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CarouselController => GetById");
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }

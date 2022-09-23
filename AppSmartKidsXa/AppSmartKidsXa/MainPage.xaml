@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Name="page" xmlns:entity="clr-namespace:AppSmartKidsXa.Entity"
+             x:Class="AppSmartKidsXa.MainPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <ScrollView   >
+            <StackLayout    >
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Frame  Margin="0,-10,0,0" CornerRadius="20"  HeightRequest="300" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+                         
+                    </Frame>
+
+                    <Label Style="{StaticResource TitleLabel}" Margin="0,30,0,0" Text="الطفل العبقري لوسائل التعليم"></Label>
+                    <Frame CornerRadius="10" Grid.Row="0"  BorderColor="{StaticResource Primary}"  HeightRequest="180" Grid.RowSpan="2"  
+                           Padding="2" Margin="20,70,20,0"  VerticalOptions="CenterAndExpand" >
+                        
+                        <StackLayout >
+                            <CarouselView Position="{Binding  Position}" HeightRequest="180"   ItemsSource="{Binding ItemsCarousel}"  
+                                          IndicatorView="indi">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image HeightRequest="180"  Source="{Binding Image}" Aspect="AspectFill"></Image>
+
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                        </StackLayout>
+                    </Frame>
+                    <IndicatorView Grid.Row="1" HorizontalOptions="Center" VerticalOptions="EndAndExpand"  IndicatorColor="LightGray" SelectedIndicatorColor="{x:DynamicResource Primary}" x:Name="indi"></IndicatorView>
+                </Grid>
+
+                <StackLayout Margin="10,0,20,0" VerticalOptions="CenterAndExpand">
+                    <Grid ColumnSpacing="35" Margin="10,20" RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="0">
+                            <Frame  CornerRadius="20" HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image   Source="notification.png"/> 
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Notification}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="مركز الاشعارات"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="0">
+                            <Frame CornerRadius="20" HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image   Source="chat.png"/> 
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer   Command="{Binding ChatView}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="الدعم الفني"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="0">
+                            <Frame CornerRadius="20" HasShadow="True"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image  Source="share.png"/>
+                                 
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer  Command="{Binding BtnShare}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="مشاركة التطبيق"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="1">
+                            <Frame CornerRadius="20" HasShadow="True"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image   Source="post.png"/>
+                                  
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer  Command="{Binding PostsView}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="المنشورات"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="1">
+                            <Frame CornerRadius="20"   HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image   Source="categories.png"/>
+                               
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer   Command="{Binding CategoriesView}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+                            <Label  HorizontalOptions="CenterAndExpand" Text="الفئات"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="1">
+                            <Frame CornerRadius="20"  HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image  Source="dashboard.png"/>
+                                 
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Products }"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="المنتجات"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="2">
+                            <Frame CornerRadius="20"  HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image   Source="shoppingcart.png"/>
+                                 
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShoppingCart}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="عربة التسوق"/>
+                        </StackLayout>
+
+                        <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="2">
+                            <Frame CornerRadius="20" HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image  Source="shoppingbag.png"/> 
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Orders}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="متابعة الطلبات"/>
+                        </StackLayout> 
+                        <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="2">
+                            <Frame CornerRadius="20" HasShadow="True"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
+                                <Image   Source="ordersend.png"/>
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SendOrder}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="انهاء الطلب"/>
+                        </StackLayout> 
+                    </Grid>
+                </StackLayout>
+                <RefreshView  HorizontalOptions="CenterAndExpand" Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" > 
+                    <CollectionView   Margin="0,10"  ItemsSource="{Binding Items}">
+                        <CollectionView.Header>
+                            <Label  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" FontSize="20" Text="الفئات"></Label>
+                        </CollectionView.Header>
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical"
+                        Span="2" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="entity:Categories">
+                                <StackLayout Margin="0,0">
+                                    <Frame Padding="3" CornerRadius="5" Margin="10" BorderColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" 
+                                                BackgroundColor="{x:DynamicResource White2}" > 
+                                        <Grid  HorizontalOptions="FillAndExpand"  > 
+                                            <Image  Aspect="AspectFill" VerticalOptions="StartAndExpand"     HorizontalOptions="FillAndExpand"  
+                            Source="{Binding Image}" BackgroundColor="Transparent"  ></Image>
+                                            <Frame CornerRadius="25" VerticalOptions="End" Margin="10"  Padding="0" BackgroundColor="{StaticResource Primary}" HorizontalOptions="Center"> 
+                                                <Label  TextColor="{x:StaticResource White}" Margin="15,5"  FontSize="18" HorizontalTextAlignment="Center"
+                                                    Text="{Binding CategoriesName}" VerticalOptions="End" />
+                                            </Frame> 
+                                        </Grid> 
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding CategoriesId}"  
+                                                        Command="{Binding Source={x:Reference page}, Path=BindingContext.OpenAgeCommand}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>

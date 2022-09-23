@@ -39,7 +39,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "OrdersController => GetOrdersWithDetailAll => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "OrdersController => GetOrdersWithDetailAll => name:"  );
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }
@@ -60,7 +60,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "OrdersController => GetOrdersByOrderNo => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "OrdersController => GetOrdersByOrderNo");
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }
@@ -78,7 +78,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "OrdersController => GetAll => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "OrdersController => GetAll => name:"  );
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }
@@ -224,7 +224,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "OrdersController => Post => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "OrdersController => Post");
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }

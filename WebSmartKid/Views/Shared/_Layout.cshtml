@@ -22,6 +22,8 @@
   <link href="~/lib/assets/demo/demo.css" rel="stylesheet" />
 </head>
 <body style="font-family: 'Tajawal'; " class="dark-edition">
+    <script type="text/javascript" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script type="text/javascript" src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script> 
     <script src="~/js/Carousel.js" asp-append-version="true"></script> 
     <script src="~/js/Admin.js" asp-append-version="true"></script>
@@ -72,6 +74,28 @@
       <!-- End Navbar -->
             @RenderBody() 
       </div> 
+      
+    <div class="modal fade" id="messagemodel" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #353b43;">
+                <div class="modal-header">
+                    <div class="clearfix">
+                        <button type="button" style="margin-left:10%;" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size:155%">&times;</span>
+                        </button>
+                        <h3 class="modal-title text-right" id="staticBackdropLabel">الرسائل</h3>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div id="messageList" class="pre-scrollable">
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-transparent" data-dismiss="modal">اغلاق</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -21,7 +21,11 @@ public partial class AppShell : Shell
 		Routes.Add(nameof(OrderSeccess), typeof(OrderSeccess));
 		Routes.Add(nameof(SendOrder), typeof(SendOrder));
 		Routes.Add(nameof(ShoppingCart), typeof(ShoppingCart));
-		Routes.Add(nameof(ProductsView), typeof(ProductsView)); 
+		Routes.Add(nameof(ProductsView), typeof(ProductsView)); 	 
+		Routes.Add(nameof(CategoriesView), typeof(CategoriesView)); 	 
+		Routes.Add(nameof(ChatView), typeof(ChatView)); 	 
+		Routes.Add(nameof(PostsView), typeof(PostsView)); 	 
+		Routes.Add(nameof(RegisterView), typeof(RegisterView)); 	 
 		foreach (var item in Routes)
 			Routing.RegisterRoute(item.Key,item.Value);
 	}

@@ -9,8 +9,7 @@ function filltableOrders(data) {
             "<td>" + item.netAmount + "</td>" +
             "<td>" + item.totalDiscount + "</td>" +
             "<td>" + item.total + "</td>" +
-            "<td>" + item.countryName + "</td>" +
-            "<td>" + item.ageName + "</td>" +
+            "<td>" + item.countryName + "</td>" + 
             "<td>" + item.phone + "</td>" +
             "<td>" + item.details + "</td>" +
             "<td>" + item.name + "</td>" +
@@ -68,8 +67,8 @@ function SetDataOrderDetail(data) {
     $('#tableOrdersDetail').empty();
     $.each(data, function (i, item) {
         var rows = "<tr>" +
-            "<td> " + item.price + "</td> " + 
-            //"<td>" + item.ageName + "</td>" + 
+            "<td> " + item.count + "</td> " +  
+            "<td> " + item.price + "</td> " +  
             "<td>" + item.detail + "</td>" + 
             "<td>" + item.name + "</td>"
             + "<td> <button type='button' class='btn btn-danger' onclick='deleteOrderDetail(" + item.orderDetailId + ")'  >حذف</button></td></tr>";

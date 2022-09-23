@@ -45,6 +45,7 @@ namespace AppSmartKids.VM
         {
             try
             {
+                IsBusy = true;
                 if (!CheckConnection())
                 {
                     await AppShell.Current.DisplayAlert("خطا", "لا يوجد اتصال بلانترنت", "نعم"); return;
@@ -64,6 +65,10 @@ namespace AppSmartKids.VM
             {
                 await AppShell.Current.DisplayAlert("خطا", "حدث خطا", "نعم");
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
         #endregion   
         #region open url
@@ -72,6 +77,7 @@ namespace AppSmartKids.VM
         {
             try
             {
+                IsBusy = true;
                 if (!CheckConnection())
                 {
                     await AppShell.Current.DisplayAlert("خطا", "لا يوجد اتصال بلانترنت", "نعم"); return;
@@ -87,6 +93,10 @@ namespace AppSmartKids.VM
             catch (Exception ex)
             {
                 await AppShell.Current.DisplayAlert("خطا", "حدث خطا", "نعم");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
         #endregion

@@ -46,6 +46,7 @@
                                             <th scope="col">خصم</th> 
                                             <th scope="col">نسبة الخصم</th> 
                                             <th scope="col">الصنف</th> 
+                                            <th scope="col">كمية</th> 
                                             <th scope="col">السعر</th> 
                                             <th scope="col">التفاصيل</th> 
                                             <th scope="col">الاسم</th> 
@@ -104,11 +105,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-6  alignright">
+
+                    <div class="form-group col-md-4  alignright">
+                        <label class="text-primary">الكمية</label>
+                        <input type="number" id="Count" autocomplete="off" name="Count" class="form-control alignright" placeholder="اكتب الكمية" />
+                    </div>
+                    <div class="form-group col-md-4  alignright">
                         <label class="text-primary">السعر</label>
                         <input type="number" id="Price" autocomplete="off" name="Price" class="form-control alignright" placeholder="اكتب السعر" />
                     </div>
-                    <div class="form-group col-md-6  alignright">
+                    <div class="form-group col-md-4  alignright">
                         <label class="text-primary">نسبة الخصم</label>
                         <input type="text" id="DiscountPercentage" autocomplete="off" name="DiscountPercentage" class="form-control alignright" placeholder="اكتب نسبة الخصم" />
                     </div>
@@ -236,6 +242,7 @@
                 Name: $("#Name").val(),
                 Detail: $("#Detail").val(),
                 Price: $("#Price").val(),
+                Count: $("#Count").val(),
                 CategoriesId: $("#CategoriesId").val(),
                 DiscountPercentage: $("#DiscountPercentage").val(), 
                 IsDiscount: IsDiscount,

@@ -22,15 +22,22 @@ function filltableAdmin(data) {
 
 function filllayout(data) {
     $('#nav').empty();
-    $.each(data, function (i, item) {
-
+    $.each(data, function (i, item) { 
         var rows = "";
-        rows = "<li class='nav-item '>"+
-            "<a class='nav-link' onclick =\"call_Action('Home/" + item.controlName + "')\");' >"+
-              "<i class='material-icons'>person</i>"+
-            "<p>"+item.permissionName +"</p>"+
-            "</a>"+
-          "</li>"; 
+        if (item.controlName == 'message') {
+            rows = "<li class='nav-item'>" +
+                "<a class='nav-link text-dark' onclick =\"call_Action(GetMessageList())\");' data-toggle='modal' data-target='#messagemodel' > " +
+                item.permissionName + "</a >" +
+                "</li >";
+        }
+        else {
+            rows = "<li class='nav-item '>" +
+                "<a class='nav-link' onclick =\"call_Action('Home/" + item.controlName + "')\");' >" +
+                "<i class='material-icons'>person</i>" +
+                "<p>" + item.permissionName + "</p>" +
+                "</a>" +
+                "</li>";
+        }
         $('#nav').append(rows);
     });
 

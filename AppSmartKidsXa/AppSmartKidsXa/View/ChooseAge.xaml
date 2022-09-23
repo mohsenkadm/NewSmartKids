@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSmartKidsXa.View.ChooseAge" xmlns:entity1="clr-namespace:AppSmartKidsXa.Entity"
+             Title="اختيار العمر" NavigationPage.HasNavigationBar="False" x:Name="page"
+    BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
+    <ContentPage.Content>
+        <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Frame CornerRadius="50"  Margin="0,-40,0,0" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+                </Frame>
+                <Label Style="{StaticResource TitleLabel}" Margin="0,30,0,0"  Text="اختيار عمر الطفل"></Label>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
+                </StackLayout>
+            </Grid>
+            <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand" Margin="0,0,0,-10" HorizontalOptions="FillAndExpand">
+                <Frame CornerRadius="40" VerticalOptions="CenterAndExpand"  Padding="0,20,10,0">
+                    
+                    <StackLayout>
+                        <RefreshView  Command="{Binding RefreshCommand}" VerticalOptions="CenterAndExpand"  IsRefreshing="{Binding IsRefreshing}" >
+                            <CollectionView   ItemsSource="{Binding ListAgeParam}" >
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical"
+                        Span="2" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="entity1:TblAges">
+                                        <StackLayout  Padding="0">
+                                        <Frame  CornerRadius="15" Padding="3" Margin="10"  BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
+                                            
+                                            <StackLayout>
+                                                <StackLayout>
+                                                    <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                            FontSize="18" Margin="5" Text="{Binding AgeName}"/>
+                                                    <CheckBox HeightRequest="30" HorizontalOptions="CenterAndExpand" WidthRequest="30"  IsChecked="{Binding State}"></CheckBox>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate> 
+                            </CollectionView>
+                        </RefreshView>
+                        <StackLayout Margin="0,0,0,50" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                            <Button   Margin="30,20,30,5"    Command="{Binding OpenProductCommand}" Text="اختيار"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

@@ -9,7 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows.Input;                  
+using OrderDetail = Entity.Entity.OrderDetail;
 
 namespace AppSmartKids.VM
 {
@@ -17,9 +18,13 @@ namespace AppSmartKids.VM
     {
         #region prop  
         [ObservableProperty]
-        private ObservableCollection<Products> items;
+        private ObservableCollection<OrderDetail> items;
         [ObservableProperty]
-        private string _Sum;    
+        private string _Sum;     
+        [ObservableProperty]
+        private string _TotalDiscount;  
+        [ObservableProperty]
+        private string _NetAmount;    
         #endregion
 
         #region const
@@ -41,11 +46,12 @@ namespace AppSmartKids.VM
                 }
                 if (ListCart == null)
                 {
-                    await App.Current.MainPage.DisplayAlert("تنبيه","لا توجد منتجات في السلة", "نعم");
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "لا توجد منتجات في السلة", "نعم");
                     return;
                 }
+                Items = new ObservableCollection<OrderDetail>();
                 Items = ListCart;
-                Sum = Items.Sum(x => x.Price*x.Count).ToString();
+                SumTotal();
             }
             catch (Exception ex)
             {
@@ -53,19 +59,53 @@ namespace AppSmartKids.VM
 
             }
         }
+
+        private void SumTotal()
+        {
+            if (Items.Count > 0)
+            {
+                Sum = Items.Sum(x => x.Total).ToString();
+                NetAmount = Items.Sum(x => x.NetAmount).ToString();
+                TotalDiscount = Items.Sum(x => x.TotalDiscount).ToString();
+            }
+            else
+            {
+                Sum =NetAmount=TotalDiscount= "0";
+            }
+        }
         #endregion
 
-        #region pull to refresh data  
-        public ICommand RefreshCommand => new Command(async () =>
+        #region click event open detail Item
+        [ICommand]
+        public async void ShowItem(int Id)
+        {
+            try
+            {
+                var navParam = new Dictionary<string, object>();
+                navParam.Add("Id", Id);
+                await AppShell.Current.GoToAsync(nameof(DetailItem), true, navParam);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        #endregion
+
+
+
+        #region pull to refresh data
+        [ICommand]
+        public async void Refresh()
         {
             IsRefreshing = true;
              GetData();
             IsRefreshing = false;
-        });
+        }
         #endregion
 
         #region click event open SendOrder
-        public ICommand SendOrderBtn => new Command(async () =>
+        [ICommand]
+        public async void SendOrderBtn()
         {
             try
             {
@@ -79,11 +119,12 @@ namespace AppSmartKids.VM
             catch (Exception ex)
             {
             }
-        });
+        }
         #endregion
 
         #region click event Remove From Cart
-        public ICommand RemoveFromCart => new Command<string>(async (Name) =>
+        [ICommand]
+        public async void RemoveFromCart(int Id)
         {
             try
             {
@@ -92,13 +133,13 @@ namespace AppSmartKids.VM
                     await App.Current.MainPage.DisplayAlert("تنبيه", "لا يوجد اتصال بلانترنت", "نعم");
                     return;
                 }
-                if (Name == "")
+                if (Id == 0)
                 {
                     await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
                     return;
                 }
-                Items.Remove(Items.FirstOrDefault(x => x.Name == Name));
-                Sum = Items.Sum(X => X.Price * X.Count).ToString();
+                Items.Remove(Items.FirstOrDefault(x => x.ProductsId == Id)); 
+                SumTotal();
                 await App.Current.MainPage.DisplayAlert("حذف", "تم حذف المنتج من السلة", "نعم");
 
             }
@@ -107,58 +148,93 @@ namespace AppSmartKids.VM
                 await App.Current.MainPage.DisplayAlert("تنبيه","حدث خطأ", "نعم");
 
             }
-        });
-        #endregion 
-        #region click event MinBtn
-        public ICommand  MaxBtn=> new Command<string>(async (Name) =>
-        {
-            try
-            {    
-                if (Name == "")
-                {
-                    await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
-                    return;
-                }
-                var itm=Items.FirstOrDefault(x => x.Name == Name);
-                if (itm != null)
-                    itm.Count += 1;  
-                Sum = Items.Sum(X => X.Price * X.Count).ToString();
-                
-            }
-            catch (Exception ex)
-            {
-                await App.Current.MainPage.DisplayAlert("تنبيه","حدث خطأ", "نعم");
-
-            }
-        });
+        }
         #endregion
 
-        #region click event MinBtn
-        public ICommand  MinBtn=> new Command<string>(async (Name) =>
+
+        #region click event MaxBtn
+        [ICommand]
+        public async void MaxBtn(int Id)
         {
             try
-            {    
-                if (Name == "")
+            {
+                if (!CheckConnection())
                 {
-                    await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "لا يوجد اتصال بلانترنت", "نعم");
                     return;
                 }
-                var itm=Items.FirstOrDefault(x => x.Name == Name);
+
+                if (ListCart == null)
+                    ListCart = new ObservableCollection<OrderDetail>();
+
+
+                var itm = ListCart.FirstOrDefault(x => x.ProductsId == Id);
                 if (itm != null)
-                {       
-                    itm.Count -= 1;
-                    if (itm.Count == 0)
-                        Items.Remove(Items.FirstOrDefault(x => x.Name == Name));
+                {
+                    int newIndex = Items.IndexOf(itm);
+                    Items.Remove(itm);
+                    itm.Count += 1;
+                    itm.Total = itm.Count * itm.Price;
+                    itm.NetAmount = itm.Total;
+                    if (itm.IsDiscount == true)
+                    {
+                        itm.TotalDiscount = (itm.NetAmount * itm.DiscountPercentage / 100);
+                        itm.NetAmount = itm.NetAmount - (itm.NetAmount * itm.DiscountPercentage / 100);
+                    }
+                    Items.Add(itm);
+                    int oldIndex = Items.IndexOf(itm);
+                    Items.Move(oldIndex, newIndex);  
+                    
+                   // await App.Current.MainPage.DisplayAlert("تنبيه", "تم زيادة المنتج", "نعم");
                 }
-                Sum = Items.Sum(X => X.Price * X.Count).ToString();
-                
+                SumTotal();
+
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("تنبيه","حدث خطأ", "نعم");
+                await App.Current.MainPage.DisplayAlert("خطأ", "حدث خطأ", "نعم");
 
             }
-        });
+                          
+        }
+        #endregion
+
+
+        #region click event MinBtn
+        [ICommand]
+        public async void MinBtn(int Id)
+        {
+            try
+            {
+                var itm = ListCart.FirstOrDefault(x => x.ProductsId == Id);
+                if (itm != null)
+                {              
+                    int newIndex = Items.IndexOf(itm);
+                    Items.Remove(itm);
+                    itm.Count -= 1;
+                    itm.Total = itm.Count * itm.Price;
+                    itm.NetAmount = itm.Total;
+                    if (itm.IsDiscount == true)
+                    {
+                        itm.TotalDiscount = (itm.NetAmount * itm.DiscountPercentage / 100);
+                        itm.NetAmount = itm.NetAmount - (itm.NetAmount * itm.DiscountPercentage / 100);
+                    }
+                    Items.Add(itm);
+                    int oldIndex = Items.IndexOf(itm);
+                    Items.Move(oldIndex, newIndex);
+                    if (itm.Count == 0)
+                        ListCart.Remove(ListCart.FirstOrDefault(x => x.ProductsId == Id));
+
+                  //  await App.Current.MainPage.DisplayAlert("تنبيه", "تم نقصان المنتج", "نعم");
+                    SumTotal();
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
+
+            }
+        }
         #endregion
     }
 }

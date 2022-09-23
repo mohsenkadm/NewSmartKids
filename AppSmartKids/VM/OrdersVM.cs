@@ -83,8 +83,7 @@ namespace AppSmartKids.VM
                     }
                     else
                     {
-                        SumWaiting = SumCancel = SumDone = SumApproved = "0";
-
+                        SumWaiting = SumCancel = SumDone = SumApproved = "0";     
                     }
                 }
             }

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:renderentry="clr-namespace:AppSmartKidsXa.RenderEntry"
+             x:Class="AppSmartKidsXa.View.RegisterView" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Frame CornerRadius="50"  Margin="0,-40,0,0" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+                    </Frame>
+                    <Label Style="{StaticResource TitleLabel}" Margin="0,30,0,0"  Text="تسجيل حساب جديد"></Label>
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
+                    </StackLayout>
+                </Grid>
+                <StackLayout VerticalOptions="CenterAndExpand">
+                <Frame    BorderColor="{x:DynamicResource Primary}"  CornerRadius="7" BackgroundColor="{x:DynamicResource White}" Margin="10,0,10,10" Padding="0" >
+                    <renderentry:BorderLessEntry HeightRequest="40"   FontFamily="FontTR" Text="{Binding Name}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Blue2}" FontSize="14" 
+                                           HorizontalTextAlignment="Center" Keyboard="Text"  Placeholder=" اكتب اسمك الكامل"/>
+                </Frame>
+                <Frame    BorderColor="{x:DynamicResource Primary}"  CornerRadius="7" BackgroundColor="{x:DynamicResource White}" Margin="10,0,10,10" Padding="0" >
+                    <renderentry:BorderLessEntry HeightRequest="40"   FontFamily="FontTR" Text="{Binding Phone}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Blue2}" FontSize="14" 
+                                           HorizontalTextAlignment="Center" Keyboard="Telephone"  Placeholder=" اكتب رقم الهاتف "/>
+                </Frame>
+                <Frame  BorderColor="{x:DynamicResource Primary}" CornerRadius="7" BackgroundColor="{x:DynamicResource White}"  Padding="0" Margin="10,0,10,10"  >
+                    <renderentry:BorderlessPicker HeightRequest="40"  SelectedItem="{Binding CountryIdSelected}" FontFamily="FontTR" ItemsSource="{Binding Countrys}" ItemDisplayBinding="{Binding CountryName}" 
+                                                Margin="10,0,10,0" TitleColor="{x:DynamicResource Blue2}" TextColor="{x:DynamicResource Primary}" FontSize="14" HorizontalTextAlignment="Center" Title="اختيار المحافظة"></renderentry:BorderlessPicker>
+                </Frame>
+                <Button Margin="30,0,30,10"   Command="{Binding BtnSaveCommand}" Text="تسجيل حساب جديد"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

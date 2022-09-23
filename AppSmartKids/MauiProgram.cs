@@ -6,6 +6,7 @@ using AppSmartKids.VM;
 using AppSmartKids.Helper;
 using AppSmartKids.View;
 using AppSmartKids.VM;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace AppSmartKids;
 
@@ -16,7 +17,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .UseSkiaSharp()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
@@ -37,6 +39,10 @@ public static class MauiProgram
         builder.Services.AddTransient<ShoppingCart>();
         builder.Services.AddTransient<ProductsView>();
         builder.Services.AddTransient<PostsView>();
+        builder.Services.AddTransient<OrderSeccess>();
+        builder.Services.AddTransient<CategoriesView>();
+        builder.Services.AddTransient<ChatView>();
+        builder.Services.AddTransient<RegisterView>();
 
         //View Modles 
         builder.Services.AddSingleton<ChooseAgeVM>();
@@ -50,6 +56,9 @@ public static class MauiProgram
         builder.Services.AddTransient<ShoppingCartVM>();
         builder.Services.AddTransient<ProductsVM>();
         builder.Services.AddTransient<PostsVM>();
+        builder.Services.AddTransient<CategoriesVM>();
+        builder.Services.AddTransient<ChatVM>();
+        builder.Services.AddTransient<RegisterVM>();
         return builder.Build();
 	}
 }

@@ -10,7 +10,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;                
+using System.Threading.Tasks;
+using OrderDetail = Entity.Entity.OrderDetail;
 
 namespace AppSmartKids.VM
 {
@@ -23,7 +24,9 @@ namespace AppSmartKids.VM
         private readonly IGetDataUrlService<Products> _service;
         private readonly IGetDataUrlService<Images> _serviceImage;
         [ObservableProperty]      
-        private List<Images> items;
+        private List<Images> images;  
+        [ObservableProperty]      
+        private Products products;
 
         [ObservableProperty]
         private string _Name;
@@ -34,6 +37,8 @@ namespace AppSmartKids.VM
         private int _Position;
         [ObservableProperty]
         private string _Price;   
+        [ObservableProperty]
+        private string _DiscountPercentage;   
         #endregion
 
 
@@ -42,31 +47,32 @@ namespace AppSmartKids.VM
         {                                  
             _service = new GetDataUrlService<Products>();  
             _serviceImage = new GetDataUrlService<Images>();  
-            Task.Run(() => GetData());
+            
         }
         #endregion
 
         #region pull to refresh data  
         [ICommand]
-        public async void RefreshCommand()
+        public async void Refresh()
         {
             IsRefreshing = true;
-            await GetData();
+             GetData();
             IsRefreshing = false;
         }
         #endregion
 
         #region GetData
-        public async Task GetData()
+        [ICommand]
+        public async void GetData()
         {
             try
             {
                 if (!CheckConnection())
                 {
-                    await App.Current.MainPage.DisplayAlert("تنبيه", "لا يوجد اتصال بلانرنت", "نعم");
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "لا يوجد اتصال بلانترنت", "نعم");
                     return;
                 }                       
-                Response<Products> response = await _service.GetAsync("Sources/GetById?Id=" + Id);
+                Response<Products> response = await _service.GetAsync("Products/GetById?Id=" + Id);
                               
                 if (response.success == false)
                 {
@@ -79,14 +85,22 @@ namespace AppSmartKids.VM
                     Detail = dataa.Detail;
                     Name = dataa.Name;   
                     Price = dataa.Price.ToString();
-                    ResponseList<Images> response1 = await _serviceImage.GetListAllAsync("Sources/GetById?Id=" + Id);
+                    if (dataa.IsDiscount)
+                    {
+                        DiscountPercentage = dataa.DiscountPercentage.ToString();
+                    }else
+                    {
+                        DiscountPercentage = "";
+                    }
+                    products = dataa;
+                    ResponseList<Images> response1 = await _serviceImage.GetListAllAsync("Products/GetImagesByProductsId?Id=" + Id);
                     if (response1.success == false)
                     {         
                         await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
                     }
                     else
                     {
-                        Items = response1.data;
+                        Images = response1.data;
                     }
 
                 }
@@ -105,8 +119,8 @@ namespace AppSmartKids.VM
         {
             try
             {
-                if (Items.Count > 0)
-                    if (Position < Items.Count - 1)
+                if (Images.Count > 0)
+                    if (Position < Images.Count - 1)
                         Position = (Position + 1);
             }
             catch (Exception ex)
@@ -121,7 +135,7 @@ namespace AppSmartKids.VM
         {
             try
             {
-                if (Items.Count > 0)
+                if (Images.Count > 0)
                     if (Position > 0)
                         Position = (Position - 1);
             }
@@ -145,7 +159,8 @@ namespace AppSmartKids.VM
         }
         #endregion
 
-        #region click event Add To Cart
+
+        #region click event MaxBtn
         [ICommand]
         public async void MaxBtn()
         {
@@ -155,38 +170,64 @@ namespace AppSmartKids.VM
                 {
                     await App.Current.MainPage.DisplayAlert("تنبيه", "لا يوجد اتصال بلانترنت", "نعم");
                     return;
-                }                                                     
+                }
 
                 if (ListCart == null)
-                    ListCart = new ObservableCollection<Products>();
+                    ListCart = new ObservableCollection<OrderDetail>();
 
 
-                var itm = ListCart.FirstOrDefault(x=>x.ProductsId==Id);
+                var itm = ListCart.FirstOrDefault(x => x.ProductsId == Id);
                 if (itm != null)
+                {
                     itm.Count += 1;
+                    itm.Total = itm.Count * itm.Price;
+                    itm.NetAmount = itm.Total;
+                    if (itm.IsDiscount == true)
+                    {
+                        itm.TotalDiscount = (itm.NetAmount * itm.DiscountPercentage / 100);
+                        itm.NetAmount = itm.NetAmount - (itm.NetAmount * itm.DiscountPercentage / 100);
+                    }                
+
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "تم زيادة المنتج", "نعم");
+                }
                 else
                 {
-                    Response<Products> response = await _service.GetAsync("Magazine/GetById?Id=" + Id);
-                    if (response == null)
+                    var response = products;
+                    int DiscountPercentage = 0;
+                    decimal NetAmount = response.Price,
+                        TotalDiscount = 0;
+                    if (response.IsDiscount == true)
                     {
-                        await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
+                        DiscountPercentage = response.DiscountPercentage;
+                        TotalDiscount = (NetAmount * DiscountPercentage / 100);
+                        NetAmount = NetAmount - (NetAmount * DiscountPercentage / 100);
                     }
-
-                    Products master = new Products()
+                    OrderDetail master = new OrderDetail()
                     {
-                        Name = response.data.Name,
-                        Detail = response.data.Detail,
-                        Price = response.data.Price,
+                        ProductsId = Id,
+                        Name = response.Name,
+                        Price = response.Price,
                         Count = 1
-                    };
+                        ,
+                        Total = response.Price
+                        ,
+                        IsDiscount = response.IsDiscount
+                        ,
+                        DiscountPercentage = DiscountPercentage
+                        ,
+                        TotalDiscount = TotalDiscount
+                        ,
+                        NetAmount = NetAmount
 
+                    };                
                     ListCart.Add(master);
-                }              
-                await App.Current.MainPage.DisplayAlert("تنبيه","تم اضافة المنتج الى السلة", "نعم");
+
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "تم اضافة المنتج الى السلة", "نعم");
+                }
 
             }
             catch (Exception ex)
-            {                                       
+            {
                 await App.Current.MainPage.DisplayAlert("خطأ", "حدث خطأ", "نعم");
 
             }
@@ -200,25 +241,70 @@ namespace AppSmartKids.VM
         {
             try
             {
-                if (Name == "")
-                {
-                    await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
-                    return;
-                }
-                var itm = ListCart.FirstOrDefault(x => x.Name == Name);
+                var itm = ListCart.FirstOrDefault(x => x.ProductsId == Id);
                 if (itm != null)
                 {
                     itm.Count -= 1;
+                    itm.Total = itm.Count * itm.Price;
+                    itm.NetAmount = itm.Total;
+                    if (itm.IsDiscount == true)
+                    {
+                        itm.TotalDiscount = (itm.NetAmount * itm.DiscountPercentage / 100);
+                        itm.NetAmount = itm.NetAmount - (itm.NetAmount * itm.DiscountPercentage / 100);
+                    }
                     if (itm.Count == 0)
-                        ListCart.Remove(ListCart.FirstOrDefault(x => x.Name == Name));
-                }                                                     
+                        ListCart.Remove(ListCart.FirstOrDefault(x => x.ProductsId == Id));
 
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "تم نقصان  المنتج", "نعم");
+                }
             }
             catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
 
             }
+        }
+        #endregion
+
+        #region BtnLikeValue
+        [ICommand]
+        public async void BtnLikeValue(int para)
+        {
+            //if (InfoAccess.Id == 0) { return; }
+            //var source = Items.SingleOrDefault(x => x.ProductsId == para);
+            //if (String.Equals(source.SourceLike, "disHeart.png"))
+            //{
+            //    int newIndex = Items.IndexOf(source);
+            //    Items.Remove(source);
+            //    source.SourceLike = "Heart.png";
+            //    source.LikeCount = source.LikeCount + 1;
+            //    Items.Add(source);
+            //    int oldIndex = Items.IndexOf(source);
+            //    Items.Move(oldIndex, newIndex);
+            //    Like Like = new Like()
+            //    {
+            //        LikeId = 0,
+            //        ProductsId = para,
+            //        UserId = InfoAccess.Id
+            //    };
+
+            //    await _likeservice.PostAsync("Magazine/PostLike", Like);
+            //}
+            //else
+            //{
+            //    int newIndex = Items.IndexOf(source);
+            //    Items.Remove(source);
+            //    source.SourceLike = "disHeart.png";
+            //    source.LikeCount = source.LikeCount - 1;
+            //    Items.Add(source);
+            //    int oldIndex = Items.IndexOf(source);
+            //    Items.Move(oldIndex, newIndex);
+            //    Response<Like> response = await _likeservice.DeleteAsync("Magazine/RemoveLike?MagazineId=" + para.ToString() + "&UserId=" + InfoAccess.Id, "");
+            //    if (response.success == false)
+            //    {
+            //        await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
+            //    }
+            //}
         }
         #endregion
     }

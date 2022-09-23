@@ -138,7 +138,8 @@ namespace WebSmartKid.Helper.Repository
         public async Task<ResObj> Post(List<OrderDetail> orderDetail)
         {
             var firstrow = orderDetail.FirstOrDefault();
-            if (orderDetail.FirstOrDefault().UserId == 0)
+            int UserId=firstrow.UserId;
+            if (UserId == 0)
             {
                 Users users = new()
                 {
@@ -149,8 +150,18 @@ namespace WebSmartKid.Helper.Repository
                 };
                 await _context.Users.AddAsync(users);
                 await _context.SaveChangesAsync();
-                users.Token = JsonWebToken.GenerateToken(new UserManager() { Id =users.UserId,Name=users.Name});
-                firstrow.UserId=users.UserId;
+                firstrow.UserId=users.UserId;   
+            }
+            else  if(UserId>0)
+            {
+                Users users = await _context.Users.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
+                users.Name = firstrow.Name;
+                users.Details = firstrow.Detail;
+                users.Phone = firstrow.Phone;
+                users.CountryId = firstrow.CountryId;
+                _context.Entry(users).State = EntityState.Modified;
+                await _context.SaveChangesAsync();                                                                      
+                firstrow.UserId = users.UserId;
             }
             Orders orders = new Orders
             {
@@ -167,6 +178,7 @@ namespace WebSmartKid.Helper.Repository
              
             await _context.OrderDetail.AddRangeAsync(orderDetail);
             await _context.SaveChangesAsync();
+            orders.Token = JsonWebToken.GenerateToken(new UserManager() { Id = firstrow.UserId, Name = firstrow.Name });
 
             return Result.Return(true, "تم حفظ الطلب بنجاح",orders);
         }

@@ -1,4 +1,15 @@
-﻿//const baseUrl = "/";
+﻿const connection = new signalR.HubConnectionBuilder().withUrl("/Signalr")
+    .configureLogging(signalR.LogLevel.Information).build();
+connection.start({ withCredentials: false }).catch(err => console.error(err.toString()));
+connection.on('OnGetMessage', data => {
+    md.showNotification(data);
+    RefreshChat();
+});
+connection.on('GetOrder', data => {
+    md.showNotification(data);
+    RefreshOrders();
+}); 
+const baseUrl = "/"; 
 function call_ajax(method, url, object, call_back_func) {
     var userToken = getCookie("token2");
     mouseevent("progress");
@@ -98,3 +109,52 @@ function getCookie(cname) {
     }
     return "";
 }
+
+
+function RefreshChat() {
+
+    call_ajax("GET", "Chat/GetMessagechat", null, GetMessagechat);
+}
+
+function GetMessagechat(data) {
+    if (data.length === 0) {
+        toust.error("لا توجد رسائل الى الان");
+        return;
+    }
+
+    var userName = "";
+    var rows = "";
+    $('#messges').empty();
+    $.each(data, function (i, item) {
+        userName = item.name;
+        if (item.isOwner === false) {
+            rows = "<div class=' l'>" + "<div class='dl col' onclick=\"visiblebtn(\'#" + item.id + "btn','#" + item.id + "date')\" > <label> " + item.messageText + "</label> </div>" +
+                "<div id='" + item.id + "btn' class='col btntrash'>" +
+                " <a onclick=\"deletemessage(" + item.id + ")\"  style='padding: 7px 11px;  border-radius: 50%;' class='  btn btn-transparent'><i style='font-size: 177%;' class='tf-ion-trash-b'></i></a>" +
+                " </div>" +
+                "</div>" +
+                " <span style='float:left;'  class='date' id='" + item.id + "date'>" + item.date + "/تاريخ الارسال </span>";
+        }
+        else {
+            rows = "<div class='row r' >" +
+                " <div class='row dr'   onclick=\"visiblebtn(\'#" + item.id + "btn','#" + item.id + "date')\"> <label class='col' >" + item.messageText + "</label>    </div>" +
+                "<div id='" + item.id + "btn' class='col btntrash'>" +
+                " <a onclick=\"deletemessage(" + item.id + ")\"  style='padding: 7px 11px;  border-radius: 50%;' class='  btn btn-transparent'><i style='font-size: 177%;' class='tf-ion-trash-b'></i></a>" +
+                " </div>" +
+                "</div>" +
+                "<span class='date'   style='float:right;'>" + item.date + " /تاريخ الارسال </span>";
+        }
+
+        $('#messges').append(rows);
+    });
+
+    $('#userchatinfoid').empty();
+    var rows1 = "<h3 style='margin-top: -32px;'>" + userName + " </h3>";
+    $('#userchatinfoid').append(rows1);
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
+
+function GetMessageList() {
+    call_ajax("GET", "Chat/GetMessageList", null, messageList);
+};

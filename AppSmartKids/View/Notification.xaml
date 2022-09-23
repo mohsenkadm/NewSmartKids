@@ -6,7 +6,10 @@
                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
     <ContentPage.Content>  
                 <VerticalStackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
-                    <Label    Style="{StaticResource Key=TitleLabel}" Text="الاشعارات" ></Label>
+            <StackLayout HorizontalOptions="FillAndExpand">
+                <ImageButton Style="{StaticResource back}" Source="dotnet_bot.svg"></ImageButton>
+            </StackLayout>
+            <Label    Style="{StaticResource Key=TitleLabel}" Text="الاشعارات" ></Label>
                     <VerticalStackLayout  HorizontalOptions="FillAndExpand"  >
                         <Border Padding="0,20,10,0">
                             <Border.StrokeShape>

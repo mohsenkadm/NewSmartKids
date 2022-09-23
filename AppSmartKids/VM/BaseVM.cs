@@ -1,6 +1,7 @@
 ﻿using AppSmartKids.Helper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Entity.Entity;
+using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,10 +16,12 @@ namespace AppSmartKids.VM
         [ObservableProperty]
         private bool isRefreshing;
         [ObservableProperty]
-        private bool isRunning;
+        private bool isRunning; 
+        [ObservableProperty]
+        private bool isBusy;
 
         [ObservableProperty]
-        protected static ObservableCollection<Products> _ListCart;
+        protected static ObservableCollection<OrderDetail> _ListCart;
         #region CheckConnection
         public bool CheckConnection()
         {
@@ -30,6 +33,14 @@ namespace AppSmartKids.VM
             {
                 return true;
             }
+        }
+        #endregion
+
+        #region go back
+        [ICommand]
+        public async void BackBtn()
+        {
+            await AppShell.Current.GoToAsync("..");
         }
         #endregion
     }

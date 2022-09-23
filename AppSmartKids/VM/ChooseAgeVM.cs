@@ -85,6 +85,11 @@ namespace AppSmartKids.VM
                 {
                     await AppShell.Current.DisplayAlert("خطا", "يجب تحديد العمر اولا", "نعم"); return;
                 }
+                var list = ListAgeParam.Where(i => i.State == true).ToList();
+                if(list.Count==0)
+                {       
+                    await AppShell.Current.DisplayAlert("خطا", "يجب تحديد العمر اولا", "نعم"); return;
+                }
                 var navParam = new Dictionary<string, object>();
                 navParam.Add("CategoriesId", CategoriesId);
                 navParam.Add("listAgeParam", ListAgeParam);

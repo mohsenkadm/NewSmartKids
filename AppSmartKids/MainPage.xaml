@@ -6,7 +6,7 @@
              x:Class="AppSmartKids.MainPage" x:Name="page"
               >
     <ContentPage.Content  > 
-            <ScrollView     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <ScrollView   >
                 <VerticalStackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
                      <Grid >
                     <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
                     </Border>
 
                     <Label Style="{StaticResource TitleLabel}" Text="الطفل العبقري لوسائل التعليم"></Label>
-                    <Border Grid.Row="0"  Stroke="{StaticResource Primary}"  HeightRequest="180" Grid.RowSpan="2"  
+                    <Border StrokeThickness="2" Grid.Row="0"  Stroke="{StaticResource Primary}"  HeightRequest="180" Grid.RowSpan="2"  
                            Padding="2" Margin="20,100,20,20"  VerticalOptions="CenterAndExpand" >
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10"></RoundRectangle>
@@ -32,11 +32,9 @@
                                 <StackLayout >
                                 <CarouselView Position="{Binding  Position}" HeightRequest="180"   ItemsSource="{Binding ItemsCarousel}"    IndicatorView="indi">
                                 <CarouselView.ItemTemplate>
-                                    <DataTemplate>
-                                            <Frame   BackgroundColor="{x:DynamicResource white}" 
-                                               Padding="0" >
-                                                <Image HeightRequest="180"  Source="{Binding Image}" Aspect="AspectFill"></Image>
-                                        </Frame>
+                                    <DataTemplate> 
+                                        <Image HeightRequest="180"  Source="{Binding Image}" Aspect="AspectFill"></Image>
+                                       
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
                             </CarouselView>
@@ -45,11 +43,98 @@
                     <IndicatorView Grid.Row="1" HorizontalOptions="Center" VerticalOptions="EndAndExpand"  IndicatorColor="LightGray" SelectedIndicatorColor="{x:DynamicResource Primary}" x:Name="indi"></IndicatorView>
                 </Grid>
 
-                <RefreshView  HorizontalOptions="FillAndExpand" Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
+                <StackLayout Margin="10,20,10,20" VerticalOptions="CenterAndExpand">
+                    <Grid ColumnSpacing="30" RowSpacing="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="90" />
+                            <RowDefinition Height="90"/>  
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="0">
+                            <Border StrokeThickness="0"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="60"  WidthRequest="60">
+                                <Image  Scale="0.7" Source="dotnet_bot.svg"/>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20"></RoundRectangle>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped_5"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="مركز الاشعارات"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="0">
+                            <Border StrokeThickness="0"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="60"  WidthRequest="60">
+                                <Image  Scale="0.7" Source="dotnet_bot.svg"/>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20"></RoundRectangle>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer   Tapped="TapGestureRecognizer_Tapped_4"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="الدعم الفني"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="0">
+                            <Border StrokeThickness="0"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="60"  WidthRequest="60">
+                                <Image  Scale="0.7" Source="dotnet_bot.svg"/>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20"></RoundRectangle>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer   Tapped="TapGestureRecognizer_Tapped_3"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="مشاركة التطبيق"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="1">
+                            <Border StrokeThickness="0"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="60"  WidthRequest="60">
+                                <Image  Scale="0.7" Source="dotnet_bot.svg"/>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20"></RoundRectangle>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer   Tapped="TapGestureRecognizer_Tapped_2"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="المنشورات"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="1">
+                            <Border StrokeThickness="0"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="60"  WidthRequest="60">
+                                <Image  Scale="0.7" Source="dotnet_bot.svg"/>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20"></RoundRectangle>
+                                </Border.StrokeShape>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer    Tapped="TapGestureRecognizer_Tapped_1"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                            
+                            <Label  HorizontalOptions="CenterAndExpand" Text="الفئات"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="1">
+                            <Border StrokeThickness="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="60"  WidthRequest="60">
+                                <Image  Scale="0.7" Source="dotnet_bot.svg"/>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20"></RoundRectangle>
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer   Tapped="TapGestureRecognizer_Tapped"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="عربة التسوق"/>
+                        </StackLayout>
+                    </Grid> 
+                </StackLayout>
+                <RefreshView  HorizontalOptions="CenterAndExpand" Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
 
                     <CollectionView   Margin="0,10"  ItemsSource="{Binding Items}">
                     <CollectionView.Header>
-                                <Label  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" FontSize="20" Text="الاصناف"></Label>
+                            <Label  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" FontSize="20" Text="الفئات"></Label>
                     </CollectionView.Header> 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="entity:Categories">
@@ -89,17 +174,7 @@
                                 </Border>
                             </StackLayout>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    <CollectionView.Footer >
-                        <StackLayout Margin="0,20">
-                                <Button  Margin="30,20,30,5"   Command="{Binding SendOrderCommand}" Text="انهاء الطلب"/>
-                           <btn:ButtonControl HorizontalOptions="Center"
-                               Text="click me"
-                               Command="{Binding btn}"  
-                               LoadingText="انتظر" 
-                               IsInPrograss="{Binding IsInPrograss}"/>
-                                </StackLayout>
-                    </CollectionView.Footer>
+                    </CollectionView.ItemTemplate> 
                     </CollectionView>
                 </RefreshView>
             </VerticalStackLayout>

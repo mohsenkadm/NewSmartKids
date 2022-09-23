@@ -13,7 +13,6 @@ namespace WebSmartKid.Model.EntityMap
             builder.HasKey(x => x.OrderDetailId);
             builder.Property(x => x.OrderId).IsRequired();
             builder.Property(x => x.ProductsId).IsRequired(); 
-            builder.Property(x => x.AgeId).IsRequired(); 
             builder.Property(x => x.Price).IsRequired(); 
             builder.Property(x => x.Count).IsRequired(); 
             builder.Property(x => x.DiscountPercentage).IsRequired(); 
@@ -30,6 +29,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.Ignore(x => x.TotalDiscount); 
             builder.Ignore(x => x.IsCancel); 
             builder.Ignore(x => x.IsApporve); 
+            builder.Ignore(x => x.IsDiscount); 
             builder.Ignore(x => x.IsDone);     
         }
     }

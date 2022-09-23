@@ -9,7 +9,7 @@
                     <Grid >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"></RowDefinition>
-                            <RowDefinition Height="80"></RowDefinition>
+                            <RowDefinition Height="78"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Border  Margin="0" StrokeThickness="0" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
                             <Border.StrokeShape>

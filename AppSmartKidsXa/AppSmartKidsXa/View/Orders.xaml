@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          NavigationPage.HasNavigationBar="False"   x:Class="AppSmartKidsXa.View.Orders"   Title="الطلبات" x:Name="page">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Frame Margin="0,-40,0,0" CornerRadius="50" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+                        
+                    </Frame>
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
+                    </StackLayout>
+                    <Label Style="{StaticResource TitleLabel} " Margin="0,30,0,0" Text="الطلبات"></Label>
+                    <Frame Grid.Row="0" CornerRadius="10"  BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
+                           Padding="2" Margin="20,70,20,20"   VerticalOptions="CenterAndExpand" >
+                        <SearchBar   Text="{Binding SearchText}" Placeholder="بحث عن رقم الطلب"></SearchBar>
+                    </Frame>
+                </Grid>
+                <StackLayout  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsVisibleLoginContent}">
+                    <Button Clicked="Button_Clicked"  WidthRequest="200"  Text="لمتابعة الطلبات يرجى تسجيل حساب اولا"/>
+                </StackLayout>
+                <StackLayout   IsVisible="{Binding IsVisibleContent}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="85"></RowDefinition>
+                            <RowDefinition Height="85"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Frame Margin="10,0,5,5" Padding="0" Grid.Column="0" HasShadow="True"  Grid.Row="0"  BorderColor="Transparent" BackgroundColor="#F80F0F" >
+                            <StackLayout  >
+                                <Label   HorizontalTextAlignment="Center" Margin="0,10,0,0" Text="طلبات الملغية"
+                               FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                                <Label Text="{Binding SumCancel}" HorizontalTextAlignment="Center"   Margin="0,10,0,0" FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame Margin="5,0,10,5"  Padding="0" Grid.Column="1" HasShadow="True" Grid.Row="0"  BorderColor="Transparent" BackgroundColor="#F700DE">
+                            <StackLayout>
+                                <Label   HorizontalTextAlignment="Center" Margin="0,10,0,0" Text="تحت الانتظار"
+                               FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                                <Label Text="{Binding SumWaiting}" HorizontalTextAlignment="Center"   Margin="0,10,0,0" FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame Margin="10,5,5,0" Grid.Column="0" HasShadow="True" Padding="0" Grid.Row="1"  BorderColor="Transparent" BackgroundColor="#42CFBB">
+                            <StackLayout>
+                                <Label   HorizontalTextAlignment="Center" Margin="0,10,0,0" Text="الموافق عليها"
+                               FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                                <Label Text="{Binding SumApproved}" HorizontalTextAlignment="Center"   Margin="0,10,0,0" FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame Margin="5,5,10,0" Grid.Column="1" HasShadow="True" Padding="0" Grid.Row="1"  BorderColor="Transparent" BackgroundColor="#18C941">
+                            <StackLayout>
+                                <Label   HorizontalTextAlignment="Center" Margin="0,10,0,0" Text="المنتهية"
+                               FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                                <Label Text="{Binding SumDone}" HorizontalTextAlignment="Center"   Margin="0,10,0,0" FontSize="18" TextColor="{x:StaticResource White}"></Label>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                    <Label HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" Margin="0,20,0,0" FontSize="20" Text="الطلبات"></Label>
+
+                    <RefreshView  Command="{Binding RefreshCommand}"   IsRefreshing="{Binding IsRefreshing}" >
+                        <CollectionView   ItemsSource="{Binding Items}" VerticalScrollBarVisibility="Always"    >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Frame Padding="10,10,10,0"  CornerRadius="15" Margin="10,10,10,10"   BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
+
+                                            <StackLayout HorizontalOptions="FillAndExpand">
+                                                <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Orientation="Horizontal">
+                                                    <Label Text="{Binding OrderNo}" FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
+                                                    <Label TextColor="{x:StaticResource Black}"  FontSize="20" Text="رقم الطلب"   />
+                                                </StackLayout>
+                                                <StackLayout  HorizontalOptions="CenterAndExpand"  Spacing="10"  Orientation="Horizontal">
+                                                    <Label Text="{Binding OrderDate}" FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
+                                                    <Label TextColor="{x:StaticResource Black}"    FontSize="20" Text="تاريخ الطلب"   />
+                                                </StackLayout>
+                                                <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10"  Orientation="Horizontal">
+                                                    <Label Text="{Binding Total}" FontSize="20"   TextColor="{x:DynamicResource Primary}" />
+                                                    <Label TextColor="{x:StaticResource Black}"   FontSize="20" Text="مجموع الطلب"   />
+                                                </StackLayout>
+                                                <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10"  Orientation="Horizontal">
+                                                    <Label Text="{Binding TotalDiscount}" FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
+                                                    <Label TextColor="{x:StaticResource Black}"   FontSize="20" Text="مجموع الخصم"   />
+                                                </StackLayout>
+                                                <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10"  Orientation="Horizontal">
+                                                    <Label Text="{Binding NetAmount}" FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
+                                                    <Label TextColor="{x:StaticResource Black}"    FontSize="20" Text="صافي المبلغ"   />
+                                                </StackLayout>
+                                                <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10"  Orientation="Horizontal"> 
+                                                    <Label   FontSize="18" HorizontalTextAlignment="Center"    Margin="0,0,20,10">
+                                                        <Label.Triggers>
+                                                            <MultiTrigger TargetType="Label">
+                                                                <MultiTrigger.Conditions>
+                                                                    <BindingCondition Binding="{Binding IsCancel}" Value="True"/>
+                                                                </MultiTrigger.Conditions>
+                                                                <Setter Property="Text" Value="الملغية"/>
+                                                                <Setter Property="TextColor" Value="#F80F0F"/>
+                                                            </MultiTrigger>
+                                                            <MultiTrigger TargetType="Label">
+                                                                <MultiTrigger.Conditions>
+                                                                    <BindingCondition Binding="{Binding IsApporve}" Value="True"/>
+                                                                </MultiTrigger.Conditions>
+                                                                <Setter Property="Text" Value="الموافق عليها"/>
+                                                                <Setter Property="TextColor" Value="#42CFBB"/>
+                                                            </MultiTrigger>
+                                                            <MultiTrigger TargetType="Label">
+                                                                <MultiTrigger.Conditions>
+                                                                    <BindingCondition Binding="{Binding IsDone}" Value="True"/>
+                                                                </MultiTrigger.Conditions>
+                                                                <Setter Property="Text" Value="المنتهية"/>
+                                                                <Setter Property="TextColor" Value="#18C941"/>
+                                                            </MultiTrigger>
+                                                            <MultiTrigger TargetType="Label">
+                                                                <MultiTrigger.Conditions>
+                                                                    <BindingCondition Binding="{Binding IsDone}" Value="False"/>
+                                                                    <BindingCondition Binding="{Binding IsApporve}" Value="False"/>
+                                                                    <BindingCondition Binding="{Binding IsCancel}" Value="False"/>
+                                                                </MultiTrigger.Conditions>
+                                                                <Setter Property="Text" Value="تحت الانتظار"/>
+                                                                <Setter Property="TextColor" Value="#F700DE"/>
+                                                            </MultiTrigger>
+
+                                                        </Label.Triggers>
+                                                    </Label>
+                                                    <Label TextColor="{x:StaticResource Black}"  FontSize="20" Text="حالة الطلب"   />
+                                                </StackLayout>
+                                                <Button  HorizontalOptions="CenterAndExpand" Margin="0,0,0,10" CommandParameter="{Binding OrderId}"  
+                                                        Command="{Binding Source={x:Reference page}, Path=BindingContext.ShowItem}"
+                                                        Text="تفاصيل الطلب"   />
+                                            </StackLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </StackLayout>
+            </StackLayout>
+            
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

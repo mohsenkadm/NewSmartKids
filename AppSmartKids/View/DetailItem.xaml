@@ -2,11 +2,36 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppSmartKids.View.DetailItem"
-             Title="DetailItem">
+             Title="تفاصيل المنتج">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <StackLayout HorizontalOptions="FillAndExpand" Padding="0"  Margin="2"  HeightRequest="350">
+            <StackLayout HorizontalOptions="FillAndExpand">
+                <ImageButton Style="{StaticResource back}" Source="dotnet_bot.svg"></ImageButton>
+            </StackLayout>
+            <StackLayout >
+                <CarouselView Position="{Binding  Position}" ItemsSource="{Binding Images}"  IndicatorView="indi">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Image  Source="{Binding ImagePath}"  Aspect="Fill"></Image>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </StackLayout>
+        </StackLayout>
+        <IndicatorView HorizontalOptions="Center"  IndicatorColor="White" SelectedIndicatorColor="{x:DynamicResource Primary}" x:Name="indi"></IndicatorView>
+        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="CenterAndExpand">
+            <Button   VerticalOptions="Start"  Command="{Binding NextCommand}" Text="التالي"/>
+            <Button   VerticalOptions="End"  Command="{Binding prevCommand}" Text="السابق" />
+        </StackLayout>
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,5">
+            <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtnCommand}"  CommandParameter="{Binding ProductsId}"   FontSize="20" Text="+" WidthRequest="40" HeightRequest="40" Padding="0"/>
+            <Label TextColor="{x:StaticResource Primary}" VerticalTextAlignment="Center"  FontSize="16" Text="{Binding Count}"   />
+            <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MinBtnCommand}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
+        </HorizontalStackLayout>
+        <StackLayout>
+            <Label  Text="{Binding Name}"  HorizontalOptions="FillAndExpand" FontSize="20"  Margin="13"></Label>
+            <Label  Text="{Binding Detail}"  HorizontalOptions="FillAndExpand" FontSize="20"  Margin="13"></Label>
+            <Label  Text="{Binding Details}"  HorizontalOptions="FillAndExpand" FontSize="20"  Margin="13"></Label>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

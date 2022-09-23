@@ -119,18 +119,5 @@ namespace AppSmartKids.VM
         }
         #endregion
 
-        #region click event open SendOrder
-        [ICommand]
-        public async void SendOrder()
-        {
-            try
-            {
-                await AppShell.Current.GoToAsync(nameof(View.SendOrder), true);
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-        #endregion
     }
 }

@@ -44,7 +44,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CountriesController => GetAll => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CountriesController => GetAll => name:"  );
                 return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
             }
         }
@@ -69,7 +69,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CountriesController => Post => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CountriesController => Post => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحفظ");
             }
         }
@@ -87,7 +87,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CountriesController => Delete => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CountriesController => Delete => name:"  );
                 return Response(false, "حدث خطا اثناء عملية الحذف");
             }
         }
@@ -105,7 +105,7 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {
-                await _logger.WriteAsync(ex, "CountriesController => GetById => name:" + UserManager.Id);
+                await _logger.WriteAsync(ex, "CountriesController => GetById => name:"  );
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
             }
         }

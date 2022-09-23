@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "دردشة";
+    Layout = "~/Views/Shared/_LayoutForLogin.cshtml";
+}
+<section style="position:fixed; top:0; left:0; width:100%;">
+    <div class="chatwidth" style="">
+        <div class="text-center price-title wow fadeInDown">
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a class="" onclick="call_Action('Home/Index')"><i class='icon tf-ion-arrow-left-c' style="font-size:175%;"></i></a>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a class="" onclick="call_Action(GetMessageList())" data-toggle='modal' data-target='#messagemodel'><i class='icon tf-ion-chatboxes' style="font-size:175%;"></i></a>
+                </div>
+                <div id="userchatinfoid" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " style="margin-left:30%">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .dr {
+        border-radius: 15px;
+        background-color: #2f383d;
+        /* width: 40%;*/
+        /*margin-left: 60%;*/
+        max-width: 40%;
+        margin-bottom: 4px;
+        float: right;
+        padding: 1%;
+        color: #ddd;
+        text-align: right;
+    }
+
+    .dl {
+        border-radius: 15px;
+        background-color: #57cbcc;
+        /*   width: 40%;*/
+        max-width: 40%;
+        margin-bottom: 4px;
+        margin-right: 60%;
+        float: left;
+        padding: 1%;
+        color: #fff;
+        text-align: right;
+    }
+
+    .r {
+        float: right;
+        width: 100%;
+    }
+
+    .l {
+        float: left;
+        width: 100%;
+    }
+
+    .btntrash {
+        float: right;
+        margin-right: 3%;
+        display: none;
+    }
+
+    .date {
+        display: none;
+    }
+
+    .check {
+        font-size: 150%;
+        /* font-weight: bold;
+            color: #57cbcc;
+            margin-top: 2%;*/
+        float: right;
+        margin-left: 3%;
+    }
+</style>
+<section class="session_chat">
+    <div id="messges" class="chatmassagewidth container text-center" style=" height: 90%;   overflow: visible; background-color: transparent;">
+    </div>
+</section>
+<section style="position:fixed; top:88%; left:0px; width:100%;">
+    <div class="chatwidth" style="">
+        <div class="text-center price-title ">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <input style="margin-left:10%; border:1px solid #ffffff" type="text" placeholder=".....اكتب رسالتك " class="bo form-control text-right" autocomplete="off" name="messagetext" id="messagetext" />
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="margin-left:6%">
+                    <a id="sendmessage" class="btn btn-transparent text-center" style="padding: 3px 5px 2px 2px; border-radius: 25px;"><i class='icon tf-ion-android-send' style="font-size: 175%;margin-left: 6px;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="mydiv">
+    <script>
+
+        $(document).ready(function () {
+            call_ajax("GET", "Chat/GetMessagechat", null, GetMessagechat);
+        });
+        var input = document.getElementById("messagetext");
+
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#sendmessage").click();
+            }
+        });
+
+        $("#sendmessage").on("click", (e) => {
+            e.preventDefault();
+            var object = {
+                message: $("#messagetext").val(),
+            };
+            if (object.message === "" || object.message.trim() === "") {
+                return;
+            }
+            call_ajax("POST", "Chat/SendMessage", object, RefreshChat);
+            $("#messagetext").val("");
+        });
+
+    </script>
+</div>

@@ -1,7 +1,6 @@
 ﻿using AppSmartKids;
 using AppSmartKids.Helper;
-using AppSmartKids.VM;
-using Entity.Entity;
+using AppSmartKids.VM;   
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +12,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using AppSmartKids.View;
  
 using AppSmartKids.Helper.IServices;
+using OrderDetail = Entity.Entity.OrderDetail;
 
 namespace AppSmartKids.VM
 {
@@ -27,6 +27,9 @@ namespace AppSmartKids.VM
         public List<TblAges> listAgeParam;  
         [ObservableProperty]
         public Products productFilter;
+
+        [ObservableProperty]
+        public ObservableCollection<Products> _ItemsSearch;
         private readonly IGetDataUrlService<Like> _likeservice;
         private readonly IGetDataUrlService<Products> _service;
         [ObservableProperty]
@@ -34,7 +37,10 @@ namespace AppSmartKids.VM
         [ObservableProperty]
         public string name;
         [ObservableProperty]
-        private ObservableCollection<Products> items;   
+        private ObservableCollection<Products> items;
+
+        [ObservableProperty]
+        public string searchtxt;
         #endregion
 
         #region const
@@ -100,7 +106,8 @@ namespace AppSmartKids.VM
                 }
                 else
                 {
-                     Items= response.data;   
+                     Items= ItemsSearch = response.data;
+                   
                 }
             }
             catch (Exception ex)
@@ -108,6 +115,17 @@ namespace AppSmartKids.VM
                 await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
 
             }
+        }
+        #endregion
+
+        #region Load Item 
+        [ICommand]
+        public async Task GetData()
+        {
+            if (Searchtxt.Trim().Length > 0)
+                Items = (ObservableCollection<Products>)Items.Where(x => x.Name.Contains(Searchtxt));
+            else
+                Items = ItemsSearch;
         }
         #endregion
 
@@ -138,26 +156,54 @@ namespace AppSmartKids.VM
                 }
 
                 if (ListCart == null)
-                    ListCart = new ObservableCollection<Products>();
+                    ListCart = new ObservableCollection<OrderDetail>();
 
 
                 var itm = ListCart.FirstOrDefault(x => x.ProductsId == Id);
                 if (itm != null)
+                {
                     itm.Count += 1;
+                    itm.Total = itm.Count * itm.Price;
+                    itm.NetAmount = itm.Total;
+                    if (itm.IsDiscount == true)
+                    {
+                        itm.TotalDiscount=(itm.NetAmount * itm.DiscountPercentage / 100);  
+                        itm. NetAmount = itm.NetAmount - (itm.NetAmount * itm.DiscountPercentage / 100);
+                    }                  
+
+                        await App.Current.MainPage.DisplayAlert("تنبيه", "تم زيادة المنتج", "نعم");
+                }
                 else
                 {
-                    var response =  Items.FirstOrDefault(i => i.ProductsId == Id);
-                    Products master = new Products()
+                    var response = Items.FirstOrDefault(i => i.ProductsId == Id);
+                    int DiscountPercentage = 0;
+                    decimal NetAmount=response.Price,
+                        TotalDiscount = 0;
+                    if (response.IsDiscount == true)
+                    {
+                        DiscountPercentage = response.DiscountPercentage;
+                        TotalDiscount = (NetAmount * DiscountPercentage / 100);
+                        NetAmount = NetAmount - (NetAmount * DiscountPercentage / 100);  
+                    }
+                    OrderDetail master = new OrderDetail()
                     {
                         ProductsId = Id,
                         Name = response.Name,
                         Price = response.Price,
                         Count = 1
-                    };
+                        ,Total = response.Price 
+                        ,IsDiscount=response.IsDiscount
+                        ,DiscountPercentage = DiscountPercentage
+                        ,TotalDiscount = TotalDiscount
+                        ,NetAmount = NetAmount
 
+                    };
+                    var prod = Items.FirstOrDefault(x => x.ProductsId == Id);
+                    prod.Count = 1;
                     ListCart.Add(master);
+
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "تم اضافة المنتج الى السلة", "نعم");
                 }
-                await App.Current.MainPage.DisplayAlert("تنبيه", "تم اضافة المنتج الى السلة", "نعم");
 
             }
             catch (Exception ex)
@@ -179,10 +225,18 @@ namespace AppSmartKids.VM
                 if (itm != null)
                 {
                     itm.Count -= 1;
-                    
+                    itm.Total = itm.Count * itm.Price;
+                    itm.NetAmount = itm.Total;
+                    if (itm.IsDiscount == true)
+                    {
+                        itm.TotalDiscount = (itm.NetAmount * itm.DiscountPercentage / 100);
+                        itm.NetAmount = itm.NetAmount - (itm.NetAmount * itm.DiscountPercentage / 100);
+                    }
                     if (itm.Count == 0)
                         ListCart.Remove(ListCart.FirstOrDefault(x => x.ProductsId == Id));
-                }                                                                
+
+                    await App.Current.MainPage.DisplayAlert("تنبيه", "تم نقصان  المنتج", "نعم");
+                }
             }
             catch (Exception ex)
             {

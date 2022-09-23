@@ -2,11 +2,65 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppSmartKids.View.SendOrder"
-             Title="SendOrder">
+              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             Title="ارسال الطلب">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <skia:SKLottieView
+                Source="deliverymotorbike.json"
+                RepeatCount="-1"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                WidthRequest="200"
+                HorizontalOptions="Center" />
+        <Label  TextColor="{x:StaticResource black}"   FontSize="20" Text="يرجى ملئ معلوماتك بشكل صحيح لارسال الطلب للعنوان المطلوب "  />
+ 
+            <Border  Margin="0" StrokeThickness="0" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,50,50"></RoundRectangle>
+                </Border.StrokeShape>
+            </Border>  
+            <Border Grid.Row="0"  Stroke="{StaticResource Primary}"  Grid.RowSpan="2"  
+                           Padding="2" Margin="20,100,20,20"   VerticalOptions="CenterAndExpand" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"></RoundRectangle>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"  Offset="10,10"  Opacity="0.5"></Shadow>
+                </Border.Shadow>
+                <StackLayout HeightRequest="120"    >
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="المجموع" Margin="60,10,10,0"   TextColor="{x:StaticResource Black}" FontSize="24"  />
+                    <Label Text="{Binding Total}"  Margin="5,10,0,0" TextColor="{x:StaticResource Primary}"  FontSize="20"/>
+                    </StackLayout>
+                    <StackLayout  Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                        <Label Text="الخصم" Margin="60,10,10,0"   TextColor="{x:StaticResource Black}" FontSize="20"  />
+                        <Label Text="{Binding TotalDiscount}"   Margin="20,10,0,0"  TextColor="{x:StaticResource Primary}" FontSize="20"/>
+                    </StackLayout>
+                    <StackLayout  Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                        <Label Text="صافي المبلغ" Margin="60,10,10,0"   TextColor="{x:StaticResource Black}" FontSize="20"  />
+                        <Label Text="{Binding NetAmount}"   Margin="20,10,0,0"  TextColor="{x:StaticResource Primary}" FontSize="20"/>
+                    </StackLayout>
+                </StackLayout>
+            </Border>
+        <Frame    BorderColor="{x:DynamicResource Primary}"  CornerRadius="7" BackgroundColor="{x:DynamicResource White}" Margin="10,0,10,10" Padding="0" >
+            <Entry HeightRequest="40"   FontFamily="FontTR" Text="{Binding Name}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Blue2}" FontSize="14" 
+                                           HorizontalTextAlignment="Center" Keyboard="Text"  Placeholder=" اكتب اسمك الكامل"/>
+        </Frame>
+        <Frame    BorderColor="{x:DynamicResource Primary}"  CornerRadius="7" BackgroundColor="{x:DynamicResource White}" Margin="10,0,10,10" Padding="0" >
+            <Entry HeightRequest="40"   FontFamily="FontTR" Text="{Binding Phone}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Blue2}" FontSize="14" 
+                                           HorizontalTextAlignment="Center" Keyboard="Telephone"  Placeholder=" اكتب رقم الهاتف "/>
+        </Frame>
+        <Frame  BorderColor="{x:DynamicResource Primary}" CornerRadius="7" BackgroundColor="{x:DynamicResource White}"  Padding="0" Margin="10,0,10,10"  >
+            <Picker HeightRequest="40"  SelectedItem="{Binding CountryIdSelected}" FontFamily="FontTR" ItemsSource="{Binding Countrys}" ItemDisplayBinding="{Binding CountryName}" 
+                                                Margin="10,0,10,0" TitleColor="{x:DynamicResource Blue2}" TextColor="{x:DynamicResource Primary}" FontSize="14" HorizontalTextAlignment="Center" Title="اختيار المحافظة"></Picker>
+        </Frame>
+
+        <Frame    BorderColor="{x:DynamicResource Primary}"  CornerRadius="7" BackgroundColor="{x:DynamicResource White}" Margin="10,0,10,10" Padding="0" >
+            <Entry HeightRequest="100"   FontFamily="FontTR" Text="{Binding Details}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Blue2}" FontSize="14" 
+                                           HorizontalTextAlignment="Center" Keyboard="Default"  Placeholder="اكتب تفاصيل الطلب"/>
+        </Frame>
+        <StackLayout Margin="0,20">
+            <Button   Margin="30,20,30,5"   Command="{Binding SendOrderBtnCommand}" Text="ارسال الطلب"/>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>
