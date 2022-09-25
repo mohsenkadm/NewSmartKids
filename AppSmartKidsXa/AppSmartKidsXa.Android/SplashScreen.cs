@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AppSmartKidsXa.Droid
 {
-    [Activity(Label = "الطفل العبقري", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "الطفل العبقري لوسائل التعليم", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashScreen : AppCompatActivity
     {
         public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)

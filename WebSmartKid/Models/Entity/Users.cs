@@ -14,5 +14,6 @@ namespace Entity.Entity
         public string Details { get; set; }    
         public string Token { get; set; }       
         public int CountryId { get; set; }       
+        public string Address { get; set; }       
     }
 }

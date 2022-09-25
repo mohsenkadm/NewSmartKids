@@ -1,6 +1,7 @@
 ﻿using AppSmartKidsXa.Helper;
 using Com.OneSignal;
-using Com.OneSignal.Abstractions;
+using Com.OneSignal.Core;
+//using Com.OneSignal.Abstractions;
 using System;
 using System.Collections.Generic;
 using Xamarin.Essentials;
@@ -31,32 +32,33 @@ namespace AppSmartKidsXa
 
             }
             try
-            {                   
-                OneSignal.Current.StartInit("86509cbb-2e1b-49ab-af76-246c2772ac75").HandleNotificationOpened(HandleNotificationOpened)
-             .HandleNotificationReceived(HandleNotificationReceived)
-             .Settings(new Dictionary<string, bool>() {
-                { IOSSettings.kOSSettingsKeyAutoPrompt, false },
-                { IOSSettings.kOSSettingsKeyInAppLaunchURL, false } })
-             .InFocusDisplaying(OSInFocusDisplayOption.Notification)
-             .EndInit();    
-                OneSignal.Current.RegisterForPushNotifications();
+            {
+                OneSignal.Default.Initialize("86509cbb-2e1b-49ab-af76-246c2772ac75");
+             //       .HandleNotificationOpened(HandleNotificationOpened)
+             //.HandleNotificationReceived(HandleNotificationReceived)
+             //.Settings(new Dictionary<string, bool>() {
+             //   { IOSSettings.kOSSettingsKeyAutoPrompt, false },
+             //   { IOSSettings.kOSSettingsKeyInAppLaunchURL, false } })
+             //.InFocusDisplaying(OSInFocusDisplayOption.Notification)
+             //.EndInit();            
+                OneSignal.Default.PromptForPushNotificationsWithUserResponse();
                 if (InfoAccess.Id > 0)
                 {
                     string externalUserId = InfoAccess.Id.ToString(); // You will supply the external user id to the OneSignal SDK 
 
-                    OneSignal.Current.SetExternalUserId(externalUserId);
+                    OneSignal.Default.SetExternalUserId(externalUserId);
 
                 }
             }
             catch (Exception ex) { }
             MainPage = new NavigationPage( new MainPage());
         }
-        private async void HandleNotificationReceived(OSNotification notification)
+        private async void HandleNotificationReceived(Notification notification)
         {
             try
             {
-                string str1 = notification.payload.title;
-                string str2 = notification.payload.body;
+                string str1 = notification.title;
+                string str2 = notification.body;
 
                 await App.Current.MainPage.DisplayAlert(str1, str2, "نعم");
             }
@@ -64,12 +66,12 @@ namespace AppSmartKidsXa
             { }
         }
 
-        private async void HandleNotificationOpened(OSNotificationOpenedResult result)
+        private async void HandleNotificationOpened(NotificationOpenedResult result)
         {
             try
             {
-                string str1 = result.notification.payload.title;
-                string str2 = result.notification.payload.body;
+                string str1 = result.notification.title;
+                string str2 = result.notification.body;
 
                 await App.Current.MainPage.DisplayAlert(str1, str2, "نعم");
             }

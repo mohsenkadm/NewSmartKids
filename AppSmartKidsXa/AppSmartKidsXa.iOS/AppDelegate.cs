@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Com.OneSignal;
-using Com.OneSignal.Abstractions;
+using Com.OneSignal;                 
+//using Com.OneSignal.Abstractions;
 using Foundation;
 using UIKit;
 
@@ -23,15 +23,9 @@ namespace AppSmartKidsXa.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
-            OneSignal.Current.SetLogLevel(LOG_LEVEL.VERBOSE, LOG_LEVEL.NONE);
-            OneSignal.Current.StartInit("86509cbb-2e1b-49ab-af76-246c2772ac75").
-                Settings(new Dictionary<string, bool>() {
-                { IOSSettings.kOSSettingsKeyAutoPrompt, false },
-                { IOSSettings.kOSSettingsKeyInAppLaunchURL, false } })
-              .InFocusDisplaying(OSInFocusDisplayOption.Notification)
-              .EndInit();
-            OneSignal.Current.RegisterForPushNotifications();
+            global::Xamarin.Forms.Forms.Init();                                
+            OneSignal.Default.Initialize("86509cbb-2e1b-49ab-af76-246c2772ac75"); ;
+            OneSignal.Default.PromptForPushNotificationsWithUserResponse();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

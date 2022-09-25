@@ -12,28 +12,43 @@ namespace WebSmartKid.Controllers
         #region Readonly 
         private readonly ILoggerRepository _logger;
         private readonly IChatService _chatService;
-        private readonly INotificationService _noteService;
         #endregion
 
         #region Const
         public ChatController(
             ILoggerRepository logger,
-            IChatService chatService,
-            INotificationService noteService)
+            IChatService chatService )
         {
             _logger = logger;
             _chatService = chatService;
-            _noteService = noteService;
         }
         #endregion
 
-        #region GetMessageChat 
+        #region GetMessageChat for app
         [HttpGet]
         public async Task<IActionResult> GetMessageChat(int UserReciverId)
         {
             try
             {
                 ResObj res = await _chatService.GetMessageChat(UserReciverId);
+
+                return Response(res.success, res.data);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "ChatController => GetMessageChat");
+                return Response(false, "حدث خطا اثناء عملية جلب البيانات");
+            }
+        }
+        #endregion  
+
+        #region GetMessageChat 
+        [HttpGet]
+        public async Task<IActionResult> GetMessageChatForWeb()
+        {
+            try
+            {
+                ResObj res = await _chatService.GetMessageChat((int)HttpContext.Session.GetInt32("Id"));
 
                 return Response(res.success, res.data);
             }
@@ -99,12 +114,11 @@ namespace WebSmartKid.Controllers
                     Title = "رسالة",
                     Details = message, DateInsert = Key.DateTimeIQ,
                     UserId = (int)HttpContext.Session.GetInt32("Id")
-                };
-                await _noteService.Post(notifications);
+                };                                         
                 try
                 {
-                  //  await OneSignalSender(notifications.Title, notifications.Details,
-                    //    new string[] { HttpContext.Session.GetInt32("Id").ToString() });
+                    await OneSignalSender(notifications.Title, notifications.Details,
+                        new string[] { HttpContext.Session.GetInt32("Id").ToString() });
                 }
                 catch (Exception ex) { }
 

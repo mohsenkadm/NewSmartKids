@@ -20,7 +20,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.Ignore(x => x.Detail); 
             builder.Ignore(x => x.Phone); 
             builder.Ignore(x => x.CountryId); 
-            builder.Ignore(x => x.AgeName); 
+            builder.Ignore(x => x.Address); 
             builder.Ignore(x => x.OrderNo); 
             builder.Ignore(x => x.OrderDate); 
             builder.Ignore(x => x.UserId); 

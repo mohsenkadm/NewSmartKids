@@ -113,7 +113,7 @@ function getCookie(cname) {
 
 function RefreshChat() {
 
-    call_ajax("GET", "Chat/GetMessagechat", null, GetMessagechat);
+    call_ajax("GET", "Chat/GetMessageChatForWeb", null, GetMessagechat);
 }
 
 function GetMessagechat(data) {
@@ -128,21 +128,17 @@ function GetMessagechat(data) {
     $.each(data, function (i, item) {
         userName = item.name;
         if (item.isOwner === false) {
-            rows = "<div class=' l'>" + "<div class='dl col' onclick=\"visiblebtn(\'#" + item.id + "btn','#" + item.id + "date')\" > <label> " + item.messageText + "</label> </div>" +
-                "<div id='" + item.id + "btn' class='col btntrash'>" +
-                " <a onclick=\"deletemessage(" + item.id + ")\"  style='padding: 7px 11px;  border-radius: 50%;' class='  btn btn-transparent'><i style='font-size: 177%;' class='tf-ion-trash-b'></i></a>" +
-                " </div>" +
-                "</div>" +
-                " <span style='float:left;'  class='date' id='" + item.id + "date'>" + item.date + "/تاريخ الارسال </span>";
+            rows = "<div class=' l'>"
+                + "<div class='dl col'   > <label style='color: #fff;'> " + item.messageText + "</label> </div>" +
+                " <span style='float:left;'  class='date'  >" + item.date + "/تاريخ الارسال </span>"+
+                "</div>" ;
         }
         else {
             rows = "<div class='row r' >" +
-                " <div class='row dr'   onclick=\"visiblebtn(\'#" + item.id + "btn','#" + item.id + "date')\"> <label class='col' >" + item.messageText + "</label>    </div>" +
-                "<div id='" + item.id + "btn' class='col btntrash'>" +
-                " <a onclick=\"deletemessage(" + item.id + ")\"  style='padding: 7px 11px;  border-radius: 50%;' class='  btn btn-transparent'><i style='font-size: 177%;' class='tf-ion-trash-b'></i></a>" +
-                " </div>" +
-                "</div>" +
-                "<span class='date'   style='float:right;'>" + item.date + " /تاريخ الارسال </span>";
+                " <div class='row dr'  > <label class='col' style='color: #fff;' >" + item.messageText + "</label> "+
+            " <span class='date'   style = 'float:right;' > " + item.date + " / تاريخ الارسال </span >  </div > " +
+                
+                "</div>" ;
         }
 
         $('#messges').append(rows);

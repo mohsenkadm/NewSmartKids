@@ -82,7 +82,7 @@
                                     <TapGestureRecognizer  Command="{Binding PostsView}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="المنشورات"/>
+                            <Label  HorizontalOptions="CenterAndExpand" Text="الفيديوات"/>
                         </StackLayout>
                         <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="1">
                             <Frame CornerRadius="20"   HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">

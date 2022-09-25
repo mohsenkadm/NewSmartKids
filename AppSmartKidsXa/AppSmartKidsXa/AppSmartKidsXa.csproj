@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.2.0.564" />
-    <PackageReference Include="Com.OneSignal" Version="3.10.6" />
+    <PackageReference Include="Com.OneSignal" Version="4.0.0-beta1" />
     <PackageReference Include="dcsoup" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

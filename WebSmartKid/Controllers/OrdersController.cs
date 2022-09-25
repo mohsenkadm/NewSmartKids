@@ -11,16 +11,19 @@ namespace WebSmartKid.Controllers
     {
         #region Readonly 
         private readonly ILoggerRepository _logger;
-        private readonly IOrdersService _OrdersService;   
+        private readonly IOrdersService _OrdersService;
+        private readonly INotificationService _noteService;
         #endregion
 
         #region Const
         public OrdersController(
             ILoggerRepository logger,
-            IOrdersService OrdersService )
+            IOrdersService OrdersService  ,
+            INotificationService noteService)
         {
             _logger = logger;
-            _OrdersService = OrdersService;   
+            _OrdersService = OrdersService;
+            _noteService = noteService;
         }
         #endregion
 
@@ -95,8 +98,20 @@ namespace WebSmartKid.Controllers
                 List<string> ids = new List<string>();
 
                 ids.Add(orders.UserId.ToString());
-                await OneSignalSender("الطفل العبقري لوسائل التعليم", " تمت الموافقة على طلبك يرجى الانتظار لتجهيز الطلب"
-                    , ids.ToArray());
+                Notification notifications = new Notification
+                {
+                    Title = "طلبك",
+                    Details = "تمت الموافقة على طلبك يرجى الانتظار لتجهيز الطلب",
+                    DateInsert = Key.DateTimeIQ,
+                    UserId = orders.UserId
+                };
+                 await _noteService.Post(notifications);
+                try
+                {
+                      await OneSignalSender(notifications.Title, notifications.Details,
+                        ids.ToArray());
+                }
+                catch (Exception ex) { }  
                 return Response(res.success, res.msg);
             }
             catch (Exception ex)
@@ -117,9 +132,22 @@ namespace WebSmartKid.Controllers
                 Orders orders = (Orders)res.data;
                 List<string> ids = new List<string>();
 
-                ids.Add(orders.UserId.ToString());
-                await OneSignalSender("الطفل العبقري لوسائل التعليم", "تمت الغاء الموافقة على طلبك"
-                    , ids.ToArray());
+                ids.Add(orders.UserId.ToString()); 
+                Notification notifications = new Notification
+                {
+                    Title = "طلبك",
+                    Details = "تمت الغاء الموافقة على طلبك",
+                    DateInsert = Key.DateTimeIQ,
+                    UserId = orders.UserId
+                };
+                await _noteService.Post(notifications);
+                try
+                {
+                    await OneSignalSender(notifications.Title, notifications.Details,
+                      ids.ToArray());
+                }
+                catch (Exception ex) { }
+                
                 return Response(res.success, res.msg);
             }
             catch (Exception ex)
@@ -143,8 +171,20 @@ namespace WebSmartKid.Controllers
                 List<string> ids = new List<string>();
 
                 ids.Add(orders.UserId.ToString());
-                await OneSignalSender("الطفل العبقري لوسائل التعليم", "تمت تجهيز طلبك"
-                    , ids.ToArray());
+                Notification notifications = new Notification
+                {
+                    Title = "طلبك",
+                    Details = "تم تجهيز طلبك يرجى انتظار توصيل الطلب الى بيتك",
+                    DateInsert = Key.DateTimeIQ,
+                    UserId = orders.UserId
+                };
+                await _noteService.Post(notifications);
+                try
+                {
+                    await OneSignalSender(notifications.Title, notifications.Details,
+                      ids.ToArray());
+                }
+                catch (Exception ex) { }    
                 return Response(res.success, res.msg);
             }
             catch (Exception ex)

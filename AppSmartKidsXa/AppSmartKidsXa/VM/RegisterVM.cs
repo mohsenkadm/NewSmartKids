@@ -141,7 +141,7 @@ namespace AppSmartKidsXa.VM
                         Preferences.Set("Details", "");
                         Preferences.Set("CountryId", CountryIdSelected.CountryId);
                         InfoAccess.Id = response.data.UserId;        
-                        try { OneSignal.Current.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
+                        try { await OneSignal.Default.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
                         await App.Current.MainPage.DisplayAlert("حفظ", "تم تسجيل حساب  بنجاح", "نعم");
 
                         await Navigation.PushAsync(new ChatView(), true);

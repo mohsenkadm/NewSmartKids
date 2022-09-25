@@ -22,7 +22,7 @@ namespace AppSmartKidsXa.Entity
         public string Detail { get; set; }      
         public string Phone { get; set; }      
         public int CountryId { get; set; }      
-        public string AgeName { get; set; }      
+        public string Address { get; set; }      
         public int OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
         public int UserId { get; set; }

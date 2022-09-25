@@ -20,6 +20,7 @@ namespace WebSmartKid.Controllers
         #region Readonly 
         private readonly ILoggerRepository _logger;
         private readonly IPostsService _PostsService;
+        private readonly INotificationService _noteService;
         DB_Context _Context;
         #endregion
 
@@ -27,10 +28,12 @@ namespace WebSmartKid.Controllers
         public PostsController(
             ILoggerRepository logger,
             IPostsService PostsService,
+            INotificationService noteService,
             DB_Context dB_Context)
         {
             _logger = logger;
             _PostsService = PostsService;
+            _noteService = noteService;
             _Context = dB_Context;
         }
         #endregion
@@ -121,12 +124,26 @@ namespace WebSmartKid.Controllers
             try
             {
                 List<string> ids = new List<string>();
+                Notification notifications = new Notification
+                {
+                    Title = "طلبك",
+                    Details = "تم نشر فيديو جديد",
+                    DateInsert = Key.DateTimeIQ,
+                    UserId = 0
+                };
+                await _noteService.Post(notifications);
+               
                 List<Users> users = await _Context.Users.ToListAsync();
                 foreach (var item in users)
                 {
                     ids.Add(item.UserId.ToString());
+                }          
+                try
+                {
+                    await OneSignalSender(notifications.Title, notifications.Details,
+                      ids.ToArray());
                 }
-                await OneSignalSender("تم نشر منشور جديد", title, ids.ToArray());
+                catch (Exception ex) { }
             }
             catch (Exception ex)
             { await _logger.WriteAsync(ex, " PostController => sendnot"); }

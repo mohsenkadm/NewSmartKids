@@ -20,7 +20,7 @@ namespace Entity.Entity
         public string Phone { get; set; }
         public string Details { get; set; }
         public string CountryName { get; set; }
-        public string AgeName { get; set; }
+        public string Address { get; set; }
         public string Token { get; set; }
 
         public bool IsCancel { get; set; }

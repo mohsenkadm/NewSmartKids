@@ -9,17 +9,18 @@ function filltableOrders(data) {
             "<td>" + item.netAmount + "</td>" +
             "<td>" + item.totalDiscount + "</td>" +
             "<td>" + item.total + "</td>" +
+            "<td>" + item.address + "</td>" + 
             "<td>" + item.countryName + "</td>" + 
             "<td>" + item.phone + "</td>" +
             "<td>" + item.details + "</td>" +
             "<td>" + item.name + "</td>" +
             "<td>" + item.orderDate + "</td>" +
             "<td>" + item.orderNo + "</td>"
-            + "<td> <button type='button' class='btn btn-primary' onclick='SetIsDone(" + item.orderId + ")'  >انتهاء الطلب</button>"
-            + " |  <button type='button' class='btn btn-warning' onclick='SetIsCancel(" + item.orderId + ")'  >الغاء</button>"
-            + " |  <button type='button' class='btn btn-success' onclick='SetIsApporve(" + item.orderId + ")'  >موافقة</button>"
-            + " |  <button type='button' class='btn btn-danger' onclick='deleteOrders(" + item.orderId + ")'  >حذف</button>" +
-            "  |  <button type='button' class='btn btn-info' onclick='OrderDetail(" + item.orderId + ")'  data-toggle='modal' data-target='#OrdersDetailsModal'>تفاصيل الطلب</button></td></tr>";
+            + "<td> <button type='button' class='btn btn-primary' onclick='SetIsDone(" + item.orderId + ")'  >انتهاء الطلب</button></td>"
+            + " <td>  <button type='button' class='btn btn-warning' onclick='SetIsCancel(" + item.orderId + ")'  >الغاء</button></td>"
+            + " <td>  <button type='button' class='btn btn-success' onclick='SetIsApporve(" + item.orderId + ")'  >موافقة</button></td>"
+            + " <td>  <button type='button' class='btn btn-danger' onclick='deleteOrders(" + item.orderId + ")'  >حذف</button></td>" +
+            "  <td>  <button type='button' class='btn btn-info' onclick='OrderDetail(" + item.orderId + ")'  data-toggle='modal' data-target='#OrdersDetailsModal'>تفاصيل الطلب</button></td></tr>";
         $('#tableOrders').append(rows); 
         $('#IsDone' + item.orderId).attr('checked', item.isDone);
         $('#IsApporve' + item.orderId).attr('checked', item.isApporve);

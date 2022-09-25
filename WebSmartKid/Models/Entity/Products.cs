@@ -20,7 +20,7 @@ namespace Entity.Entity
         public int LikeCount { get; set; }        
         public string SourceLike { get; set; }
         public string CategoriesName { get; set; }
-        public int UserId { get; set; }
+        public int UserId { get; set; }                                                                        
         public string Image { get; set; }
 
         // for filter                     
@@ -29,6 +29,6 @@ namespace Entity.Entity
     }
     public class AgeFilter
     {
-        public int? Id;
+        public int? Id { get; set; }
     }
 }

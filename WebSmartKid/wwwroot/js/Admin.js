@@ -19,6 +19,27 @@ function filltableAdmin(data) {
 }
 
 
+function messageList(data) {
+    $('#messageList').empty();
+    if (data.length === 0) {
+        toust.error("لا توجد رسايل");
+        return;
+    }
+    $.each(data, function (i, item) {
+
+        var rows = "<div id='" + item.userSenderId + "div1' class='price-title text-right'  >" + "<div class='row' style='margin-right: 0px;'>" +
+            "<div class='form-group col-md-3 col-sm-3 col-xs-3' >" +
+            "  <button data-dismiss='modal' type='button' class='btn btn-success btnwidth'  onclick=\"call_Action(\'Home/Chat/" + item.userSenderId + "')\"    > <i class='material-icons'>send</i></button>" + "</div> "
+            + "<div class='form-group col-md-9 col-sm-9 col-xs-9' >" +
+            "<p style='color: #57cbcc;'>" + item.name + "</p>"
+            + "<p style='float:none;' >" + item.messageText + " </p>"
+            + "<span style='float:none;' >" + item.date + "/ تاريخ الرسالة  </span>"
+            + "</div>" +
+            "</div>" + "</div>";
+        $('#messageList').append(rows);
+    });
+};
+
 
 function filllayout(data) {
     $('#nav').empty();
@@ -26,8 +47,10 @@ function filllayout(data) {
         var rows = "";
         if (item.controlName == 'message') {
             rows = "<li class='nav-item'>" +
-                "<a class='nav-link text-dark' onclick =\"call_Action(GetMessageList())\");' data-toggle='modal' data-target='#messagemodel' > " +
-                item.permissionName + "</a >" +
+                "<a class='nav-link' onclick =\"GetMessageList()\");' data-toggle='modal' data-target='#messagemodel' > " +
+                "<i class='material-icons'>person</i>" +
+                "<p>" + item.permissionName + "</p>" +
+                "</a >" +
                 "</li >";
         }
         else {

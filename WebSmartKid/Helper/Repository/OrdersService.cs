@@ -147,6 +147,7 @@ namespace WebSmartKid.Helper.Repository
                     Details = firstrow.Detail,
                     Phone = firstrow.Phone
                     ,CountryId = firstrow.CountryId  
+                    ,Address = firstrow.Address
                 };
                 await _context.Users.AddAsync(users);
                 await _context.SaveChangesAsync();
@@ -159,6 +160,7 @@ namespace WebSmartKid.Helper.Repository
                 users.Details = firstrow.Detail;
                 users.Phone = firstrow.Phone;
                 users.CountryId = firstrow.CountryId;
+                users.Address = firstrow.Address;
                 _context.Entry(users).State = EntityState.Modified;
                 await _context.SaveChangesAsync();                                                                      
                 firstrow.UserId = users.UserId;

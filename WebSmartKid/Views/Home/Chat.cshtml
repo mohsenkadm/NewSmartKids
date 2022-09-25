@@ -3,38 +3,25 @@
     Layout = "~/Views/Shared/_LayoutForLogin.cshtml";
 }
 <section style="position:fixed; top:0; left:0; width:100%;">
-    <div class="chatwidth" style="">
-        <div class="text-center price-title wow fadeInDown">
-            <div class="row">
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <a class="" onclick="call_Action('Home/Index')"><i class='icon tf-ion-arrow-left-c' style="font-size:175%;"></i></a>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <a class="" onclick="call_Action(GetMessageList())" data-toggle='modal' data-target='#messagemodel'><i class='icon tf-ion-chatboxes' style="font-size:175%;"></i></a>
-                </div>
-                <div id="userchatinfoid" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " style="margin-left:30%">
-                </div>
-            </div>
-        </div>
-    </div>
+   
 </section>
 <style>
     .dr {
         border-radius: 15px;
-        background-color: #2f383d;
-        /* width: 40%;*/
-        /*margin-left: 60%;*/
+        background-color: #029eb1;
+         width: 40%;
+        margin-left: 60%;
         max-width: 40%;
         margin-bottom: 4px;
         float: right;
         padding: 1%;
-        color: #ddd;
+        color: #fff;
         text-align: right;
     }
 
     .dl {
         border-radius: 15px;
-        background-color: #57cbcc;
+        background-color: #202940;
         /*   width: 40%;*/
         max-width: 40%;
         margin-bottom: 4px;
@@ -75,6 +62,20 @@
     }
 </style>
 <section class="session_chat">
+    <div class="chatwidth" style="">
+        <div class="text-center price-title wow fadeInDown">
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a class="" onclick="call_Action('Home/Index')"><i class='icon tf-ion-arrow-left-c' style="font-size:175%;"></i></a>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a class="" onclick="call_Action(GetMessageList())" data-toggle='modal' data-target='#messagemodel'><i class='icon tf-ion-chatboxes' style="font-size:175%;"></i></a>
+                </div>
+                <div id="userchatinfoid" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " style="margin-left:30%">
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="messges" class="chatmassagewidth container text-center" style=" height: 90%;   overflow: visible; background-color: transparent;">
     </div>
 </section>
@@ -83,10 +84,10 @@
         <div class="text-center price-title ">
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input style="margin-left:10%; border:1px solid #ffffff" type="text" placeholder=".....اكتب رسالتك " class="bo form-control text-right" autocomplete="off" name="messagetext" id="messagetext" />
+                    <input type="text" style="margin-left:10%;  " class="bo form-control alignright" autocomplete="off" name="messagetext" id="messagetext" placeholder="اكتب رقم المستخدم"> 
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="margin-left:6%">
-                    <a id="sendmessage" class="btn btn-transparent text-center" style="padding: 3px 5px 2px 2px; border-radius: 25px;"><i class='icon tf-ion-android-send' style="font-size: 175%;margin-left: 6px;"></i></a>
+                    <button id="sendmessage" type='button' class='btn btn-success btnwidth' > <i class='material-icons'>send</i></button>
                 </div>
             </div>
         </div>
@@ -96,7 +97,7 @@
     <script>
 
         $(document).ready(function () {
-            call_ajax("GET", "Chat/GetMessagechat", null, GetMessagechat);
+            call_ajax("GET", "Chat/GetMessageChatForWeb", null, GetMessagechat);
         });
         var input = document.getElementById("messagetext");
 

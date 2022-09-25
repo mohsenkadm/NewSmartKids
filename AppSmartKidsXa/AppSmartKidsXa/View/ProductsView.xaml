@@ -49,7 +49,7 @@
                                                             FontSize="16"   Text="{Binding Name}"/>
                                             <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
                                                             FontSize="16"  Text="{Binding Price}"/> 
-                                                <StackLayout  Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+                                               <!-- <StackLayout  Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
                                                     <Label   FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="{Binding NoOfBuyers}"></Label>
 
                                                     <Label     FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="عدد المشترون"></Label>
@@ -57,13 +57,14 @@
                                                 <StackLayout  Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
                                                     <Label  FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="{Binding LikeCount}"></Label>
                                                     <Label  FontFamily="FontTR" TextColor="{x:DynamicResource Blue2}" FontSize="12" Text="عدد الاعجابات"></Label>
-                                                </StackLayout> 
+                                                </StackLayout> -->
                                            
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,5">
                                                 <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtn}"  CommandParameter="{Binding ProductsId}"   FontSize="20" Text="+" WidthRequest="40" HeightRequest="40" Padding="0"/>
                                                 <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MinBtn}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
                                             </StackLayout>
-                                        </StackLayout>
+                                            <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtn}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="اضافة الى السلة" WidthRequest="40" HeightRequest="40" Padding="0"/>
+                                         </StackLayout>
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer CommandParameter="{Binding ProductsId}"  
                                                         Command="{Binding Source={x:Reference page}, Path=BindingContext.ShowItem}"/>

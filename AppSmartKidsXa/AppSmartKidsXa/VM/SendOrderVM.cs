@@ -105,7 +105,15 @@ namespace AppSmartKids.VM
         {
             get { return details; }
             set { details = value; OnPropertyChanged(nameof(Details)); }
-        }                                     
+        }
+        private string _Address;
+
+        public string Address
+        {
+            get { return _Address; }
+            set { _Address = value; OnPropertyChanged(nameof(Address)); }
+        }
+
 
         private readonly GetDataUrlService<Countries> _Countriesservice;
         private readonly GetDataUrlService<OrderDetail> _service;
@@ -255,12 +263,12 @@ namespace AppSmartKids.VM
                     return;
                 }
 
-                if (Name == null || Phone == null || CountryIdSelected == null || Details==null)
+                if (Name == null || Phone == null || CountryIdSelected == null || Details==null || Address==null)
                 {
                     await App.Current.MainPage.DisplayAlert("تنبيه", "رجاءا اكمال المعلومات", "نعم");
                     return;
                 }    
-                if (Name.Trim().Length == 0 || Phone.Trim().Length == 0 || CountryIdSelected.CountryId == 0 || Details.Trim().Length == 0)
+                if (Name.Trim().Length == 0 || Phone.Trim().Length == 0 || CountryIdSelected.CountryId == 0 || Details.Trim().Length == 0 || Address.Trim().Length==0)
                 {
                     await App.Current.MainPage.DisplayAlert("تنبيه", "رجاءا اكمال المعلومات", "نعم");
                     return;
@@ -278,6 +286,7 @@ namespace AppSmartKids.VM
                     {
                         UserId = InfoAccess.Id,
                         Detail= Details,
+                        Address = Address,
                         CountryId=CountryIdSelected.CountryId ,
                         Phone= Phone,
                         Name = Name,
@@ -307,8 +316,9 @@ namespace AppSmartKids.VM
                     Preferences.Set("Phone", Phone);
                     Preferences.Set("Details", Details);
                     Preferences.Set("CountryId", CountryIdSelected.CountryId);
+                    Preferences.Set("Address", Address);
                     InfoAccess.Id = response.data.UserId;
-                    try { OneSignal.Current.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
+                    try { await OneSignal.Default.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
                 }
                 Total=NetAmount=TotalDiscount=DeliveryPrice = "0";
                 ListCart = new ObservableCollection<OrderDetail>();

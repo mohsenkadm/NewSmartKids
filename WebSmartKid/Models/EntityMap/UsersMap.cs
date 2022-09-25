@@ -16,6 +16,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.Ignore(x => x.Token);       
             builder.Property(x => x.Details).IsRequired();       
             builder.Property(x => x.CountryId).IsRequired();       
+            builder.Property(x => x.Address).IsRequired();       
         }
     }
 }

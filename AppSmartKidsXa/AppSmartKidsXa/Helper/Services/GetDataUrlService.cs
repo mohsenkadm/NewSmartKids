@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;   
-using Entity.Entity;
+using System.Threading.Tasks;           
 using AppSmartKidsXa.Entity;
 using Xamarin.Essentials;
 using Com.OneSignal;
@@ -249,7 +248,7 @@ namespace AppSmartKidsXa.Helper
                 var json1 = await response.Content.ReadAsStringAsync();
                 Response<Users> res = JsonConvert.DeserializeObject<Response<Users>>(json1);
                 Users user = res.data;
-                try { OneSignal.Current.SetExternalUserId(user.UserId.ToString()); } catch (Exception ex) { }
+                try { await OneSignal.Default.SetExternalUserId(user.UserId.ToString()); } catch (Exception ex) { }
                 await saveprop(user);
             }
             catch (Exception)

@@ -51,6 +51,10 @@
                     <renderentry:BorderLessEntry HeightRequest="40"   FontFamily="FontTR" Text="{Binding Phone}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Blue2}" FontSize="14" 
                                            HorizontalTextAlignment="Center" Keyboard="Telephone"  Placeholder=" اكتب رقم الهاتف "/>
                 </Frame>
+                <Frame    BorderColor="{x:DynamicResource Primary}"  CornerRadius="7" BackgroundColor="{x:DynamicResource White}" Margin="10,0,10,10" Padding="0" >
+                            <renderentry:BorderLessEntry HeightRequest="40"   FontFamily="FontTR" Text="{Binding Address}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Blue2}" FontSize="14" 
+                                           HorizontalTextAlignment="Center" Keyboard="Text"  Placeholder=" اكتب اقرب نقطة دالة لموقعك "/>
+                </Frame>
                 <Frame  BorderColor="{x:DynamicResource Primary}" CornerRadius="7" BackgroundColor="{x:DynamicResource White}"  Padding="0" Margin="10,0,10,10"  >
                     <renderentry:BorderlessPicker HeightRequest="40"  SelectedItem="{Binding CountryIdSelected}" FontFamily="FontTR" ItemsSource="{Binding Countrys}" ItemDisplayBinding="{Binding CountryName}" 
                                                 Margin="10,0,10,0" TitleColor="{x:DynamicResource Blue2}" TextColor="{x:DynamicResource Primary}" FontSize="14" HorizontalTextAlignment="Center" Title="اختيار المحافظة"></renderentry:BorderlessPicker>
