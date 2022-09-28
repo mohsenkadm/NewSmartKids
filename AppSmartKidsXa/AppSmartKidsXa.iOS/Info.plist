@@ -21,9 +21,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>10.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>الطفل العبقري</string>
+	<string>طفل العبقري لوسائل التعليم</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.companyname.AppSmartKids</string>
 	<key>CFBundleVersion</key>
@@ -34,5 +34,14 @@
 	<string>AppSmartKidsXa</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSALLowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>
