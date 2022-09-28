@@ -18,7 +18,8 @@ namespace WebSmartKid.Helper.Repository
 
         public async Task<ResObj> GetNotificationAll(int? Id)
         {
-            List<Notification> data = await _context.Notification.Where(i=>i.UserId==Id || i.UserId==0).Take(30).ToListAsync();
+            List<Notification> data = await _context.Notification.Where(i=>i.UserId==Id || i.UserId==0).
+                OrderByDescending(x=>x.NotificationId).Take(30).ToListAsync();
             return Result.Return(true, data);
         }
         public async Task<ResObj> Post(Notification notification)

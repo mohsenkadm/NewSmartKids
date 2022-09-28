@@ -116,6 +116,29 @@ function RefreshChat() {
     call_ajax("GET", "Chat/GetMessageChatForWeb", null, GetMessagechat);
 }
 
+function Print(method, url, object) {
+    var userToken = getCookie("token2");
+    mouseevent("progress");
+    $('.progress').fadeIn();
+    $.ajax({
+        method: method,
+        url: "/" + url,
+        cache: true, async: true,
+        data: object,
+        headers: {
+            'Authorization': `Bearer ${userToken}`,
+        },
+        success: (respons) => {
+            md.showNotification('تم تصدير ملف طباعة');
+        },
+        error: (e) => {
+            mouseevent("default");
+            $('.progress').fadeOut();
+            md.showNotification('حدث خطأ عند الأتصال');
+        }
+    });
+}
+
 function GetMessagechat(data) {
     if (data.length === 0) {
         toust.error("لا توجد رسائل الى الان");

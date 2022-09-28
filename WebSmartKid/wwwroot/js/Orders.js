@@ -17,6 +17,7 @@ function filltableOrders(data) {
             "<td>" + item.orderDate + "</td>" +
             "<td>" + item.orderNo + "</td>"
             + "<td> <button type='button' class='btn btn-primary' onclick='SetIsDone(" + item.orderId + ")'  >انتهاء الطلب</button></td>"
+            + "<td> <button type='button' class='btn btn-info' onclick='PrintOrder(" + item.orderId + ")'  >طباعة الطلب</button></td>"
             + " <td>  <button type='button' class='btn btn-warning' onclick='SetIsCancel(" + item.orderId + ")'  >الغاء</button></td>"
             + " <td>  <button type='button' class='btn btn-success' onclick='SetIsApporve(" + item.orderId + ")'  >موافقة</button></td>"
             + " <td>  <button type='button' class='btn btn-danger' onclick='deleteOrders(" + item.orderId + ")'  >حذف</button></td>" +
@@ -28,6 +29,12 @@ function filltableOrders(data) {
     });
 }
 
+function PrintOrder(id) {
+    var obj = {
+        Id: id
+    }
+    Print("GET", "Orders/Print", obj);
+}
 function deleteOrders(id) {
     var result = confirm("هل تريد الحذف؟!");
     if (result == true) {
@@ -71,7 +78,7 @@ function SetDataOrderDetail(data) {
             "<td> " + item.count + "</td> " +  
             "<td> " + item.price + "</td> " +  
             "<td>" + item.detail + "</td>" + 
-            "<td>" + item.name + "</td>"
+            "<td>" + item.prodName + "</td>"
             + "<td> <button type='button' class='btn btn-danger' onclick='deleteOrderDetail(" + item.orderDetailId + ")'  >حذف</button></td></tr>";
         $('#tableOrdersDetail').append(rows);
     });

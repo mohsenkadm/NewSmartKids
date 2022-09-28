@@ -16,10 +16,14 @@ namespace Entity.Entity
         public int Count { get; set; }
 
         // for show
+        public string ProdName { get; set; }     
+        public string Image { get; set; }     
         public string Name { get; set; }     
         //detail for product
+        public string Details { get; set; }      
         public string Detail { get; set; }      
         public string Phone { get; set; }      
+        public string CountryName { get; set; }      
         public int CountryId { get; set; }      
         public string Address { get; set; }      
         public int OrderNo { get; set; }
