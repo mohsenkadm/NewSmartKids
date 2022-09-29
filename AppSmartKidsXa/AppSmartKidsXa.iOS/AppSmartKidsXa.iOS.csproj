@@ -29,7 +29,6 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchI18n>west</MtouchI18n>
-    <CodesignProvision>SmartKids</CodesignProvision>
 <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
   </PropertyGroup>
@@ -53,12 +52,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Distribution: mohsen kadhim (258Q3XVLZN)</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchInterpreter>-all</MtouchInterpreter>
-    <CodesignProvision>SmartKids</CodesignProvision>
     <MtouchExtraArgs>--registrar:static</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
