@@ -1,6 +1,5 @@
 ﻿using AppSmartKidsXa.Helper;
-using AppSmartKidsXa.Entity;                   
-using Entity.Entity;                  
+using AppSmartKidsXa.Entity;         
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
