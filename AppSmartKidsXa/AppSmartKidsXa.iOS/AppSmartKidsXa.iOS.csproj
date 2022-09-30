@@ -209,4 +209,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\shoppingcart.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\87.png" />
+  </ItemGroup>
 </Project>
