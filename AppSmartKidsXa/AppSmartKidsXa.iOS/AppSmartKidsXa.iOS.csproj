@@ -195,48 +195,30 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\app.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\shoppingcart1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\chat1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\app.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\dashboard1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\chat1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\facebook.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\dashboard1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\notification1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\facebook.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\order.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\notification1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\share1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\order.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\shoppingbag1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\share1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\shoppingcart1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
+    <BundleResource Include="Resources\shoppingbag1.png" />
   </ItemGroup>
 </Project>
