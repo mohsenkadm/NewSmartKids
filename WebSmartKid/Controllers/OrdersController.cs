@@ -99,6 +99,10 @@ namespace WebSmartKid.Controllers
             try
             {
                 ResObj res = await _OrdersService.SetIsApporve(Id);
+                if(res.success==false)
+                {          
+                    return Response(res.success, res.msg);
+                }
                 Orders orders = (Orders)res.data;
                 List<string> ids = new List<string>();
 
@@ -134,6 +138,10 @@ namespace WebSmartKid.Controllers
             try
             {
                 ResObj res = await _OrdersService.SetIsCancel(Id);
+                if (res.success == false)
+                {
+                    return Response(res.success, res.msg);
+                }
                 Orders orders = (Orders)res.data;
                 List<string> ids = new List<string>();
 
@@ -172,6 +180,10 @@ namespace WebSmartKid.Controllers
             try
             {
                 ResObj res = await _OrdersService.SetIsDone(Id);
+                if (res.success == false)
+                {
+                    return Response(res.success, res.msg);
+                }
                 Orders orders = (Orders)res.data;
                 List<string> ids = new List<string>();
 

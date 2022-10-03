@@ -14,7 +14,7 @@
                          
                     </Frame>
 
-                    <Label Style="{StaticResource TitleLabel}" Margin="0,30,0,0" Text="الطفل العبقري لوسائل التعليم"></Label>
+                    <Label Style="{StaticResource TitleLabel}"  FontSize="Header" Margin="0,30,0,0" Text="الطفل العبقري لوسائل التعليم"></Label>
                     <Frame CornerRadius="10" Grid.Row="0"  BorderColor="{StaticResource Primary}"  HeightRequest="180" Grid.RowSpan="2"  
                            Padding="2" Margin="20,70,20,0"  VerticalOptions="CenterAndExpand" >
                         

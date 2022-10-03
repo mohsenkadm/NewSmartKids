@@ -82,7 +82,7 @@ namespace WebSmartKid.Helper.Repository
         { 
             var orders = await GetOrdersById(id);
             if(orders.IsApporve)
-                return Result.Return(true,"تمت الموافقة عليها سابقا");
+                return Result.Return(false,"تمت الموافقة عليها سابقا");
             orders.IsApporve = true;
             orders.IsCancel = false;
 
@@ -95,7 +95,7 @@ namespace WebSmartKid.Helper.Repository
         {
             var orders = await GetOrdersById(id);
             if (orders.IsCancel)
-                return Result.Return(true, "تمت الغاء الطلب سابقا");
+                return Result.Return(false, "تمت الغاء الطلب سابقا");
             orders.IsCancel = true;
             orders.IsApporve = false;
             orders.IsDone = false;
@@ -109,7 +109,7 @@ namespace WebSmartKid.Helper.Repository
         {
             var orders = await GetOrdersById(id);
             if (orders.IsDone)
-                return Result.Return(true, "الطلب تمت وضعه في حالة الانتهاء");
+                return Result.Return(false, "الطلب تمت وضعه في حالة الانتهاء");
             orders.IsDone = true;
             orders.IsApporve = true;
             orders.IsCancel = false;

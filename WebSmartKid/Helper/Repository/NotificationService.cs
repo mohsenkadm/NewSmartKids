@@ -24,8 +24,7 @@ namespace WebSmartKid.Helper.Repository
         }
         public async Task<ResObj> Post(Notification notification)
         {
-            notification.DateInsert = Key.DateTimeIQ;
-            notification.UserId = 0;
+            notification.DateInsert = Key.DateTimeIQ;    
             await _context.Notification.AddAsync(notification);
             await _context.SaveChangesAsync();
             return Result.Return(true, "تم الحفظ بنجاح");
