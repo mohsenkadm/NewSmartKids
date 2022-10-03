@@ -14,6 +14,7 @@ using AppSmartKidsXa.Helper.IServices;
 using OrderDetail = AppSmartKidsXa.Entity.OrderDetail;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Acr.UserDialogs;
 
 namespace AppSmartKidsXa.VM
 {                                                        
@@ -49,7 +50,7 @@ namespace AppSmartKidsXa.VM
         public string Searchtxt
         {
             get { return searchtxt; }
-            set { searchtxt = value; Search(); OnPropertyChanged(nameof(Searchtxt)); }
+            set { searchtxt = value; Search(false); OnPropertyChanged(nameof(Searchtxt)); }
         }
         #endregion
 
@@ -85,10 +86,22 @@ namespace AppSmartKidsXa.VM
             {
             }
         });
+        #endregion   
+        #region click event search
+        public ICommand SearchCommand => new Command(async () =>
+        {
+            try
+            {
+                Search();
+            }
+            catch (Exception ex)
+            {
+            }
+        });
         #endregion      
 
         #region Load Item    
-        public async Task Search()
+        public async Task Search(bool f=true)
         {
             try
             {
@@ -97,7 +110,8 @@ namespace AppSmartKidsXa.VM
                     await App.Current.MainPage.DisplayAlert("تنبيه","لا يوجد اتصال بلانترنت", "نعم");
                     return;
                 }
-
+                             if(f)
+                UserDialogs.Instance.ShowLoading("انتظار");
                 productFilter = new Products();
                 productFilter.Name = Searchtxt == null ? "" : Searchtxt;
                 productFilter.CategoriesId = _CategoriesId;
@@ -112,6 +126,7 @@ namespace AppSmartKidsXa.VM
                      
                 if (response.success == false)
                 {
+                    UserDialogs.Instance.HideLoading();
                     await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
                 }
                 else
@@ -124,6 +139,11 @@ namespace AppSmartKidsXa.VM
             {
                 await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
 
+            }
+            finally
+            {
+                if (f)
+                    UserDialogs.Instance.HideLoading();
             }
         }
         #endregion
@@ -210,7 +230,7 @@ namespace AppSmartKidsXa.VM
                         TotalDiscount = TotalDiscount
                         ,
                         NetAmount = NetAmount
-
+                         ,Image = response.Image
                     };
                     //var prod = Items.FirstOrDefault(x => x.ProductsId == Id);
                     //prod.Count -= 1;

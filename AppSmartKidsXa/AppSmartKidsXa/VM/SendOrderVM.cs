@@ -263,12 +263,12 @@ namespace AppSmartKids.VM
                     return;
                 }
 
-                if (Name == null || Phone == null || CountryIdSelected == null || Details==null || Address==null)
+                if (Name == null || Phone == null || CountryIdSelected == null   || Address==null)
                 {
                     await App.Current.MainPage.DisplayAlert("تنبيه", "رجاءا اكمال المعلومات", "نعم");
                     return;
                 }    
-                if (Name.Trim().Length == 0 || Phone.Trim().Length == 0 || CountryIdSelected.CountryId == 0 || Details.Trim().Length == 0 || Address.Trim().Length==0)
+                if (Name.Trim().Length == 0 || Phone.Trim().Length == 0 || CountryIdSelected.CountryId == 0   || Address.Trim().Length==0)
                 {
                     await App.Current.MainPage.DisplayAlert("تنبيه", "رجاءا اكمال المعلومات", "نعم");
                     return;
@@ -318,7 +318,7 @@ namespace AppSmartKids.VM
                     Preferences.Set("CountryId", CountryIdSelected.CountryId);
                     Preferences.Set("Address", Address);
                     InfoAccess.Id = response.data.UserId;
-                    try { await OneSignal.Default.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
+                    try {   OneSignal.Current.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
                 }
                 Total=NetAmount=TotalDiscount=DeliveryPrice = "0";
                 ListCart = new ObservableCollection<OrderDetail>();

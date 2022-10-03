@@ -24,8 +24,8 @@ namespace AppSmartKidsXa.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();                                
-            OneSignal.Default.Initialize("86509cbb-2e1b-49ab-af76-246c2772ac75"); ;
-            OneSignal.Default.PromptForPushNotificationsWithUserResponse();
+            OneSignal.Current.StartInit("86509cbb-2e1b-49ab-af76-246c2772ac75"); ;
+            OneSignal.Current.RegisterForPushNotifications();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

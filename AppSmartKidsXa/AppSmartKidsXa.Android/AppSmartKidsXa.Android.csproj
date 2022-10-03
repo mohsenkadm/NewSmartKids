@@ -127,16 +127,21 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\logoutic.png" />
     <AndroidResource Include="Resources\drawable\heartempty.png" />
     <AndroidResource Include="Resources\drawable\heart.png" />
-    <AndroidResource Include="Resources\drawable\chat.png" />
-    <AndroidResource Include="Resources\drawable\shoppingbag.png" />
-    <AndroidResource Include="Resources\drawable\shoppingcart.png" />
-    <AndroidResource Include="Resources\drawable\categories.png" />
-    <AndroidResource Include="Resources\drawable\notification.png" />
-    <AndroidResource Include="Resources\drawable\ordersend.png" />
-    <AndroidResource Include="Resources\drawable\share.png" />
-    <AndroidResource Include="Resources\drawable\dashboard.png" />
-    <AndroidResource Include="Resources\drawable\post.png" />
+    <AndroidResource Include="Resources\drawable\notification1.png" />
+    <AndroidResource Include="Resources\drawable\chat1.png" />
+    <AndroidResource Include="Resources\drawable\facebook.png" />
+    <AndroidResource Include="Resources\drawable\app.png" />
+    <AndroidResource Include="Resources\drawable\dashboard1.png" />
+    <AndroidResource Include="Resources\drawable\share1.png" />
+    <AndroidResource Include="Resources\drawable\order.png" />
+    <AndroidResource Include="Resources\drawable\shoppingbag1.png" />
+    <AndroidResource Include="Resources\drawable\shoppingcart1.png" />
     <Content Include="splash_screen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionAppSmartKidsXaAndroidHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

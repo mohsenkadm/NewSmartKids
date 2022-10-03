@@ -171,45 +171,54 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\arrow.png" />
+    <AndroidResource Include="Resources\arrow.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\categories.png" />
+    <AndroidResource Include="Resources\heart.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\chat.png" />
+    <AndroidResource Include="Resources\heartempty.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\dashboard.png" />
+    <AndroidResource Include="Resources\icon.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\heart.png" />
+    <AndroidResource Include="Resources\app.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\heartempty.png" />
+    <AndroidResource Include="Resources\chat1.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon.png" />
+    <AndroidResource Include="Resources\dashboard1.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\notification.png" />
+    <AndroidResource Include="Resources\facebook.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ordersend.png" />
+    <AndroidResource Include="Resources\notification1.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\post.png" />
+    <AndroidResource Include="Resources\order.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\share.png" />
+    <AndroidResource Include="Resources\share1.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\shoppingbag.png" />
+    <AndroidResource Include="Resources\shoppingbag1.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\shoppingcart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\87.png" />
+    <AndroidResource Include="Resources\shoppingcart1.png" />
   </ItemGroup>
 </Project>

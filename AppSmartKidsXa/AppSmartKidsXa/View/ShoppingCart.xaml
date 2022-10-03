@@ -16,22 +16,22 @@
                 <StackLayout HorizontalOptions="FillAndExpand">
                     <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
                 </StackLayout>
-                <Frame Grid.Row="0"  CornerRadius="10" BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
+                <Frame Grid.Row="0"  CornerRadius="10" BackgroundColor="{x:StaticResource Black}" BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
                            Padding="2" Margin="20,100,20,0"   VerticalOptions="CenterAndExpand" >
 
                     <StackLayout  VerticalOptions="CenterAndExpand"> 
                         <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"   Orientation="Horizontal">
-                            <Label Text="{Binding Sum}"    FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
-                            <Label TextColor="{x:StaticResource Black}"      FontSize="20" Text="مجموع الطلب"   />
+                            <Label Text="{Binding Sum}"    FontSize="20"   TextColor="{x:DynamicResource Secondary}"   />
+                            <Label TextColor="{x:StaticResource Primary}"      FontSize="20" Text="مجموع الطلب"   />
                         </StackLayout>
 
                         <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"   Orientation="Horizontal">
-                            <Label Text="{Binding TotalDiscount}"   FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
-                            <Label TextColor="{x:StaticResource Black}"  FontSize="20" Text="مجموع الخصم"   />
+                            <Label Text="{Binding TotalDiscount}"   FontSize="20"   TextColor="{x:DynamicResource Secondary}"   />
+                            <Label TextColor="{x:StaticResource Primary}"  FontSize="20" Text="مجموع الخصم"   />
                         </StackLayout>
                         <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"    Orientation="Horizontal">
-                            <Label Text="{Binding NetAmount}"  FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
-                            <Label TextColor="{x:StaticResource Black}"   FontSize="20" Text="صافي المبلغ"   />
+                            <Label Text="{Binding NetAmount}"  FontSize="20"   TextColor="{x:DynamicResource Secondary}"   />
+                            <Label TextColor="{x:StaticResource Primary}"   FontSize="20" Text="صافي المبلغ"   />
                          
                         </StackLayout>
                     </StackLayout>
@@ -47,27 +47,27 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="view:OrderDetail">
                                 <StackLayout>
-                                    <Frame  CornerRadius="10" BorderColor="{StaticResource Primary}"    
+                                    <Frame  CornerRadius="10" BackgroundColor="{x:StaticResource Black}" BorderColor="{StaticResource Primary}"    
                                              Padding="2" Margin="20,0,10,10"   VerticalOptions="CenterAndExpand" >
                                         
                                         <StackLayout>
                                             <StackLayout Orientation="Horizontal">
                                                 <StackLayout  HorizontalOptions="EndAndExpand">
                                                     <Button HeightRequest="45" WidthRequest="50"  Text="X" FontSize="20" Command="{Binding Source={x:Reference page}, Path=BindingContext.RemoveFromCartCommand}" 
-                                                                        HorizontalOptions="StartAndExpand"      CommandParameter="{Binding ProductsId}" BackgroundColor="Transparent" TextColor="Red" ></Button>
+                                                                        HorizontalOptions="StartAndExpand"      CommandParameter="{Binding ProductsId}" BackgroundColor="Transparent" TextColor="{x:StaticResource Blue300Accent}" ></Button>
                                                 </StackLayout>
                                                 <StackLayout    VerticalOptions="FillAndExpand"  >
                                                     <StackLayout  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  Spacing="10" Margin="0,0,0,0" >
-                                                        <Label  TextColor="{x:StaticResource Black}"   FontSize="20" Text="{Binding Name}"  />
-                                                        <Label TextColor="{x:StaticResource Primary}"  FontSize="16" Text="{Binding Price}"   />
+                                                        <Label  TextColor="{x:StaticResource Primary}"   FontSize="Subtitle" Text="{Binding Name}"  />
+                                                        <Label TextColor="{x:StaticResource Secondary}"  FontSize="Subtitle" Text="{Binding Price}"   />
                                                     </StackLayout>
                                                     <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand"  Spacing="10" Margin="10,5,10,5">
                                                         <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtn}"  CommandParameter="{Binding ProductsId}"   FontSize="20" Text="+" WidthRequest="40" HeightRequest="40" Padding="0"/>
-                                                        <Label TextColor="{x:StaticResource Primary}" VerticalTextAlignment="Center"  FontSize="16" Text="{Binding Count}"   />
+                                                        <Label TextColor="{x:StaticResource Secondary}" VerticalTextAlignment="Center"  FontSize="16" Text="{Binding Count}"   />
                                                         <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MinBtn}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
                                                     </StackLayout>
                                                 </StackLayout>
-                                                <Image Source="dotnet_bot.svg"  WidthRequest="100" ></Image>
+                                                <Image Source="{Binding Image}"  WidthRequest="100" ></Image>
                                             </StackLayout>
                                         </StackLayout>
                                         <Frame.GestureRecognizers>

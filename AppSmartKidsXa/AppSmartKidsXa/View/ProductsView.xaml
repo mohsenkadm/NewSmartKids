@@ -16,9 +16,9 @@
                     <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
                 </StackLayout>
                 <Label Style="{StaticResource TitleLabel} " Margin="0,30,0,0" Text="المنتجات"></Label>
-                <Frame Grid.Row="0" CornerRadius="10"  BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
+                <Frame Grid.Row="0" CornerRadius="10" BackgroundColor="{x:StaticResource Black}" BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
                            Padding="2" Margin="20,70,20,20"   VerticalOptions="CenterAndExpand" >
-                    <SearchBar   Text="{Binding Searchtxt}" Placeholder="بحث عن اسم المنتج "></SearchBar>
+                    <SearchBar  TextColor="{x:StaticResource Primary}"   SearchCommand="{Binding SearchCommand}" Text="{Binding Searchtxt}" Placeholder="بحث عن اسم المنتج "></SearchBar>
                 </Frame>
             </Grid>
             <StackLayout>
@@ -34,7 +34,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="entity:Products"> 
                                 <StackLayout>
-                                    <Frame CornerRadius="10" Padding="0" Margin="5" BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  > 
+                                    <Frame CornerRadius="10" BackgroundColor="{x:StaticResource Black}"  Padding="0" Margin="5" BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  > 
                                         <StackLayout>
                                             <Grid>
                                                 <Grid.RowDefinitions/>
@@ -46,7 +46,7 @@
                                                 </Frame>
                                             </Grid>
                                             <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
-                                                            FontSize="16"   Text="{Binding Name}"/>
+                                                            Text="{Binding Name}"/>
                                             <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
                                                             FontSize="16"  Text="{Binding Price}"/> 
                                                <!-- <StackLayout  Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">

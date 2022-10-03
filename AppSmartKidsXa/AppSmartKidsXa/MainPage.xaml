@@ -33,12 +33,12 @@
                     <IndicatorView Grid.Row="1" HorizontalOptions="Center" VerticalOptions="EndAndExpand"  IndicatorColor="LightGray" SelectedIndicatorColor="{x:DynamicResource Primary}" x:Name="indi"></IndicatorView>
                 </Grid>
 
-                <StackLayout Margin="10,0,20,0" VerticalOptions="CenterAndExpand">
-                    <Grid ColumnSpacing="35" Margin="10,20" RowSpacing="5">
+                <StackLayout Margin="40,0,40,0" VerticalOptions="CenterAndExpand">
+                    <Grid ColumnSpacing="35" Margin="5,10" RowSpacing="5">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="85" />
+                            <RowDefinition Height="85"/>
+                            <RowDefinition Height="85"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -46,47 +46,47 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="0">
-                            <Frame  CornerRadius="20" HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image   Source="notification.png"/> 
+                            <Frame  CornerRadius="20" HasShadow="True" Padding="17" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="30"  WidthRequest="40">
+                                <Image   Source="notification1.png" /> 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Notification}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="مركز الاشعارات"/>
+                            <Label  HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" FontSize="12" Text="مركز الاشعارات"/>
                         </StackLayout>
                         <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="0">
-                            <Frame CornerRadius="20" HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image   Source="chat.png"/> 
+                            <Frame CornerRadius="20" HasShadow="True" Padding="16" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="30"  WidthRequest="40">
+                                <Image   Source="chat1.png"/> 
 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer   Command="{Binding ChatView}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="الدعم الفني"/>
+                            <Label  HorizontalOptions="CenterAndExpand" TextColor="{x:StaticResource Primary}" FontSize="12" Text="الدعم الفني"/>
                         </StackLayout>
                         <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="0">
-                            <Frame CornerRadius="20" HasShadow="True"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image  Source="share.png"/>
+                            <Frame CornerRadius="20" HasShadow="True" Padding="15" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="30"  WidthRequest="20">
+                                <Image  Source="share1.png"/>
                                  
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer  Command="{Binding BtnShare}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="مشاركة التطبيق"/>
+                            <Label  HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" FontSize="11"  Text="مشاركة التطبيق"/>
                         </StackLayout>
                         <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="1">
-                            <Frame CornerRadius="20" HasShadow="True"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image   Source="post.png"/>
+                            <Frame CornerRadius="20" HasShadow="True" Padding="15" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="30"  WidthRequest="20">
+                                <Image   Source="facebook.png"/>
                                   
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer  Command="{Binding PostsView}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="الفيديوات"/>
+                            <Label  HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" FontSize="12"  Text="الفيديوات"/>
                         </StackLayout>
                         <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="1">
-                            <Frame CornerRadius="20"   HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image   Source="categories.png"/>
+                            <Frame CornerRadius="20"   HasShadow="True" Padding="15" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="30"  WidthRequest="20">
+                                <Image   Source="app.png"/>
                                
 
                                 <Frame.GestureRecognizers>
@@ -94,54 +94,54 @@
                                 </Frame.GestureRecognizers>
                             </Frame>
 
-                            <Label  HorizontalOptions="CenterAndExpand" Text="الفئات"/>
+                            <Label  HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" FontSize="12"  Text="الاقسام"/>
                         </StackLayout>
                         <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="1">
-                            <Frame CornerRadius="20"  HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image  Source="dashboard.png"/>
+                            <Frame CornerRadius="20"  HasShadow="True" Padding="15" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="30"  WidthRequest="20">
+                                <Image  Source="dashboard1.png"/>
                                  
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Products }"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="المنتجات"/>
+                            <Label  HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" FontSize="12"  Text="المنتجات"/>
                         </StackLayout>
                         <StackLayout Spacing="5"  Grid.Column="2"   Grid.Row="2">
-                            <Frame CornerRadius="20"  HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image   Source="shoppingcart.png"/>
+                            <Frame CornerRadius="20"  HasShadow="True" Padding="15" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="30"  WidthRequest="20">
+                                <Image   Source="shoppingcart1.png"/>
                                  
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShoppingCart}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="عربة التسوق"/>
+                            <Label  HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" FontSize="12"  Text="عربة التسوق"/>
                         </StackLayout>
 
                         <StackLayout Spacing="5"  Grid.Column="0"   Grid.Row="2">
-                            <Frame CornerRadius="20" HasShadow="True" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image  Source="shoppingbag.png"/> 
+                            <Frame CornerRadius="20" HasShadow="True" Padding="15" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="20">
+                                <Image  Source="shoppingbag1.png"/> 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Orders}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="متابعة الطلبات"/>
+                            <Label  HorizontalOptions="CenterAndExpand"  TextColor="{x:StaticResource Primary}" FontSize="12"  Text="متابعة الطلبات"/>
                         </StackLayout> 
                         <StackLayout Spacing="5"  Grid.Column="1"   Grid.Row="2">
-                            <Frame CornerRadius="20" HasShadow="True"  BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="40">
-                                <Image   Source="ordersend.png"/>
+                            <Frame CornerRadius="20" HasShadow="True" Padding="15" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary }, Light={StaticResource Primary}}" HeightRequest="40"  WidthRequest="20">
+                                <Image   Source="order.png"/>
 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SendOrder}"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label  HorizontalOptions="CenterAndExpand" Text="انهاء الطلب"/>
+                            <Label  HorizontalOptions="CenterAndExpand"   TextColor="{x:StaticResource Primary}" FontSize="12"  Text="انهاء الطلب"/>
                         </StackLayout> 
                     </Grid>
                 </StackLayout>
                 <RefreshView  HorizontalOptions="CenterAndExpand" Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" > 
                     <CollectionView   Margin="0,10"  ItemsSource="{Binding Items}">
                         <CollectionView.Header>
-                            <Label  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" FontSize="20" Text="الفئات"></Label>
+                            <Label  HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" FontSize="20" Text="الاقسام"></Label>
                         </CollectionView.Header>
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical"
@@ -150,13 +150,13 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="entity:Categories">
                                 <StackLayout Margin="0,0">
-                                    <Frame Padding="3" CornerRadius="5" Margin="10" BorderColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" 
-                                                BackgroundColor="{x:DynamicResource White2}" > 
-                                        <Grid  HorizontalOptions="FillAndExpand"  > 
-                                            <Image  Aspect="AspectFill" VerticalOptions="StartAndExpand"     HorizontalOptions="FillAndExpand"  
-                            Source="{Binding Image}" BackgroundColor="Transparent"  ></Image>
+                                    <Frame BackgroundColor="{x:StaticResource Black}" Padding="3" CornerRadius="5" Margin="10" BorderColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}" 
+                                              > 
+                                        <Grid  HorizontalOptions="FillAndExpand"  >
+                                            <Image   HeightRequest="150"  Aspect="AspectFill" VerticalOptions="StartAndExpand"     HorizontalOptions="FillAndExpand"  
+                            Source="{Binding Image}" BackgroundColor="{x:StaticResource Black}"  ></Image>
                                             <Frame CornerRadius="25" VerticalOptions="End" Margin="10"  Padding="0" BackgroundColor="{StaticResource Primary}" HorizontalOptions="Center"> 
-                                                <Label  TextColor="{x:StaticResource White}" Margin="15,5"  FontSize="18" HorizontalTextAlignment="Center"
+                                                <Label  TextColor="{x:StaticResource White}" Margin="15,5"  FontSize="14" HorizontalTextAlignment="Center"
                                                     Text="{Binding CategoriesName}" VerticalOptions="End" />
                                             </Frame> 
                                         </Grid> 

@@ -109,6 +109,7 @@ namespace AppSmartKidsXa.VM
                               
                 if (response.success == false)
                 {
+                    UserDialogs.Instance.HideLoading();
                     await App.Current.MainPage.DisplayAlert("تنبيه", "حدث خطأ", "نعم");
                 }
                 else
@@ -291,7 +292,7 @@ namespace AppSmartKidsXa.VM
                         TotalDiscount = TotalDiscount
                         ,
                         NetAmount = NetAmount
-
+                         , Image = Images.FirstOrDefault().ImagePath
                     };
                     ListCart.Add(master);
                     Count = 1;

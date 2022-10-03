@@ -11,7 +11,7 @@
                     <RowDefinition Height="80"></RowDefinition>
                     <RowDefinition Height="10"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Frame CornerRadius="50"  Margin="0,-40,0,0" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
+                <Frame   Margin="0,-40,0,0" HasShadow="False" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
                 </Frame>
                 <Label Style="{StaticResource TitleLabel}" Margin="0,30,0,0"  Text="اختيار عمر الطفل"></Label>
                 <StackLayout HorizontalOptions="FillAndExpand">
@@ -19,7 +19,7 @@
                 </StackLayout>
             </Grid>
             <StackLayout BackgroundColor="Transparent" VerticalOptions="FillAndExpand" Margin="0,0,0,-10" HorizontalOptions="FillAndExpand">
-                <Frame CornerRadius="40" VerticalOptions="CenterAndExpand"  Padding="0,20,10,0">
+                <Frame CornerRadius="40" BackgroundColor="{x:StaticResource White}" VerticalOptions="CenterAndExpand"  Padding="0,20,10,0">
                     
                     <StackLayout>
                         <RefreshView  Command="{Binding RefreshCommand}" VerticalOptions="CenterAndExpand"  IsRefreshing="{Binding IsRefreshing}" >
@@ -31,7 +31,7 @@
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="entity1:TblAges">
                                         <StackLayout  Padding="0">
-                                        <Frame  CornerRadius="15" Padding="3" Margin="10"  BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
+                                        <Frame  CornerRadius="15" BackgroundColor="{x:StaticResource Black}" Padding="3" Margin="10"  BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
                                             
                                             <StackLayout>
                                                 <StackLayout>

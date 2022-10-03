@@ -5,11 +5,11 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <Color x:Key="Primary">#FF0043</Color>
-            <Color x:Key="Secondary">#DFD8F7</Color>
+            <Color x:Key="Primary">#FFCACA</Color>
+            <Color x:Key="Secondary">#FFECEF</Color>
             <Color x:Key="Tertiary">#2B0B98</Color>
-            <Color x:Key="White">White</Color>
-            <Color x:Key="Black">Black</Color>
+            <Color x:Key="White">#372948</Color>
+            <Color x:Key="Black">#251B37</Color>
             <Color x:Key="Gray100">#E1E1E1</Color>
             <Color x:Key="Gray200">#C8C8C8</Color>
             <Color x:Key="Gray300">#ACACAC</Color>

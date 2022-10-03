@@ -22,7 +22,7 @@
                     <StackLayout HorizontalOptions="FillAndExpand">
                         <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
                     </StackLayout>
-                    <Frame CornerRadius="10" Grid.Row="0"  BorderColor="{StaticResource Primary}"  HeightRequest="180" Grid.RowSpan="2"  
+                    <Frame CornerRadius="10" Grid.Row="0" BackgroundColor="{x:StaticResource Black}" BorderColor="{StaticResource Primary}"  HeightRequest="180" Grid.RowSpan="2"  
                            Padding="2" Margin="20,70,20,0"  VerticalOptions="CenterAndExpand" >
 
                         <StackLayout >
@@ -30,7 +30,7 @@
                                           IndicatorView="indi">
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>
-                                        <Image HeightRequest="180"  Source="{Binding ImagePath}" Aspect="AspectFit"></Image>
+                                        <Image  HeightRequest="180"  Source="{Binding ImagePath}" Aspect="AspectFit"></Image>
 
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
@@ -48,16 +48,18 @@
                 <Label TextColor="{x:StaticResource Primary}" VerticalTextAlignment="Center"  FontSize="16" Text="{Binding Count}"   />
                 <Button  Command="{Binding MinBtn}"  CommandParameter="{Binding ProductsId}" FontSize="20"  Text="-" WidthRequest="40" HeightRequest="40" Padding="0"/>
             </StackLayout>
-            <StackLayout>
+                <Button  Command="{Binding Source={x:Reference page}, Path=BindingContext.MaxBtn}"  Margin="30,5" CommandParameter="{Binding ProductsId}" FontSize="20"  Text="اضافة الى السلة" WidthRequest="40" HeightRequest="40" Padding="0"/>
 
-                <Label  Text="سعر المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="20"  Margin="10,0"></Label>
-                    <Label  Text="{Binding Price}"  HorizontalOptions="EndAndExpand" FontSize="20"  Margin="10,0"></Label>
-               <Label  Text="نسبة الخصم على المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="20"  Margin="10,0"></Label>
-                    <Label  Text="{Binding DiscountPercentage}"  HorizontalOptions="EndAndExpand" FontSize="20"  Margin="10,0"></Label>
-                <Label  Text="اسم المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="20"  Margin="10,0"></Label>
-                <Label  Text="{Binding Name}"  HorizontalOptions="FillAndExpand" FontSize="20"  Margin="10,0"></Label>
-                <Label  Text="تفاصيل المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="20"  Margin="10,0"></Label> 
-                <Label  Text="{Binding Detail}"  HorizontalOptions="FillAndExpand" FontSize="20"  Margin="10,0"></Label> 
+                <StackLayout>
+
+                <Label  Text="سعر المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="Title"  Margin="10,0"></Label>
+                    <Label  Text="{Binding Price}"  HorizontalOptions="EndAndExpand" FontSize="Subtitle" TextColor="{x:StaticResource Secondary}"  Margin="10,0"></Label>
+               <Label  Text="نسبة الخصم على المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="Title"  Margin="10,0"></Label>
+                    <Label  Text="{Binding DiscountPercentage}"  HorizontalOptions="EndAndExpand" TextColor="{x:StaticResource Secondary}" FontSize="Subtitle"  Margin="10,0"></Label>
+                <Label  Text="اسم المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="Title"  Margin="10,0"></Label>
+                    <Label  Text="{Binding Name}"  HorizontalOptions="FillAndExpand" TextColor="{x:StaticResource Secondary}" FontSize="Subtitle"  Margin="10,0"></Label>
+                <Label  Text="تفاصيل المنتج"  HorizontalOptions="EndAndExpand" TextColor="{StaticResource Primary}" FontSize="Title"  Margin="10,0"></Label> 
+                <Label  Text="{Binding Detail}" TextColor="{x:StaticResource Secondary}" HorizontalOptions="FillAndExpand" FontSize="Subtitle"  Margin="10,0"></Label> 
             </StackLayout>
                 <StackLayout Margin="0,20">
                     <Button   Margin="30,20,30,5"   Command="{Binding ShoppingCartBtn}" Text="عرض العربة"/>

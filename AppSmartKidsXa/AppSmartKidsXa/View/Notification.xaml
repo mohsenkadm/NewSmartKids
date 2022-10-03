@@ -9,21 +9,21 @@
                 <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
             </StackLayout>
             <Label    Style="{StaticResource Key=TitleLabel}" Text="الاشعارات" ></Label>
-            <StackLayout  HorizontalOptions="FillAndExpand"  >
-                <Frame Padding="20" CornerRadius="40" Margin="0,0,0,-10"> 
+            <StackLayout  HorizontalOptions="FillAndExpand"   >
+                <Frame Padding="20" CornerRadius="40" Margin="0,0,0,-10" BackgroundColor="{x:StaticResource White}"> 
                     <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >
                         <CollectionView   ItemsSource="{Binding Items}" >
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="entity:Notification">
                                     <StackLayout Margin="0,0,0,10" HorizontalOptions="CenterAndExpand">
-                                        <Frame CornerRadius="25"   Padding="0"  BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
+                                        <Frame CornerRadius="25"   Padding="0" BackgroundColor="{x:StaticResource Black}"  BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
 
                                             <StackLayout>
-                                                <Label HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"   FontSize="18" Margin="2" Text="{Binding Title}"/>
+                                                <Label HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"   FontSize="Title" Margin="2" Text="{Binding Title}"/>
 
-                                                <Label TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}"
-                                                       HorizontalTextAlignment="Center"   FontSize="16" Margin="5" Text="{Binding Details}"/>
-                                                <Label TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  HorizontalTextAlignment="Center"   FontSize="12" Margin="2,5,5,10" Text="{Binding DateInsert}"/>
+                                                <Label TextColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Secondary}}"
+                                                       HorizontalTextAlignment="Center"   FontSize="Subtitle" Margin="5" Text="{Binding Details}"/>
+                                                <Label TextColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Secondary}}"  HorizontalTextAlignment="Center"   FontSize="Small" Margin="2,5,5,10" Text="{Binding DateInsert}"/>
 
                                             </StackLayout>
                                         </Frame>

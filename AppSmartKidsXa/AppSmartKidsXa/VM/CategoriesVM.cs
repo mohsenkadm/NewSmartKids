@@ -86,15 +86,16 @@ namespace AppSmartKidsXa.VM
             try
             {
                 IsBusy = true;
-                UserDialogs.Instance.ShowLoading("انتظار");
                 if (!CheckConnection())
-                {
+                {                                         
                     await App.Current.MainPage.DisplayAlert("خطا", "لا يوجد اتصال بلانترنت", "نعم"); return;
-                }                
+                }                               
+                UserDialogs.Instance.ShowLoading("انتظار");
                 ResponseList<Categories> response = await urlService.GetListAllAsync("Categories/GetAll");
 
                 if (response.success == false)
                 {
+                    UserDialogs.Instance.HideLoading();
                     await App.Current.MainPage.DisplayAlert("خطا", "حدث خطا", "نعم");
                 }
                 else

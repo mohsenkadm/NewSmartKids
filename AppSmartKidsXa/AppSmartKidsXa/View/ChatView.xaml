@@ -35,7 +35,7 @@
                                                        HorizontalOptions="End" Margin="0,2,5,0" FontSize="14" >
                                                     <Label.Triggers>
                                                         <DataTrigger TargetType="Label" Binding="{Binding IsOwner}" Value="True">
-                                                            <Setter  Property="TextColor" Value="#fff"></Setter>
+                                                            <Setter  Property="TextColor" Value="{x:StaticResource Black}"></Setter>
                                                         </DataTrigger>
                                                     </Label.Triggers>
                                                 </Label>
@@ -43,7 +43,7 @@
                                                        HorizontalOptions="End" Margin="0,0,5,0" FontSize="12" >
                                                     <Label.Triggers>
                                                         <DataTrigger TargetType="Label" Binding="{Binding IsOwner}" Value="True">
-                                                            <Setter  Property="TextColor" Value="#fff"></Setter>
+                                                            <Setter  Property="TextColor" Value="{x:StaticResource Black}"></Setter>
                                                         </DataTrigger>
                                                     </Label.Triggers>
                                                 </Label>

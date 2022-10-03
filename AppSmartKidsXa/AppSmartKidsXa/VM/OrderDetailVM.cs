@@ -78,7 +78,8 @@ namespace AppSmartKidsXa.VM
         {
             get { return items; }
             set { items = value;  OnPropertyChanged(nameof(Items)); }
-        }
+        }     
+
         #endregion
 
 
@@ -134,7 +135,8 @@ namespace AppSmartKidsXa.VM
                         IsDone = order.IsDone;
                         IsApporve = order.IsApporve;
                         IsCancel = order.IsCancel;     
-                        Items = response.data;     
+                        Items = response.data;
+                        
                     }
                 }
             }

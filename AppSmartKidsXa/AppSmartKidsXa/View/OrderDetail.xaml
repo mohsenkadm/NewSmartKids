@@ -18,30 +18,30 @@
                     <StackLayout HorizontalOptions="FillAndExpand">
                         <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
                     </StackLayout>
-                    <Frame Grid.Row="0"  CornerRadius="10" BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
+                    <Frame Grid.Row="0" BackgroundColor="{x:StaticResource Black}" CornerRadius="10" BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
                            Padding="2" Margin="20,80,20,0"   VerticalOptions="CenterAndExpand" >
                         
                         <StackLayout  VerticalOptions="CenterAndExpand">
                             <StackLayout  HorizontalOptions="CenterAndExpand"   Spacing="10" Margin="0,10,0,10"   Orientation="Horizontal">
-                                <Label Text="{Binding OrderNo}" FontSize="20"     TextColor="{x:DynamicResource Primary}"   />
-                                <Label TextColor="{x:StaticResource Black}"    FontSize="20" Text="رقم الطلب"   />
+                                <Label Text="{Binding OrderNo}" FontSize="20"     TextColor="{x:DynamicResource Secondary}"   />
+                                <Label TextColor="{x:StaticResource Primary}"    FontSize="20" Text="رقم الطلب"   />
                             </StackLayout>
                             <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"   Orientation="Horizontal">
-                                <Label Text="{Binding OrderDate}" FontSize="18"    TextColor="{x:DynamicResource Primary}"   />
-                                <Label TextColor="{x:StaticResource Black}"    FontSize="20" Text="تاريخ الطلب"   />
+                                <Label Text="{Binding OrderDate}" FontSize="18"    TextColor="{x:DynamicResource Secondary}"   />
+                                <Label TextColor="{x:StaticResource Primary}"    FontSize="20" Text="تاريخ الطلب"   />
                             </StackLayout>
                             <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"   Orientation="Horizontal">
-                                <Label Text="{Binding Total}"    FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
-                                <Label TextColor="{x:StaticResource Black}"      FontSize="20" Text="مجموع الطلب"   />
+                                <Label Text="{Binding Total}"    FontSize="20"   TextColor="{x:DynamicResource Secondary}"   />
+                                <Label TextColor="{x:StaticResource Primary}"      FontSize="20" Text="مجموع الطلب"   />
                             </StackLayout>
 
                             <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"   Orientation="Horizontal">
-                                <Label Text="{Binding TotalDiscount}"   FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
-                                <Label TextColor="{x:StaticResource Black}"  FontSize="20" Text="مجموع الخصم"   />
+                                <Label Text="{Binding TotalDiscount}"   FontSize="20"   TextColor="{x:DynamicResource Secondary}"   />
+                                <Label TextColor="{x:StaticResource Primary}"  FontSize="20" Text="مجموع الخصم"   />
                             </StackLayout>
                             <StackLayout  HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"    Orientation="Horizontal">
-                                <Label Text="{Binding NetAmount}"  FontSize="20"   TextColor="{x:DynamicResource Primary}"   />
-                                <Label TextColor="{x:StaticResource Black}"   FontSize="20" Text="صافي المبلغ"   />
+                                <Label Text="{Binding NetAmount}"  FontSize="20"   TextColor="{x:DynamicResource Secondary}"   />
+                                <Label TextColor="{x:StaticResource Primary}"   FontSize="20" Text="صافي المبلغ"   />
                             </StackLayout>
                             <StackLayout HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,0,0,10"  Orientation="Horizontal"    >
                                 <Label  FontSize="20">
@@ -79,7 +79,7 @@
 
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="حالة الطلب"     FontSize="20"  />
+                                <Label Text="حالة الطلب"   TextColor="{x:StaticResource Primary}"  FontSize="20"  />
                             </StackLayout>
                         </StackLayout>
                     </Frame>
@@ -100,10 +100,10 @@
                                 <DataTemplate  >
                                     <StackLayout>
                                         <Frame  CornerRadius="10" BorderColor="{StaticResource Primary}"    
-                                             Padding="2" Margin="20,0,10,10"   VerticalOptions="CenterAndExpand" >
+                                             Padding="2" Margin="20,0,10,10"  BackgroundColor="{x:StaticResource Black}" VerticalOptions="CenterAndExpand" >
                                             
                                             <StackLayout  HorizontalOptions="CenterAndExpand" Padding="10" >
-                                                <Label  TextColor="{x:StaticResource Black}"   FontSize="20" Text="{Binding Name}"  />
+                                                <Label  TextColor="{x:StaticResource Primary}"   FontSize="20" Text="{Binding Name}"  />
                                                 <Label TextColor="{x:StaticResource Primary}"  FontSize="16" Text="{Binding Price}"   />
                                             </StackLayout>
                                         </Frame>
