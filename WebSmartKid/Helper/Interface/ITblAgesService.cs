@@ -13,6 +13,7 @@ namespace WebSmartKid.Helper.Interface
         Task<TblAges> GetTblAgesById(int Id);
         Task<ResObj> GetById(int Id);
         Task<ResObj> SetProductAndAge(ProductAndAge productAndAge);
+        Task<ResObj> SetSalactAllProductAndAge(ProductAndAge productAndAge);
         Task<ResObj> GetProductAndAge(int id);
     }
 }

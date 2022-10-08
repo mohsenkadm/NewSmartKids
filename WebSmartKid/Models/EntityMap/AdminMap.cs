@@ -18,6 +18,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.Ignore(x => x.CountItem);                       
             builder.Ignore(x => x.CountOrder);                       
             builder.Ignore(x => x.CountUser);                       
+            builder.Ignore(x => x.CountItemQty);                       
             builder.Ignore(x => x.PriceSale);                       
         }
     }

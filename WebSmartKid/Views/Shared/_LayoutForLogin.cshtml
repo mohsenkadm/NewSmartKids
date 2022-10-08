@@ -30,10 +30,30 @@
        
   <div class="wrapper " >
        
-    <div>
-        @RenderBody() 
+        <div>
+        @RenderBody()
+        </div>
+        <div class="modal fade" id="messagemodel" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content dark-edition ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">الرسائل</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="messageList" class="pre-scrollable">
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-transparent" data-dismiss="modal">اغلاق</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
+     
     <script type="text/javascript" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     <script type="text/javascript" src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

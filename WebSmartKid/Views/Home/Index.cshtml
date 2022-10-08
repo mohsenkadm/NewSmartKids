@@ -59,15 +59,32 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons">category</i>
                         </div>
-                        <p class="card-category">عدد المواد</p>
+                        <p class="card-category">عدد منتجات</p>
                         <h3 class="card-title" id="CountItem">90</h3>
                     </div>
 
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-info">attach_money</i>
+                            <i class="material-icons text-info">category</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">category </i>
+                            </div>
+                        <p class="card-category">كمية المنتجات </p>
+                        <h3 class="card-title" id="CountItemQty">90</h3>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-info">category</i>
                         </div>
                     </div>
                 </div>
@@ -94,6 +111,7 @@
             $("#CountOrder").html(data.countOrder);
             $("#PriceSale").html(data.priceSale);
             $("#CountItem").html(data.countItem);
+            $("#CountItemQty").html(data.countItemQty);
         }
     </script>
 </div>

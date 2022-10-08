@@ -17,5 +17,6 @@ namespace Entity.Entity
         public int CountOrder { get; set; }
         public int PriceSale { get; set; }
         public int CountItem { get; set; }
+        public int CountItemQty { get; set; }
     }
 }

@@ -221,4 +221,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\shoppingbag1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\facebook1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\instagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\telegram.png" />
+  </ItemGroup>
 </Project>

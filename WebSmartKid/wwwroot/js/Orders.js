@@ -78,7 +78,8 @@ function SetDataOrderDetail(data) {
             "<td> " + item.count + "</td> " +  
             "<td> " + item.price + "</td> " +  
             "<td>" + item.detail + "</td>" + 
-            "<td>" + item.prodName + "</td>"
+            "<td>" + item.prodName + "</td>" +
+            "<td><img src='" + item.image + "' alt='' border=3 height=50 width=50></img></td>" 
             + "<td> <button type='button' class='btn btn-danger' onclick='deleteOrderDetail(" + item.orderDetailId + ")'  >حذف</button></td></tr>";
         $('#tableOrdersDetail').append(rows);
     });

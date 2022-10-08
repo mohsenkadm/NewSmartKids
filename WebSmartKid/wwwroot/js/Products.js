@@ -1,6 +1,7 @@
 ﻿
 var _ProductsId = 0;
-var ProductsId2 = 0; 
+var ProductsId2 = 0;
+var selectallsastus = false;
 function filltableProducts(data) {
     $('#tableProducts').empty();
     $.each(data, function (i, item) {
@@ -38,22 +39,34 @@ function GetAge(id) {
     call_ajax("GET", "TblAges/GetProductAndAge", object1, filltableAge);
 }
 
+ 
 function filltableAge(data) {
     $('#tableAge').empty();
+    var rows = "<tr>" +
+        "<td><input type='checkbox'  id='salactall' onclick='SetSalactAllProductAndAge(this," + data[0].productsId + ")'   /></td>" +
+        "<td>تحديد الكل</td></tr>";
+    $('#tableAge').append(rows); 
     $.each(data, function (i, item) {
         var rows = "<tr>" +
-            "<td><input type='checkbox' id='state" + item.id + "' onclick='SetProductAndAge(this," + item.id + ")' /></td>" +
+            "<td><input type='checkbox'    id='state" + item.id + "' onclick='SetProductAndAge(this," + item.id + ")' /></td>" +
             "<td>" + item.ageName + "</td></tr>";
         $('#tableAge').append(rows);
         $('#state' + item.id).attr('checked', item.state);
     });
-}
-
+    $('#salactall').attr('checked', selectallsastus);
+}  
 function SetProductAndAge(state, id) {
     var object = {
         State: state.checked, Id: id,
     };
     call_ajax("POST", "TblAges/SetProductAndAge", object, null);
+}
+function SetSalactAllProductAndAge(state, id) {
+    var object = {
+        State: state.checked, ProductsId: id,
+    };
+      selectallsastus =object.State;
+    call_ajax("POST", "TblAges/SetSalactAllProductAndAge", object, GetAge);
 }
 
 function deleteProducts(id) {
@@ -66,8 +79,11 @@ function deleteProducts(id) {
     }
 }
 function RefreshProducts() {
-    var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: 1 }
-    call_ajax("GET", "Products/GetAll", obj, filltableProducts);
+    var count = $("#indexid").text();
+    if (count > 1) {
+        var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count }
+        call_ajax("GET", "Products/GetAll", obj, filltableProducts);
+    }
 }
 
 function updateProducts(id) {

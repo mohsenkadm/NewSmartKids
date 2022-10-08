@@ -31,6 +31,7 @@ namespace AppSmartKidsXa.VM
             set { images = value; OnPropertyChanged(nameof(Images)); }
         }                         
         private Products products;
+        public Products Products {  get { return products; }set { products = value; OnPropertyChanged(nameof(Products)); }  }
                              
         private string _Name; 
         public string Name
@@ -134,7 +135,7 @@ namespace AppSmartKidsXa.VM
                             Count = co.Count;
                         }
                     }
-                    products = dataa;
+                    Products = dataa;
                     ResponseList<Images> response1 = await _serviceImage.GetListAllAsync("Products/GetImagesByProductsId?Id=" + _Id);
                     if (response1.success == false)
                     {         
@@ -266,7 +267,7 @@ namespace AppSmartKidsXa.VM
                 }
                 else
                 {
-                    var response = products;
+                    var response = Products;
                     int DiscountPercentage = 0;
                     decimal NetAmount = response.Price,
                         TotalDiscount = 0;
@@ -282,18 +283,17 @@ namespace AppSmartKidsXa.VM
                         Name = response.Name,
                         Price = response.Price,
                         Count = 1
-                        ,
-                        Total = response.Price
-                        ,
-                        IsDiscount = response.IsDiscount
-                        ,
-                        DiscountPercentage = DiscountPercentage
+                        ,Total = response.Price
+                        ,IsDiscount = response.IsDiscount
+                        ,DiscountPercentage = DiscountPercentage
                         ,
                         TotalDiscount = TotalDiscount
                         ,
                         NetAmount = NetAmount
-                         , Image = Images.FirstOrDefault().ImagePath
+                        
                     };
+                    if (Images.Count > 0)
+                        master.Image = Images.FirstOrDefault().ImagePath;
                     ListCart.Add(master);
                     Count = 1;
                     await App.Current.MainPage.DisplayAlert("تنبيه", "تم اضافة المنتج الى السلة", "نعم");

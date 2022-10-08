@@ -168,7 +168,7 @@ function GetMessagechat(data) {
     });
 
     $('#userchatinfoid').empty();
-    var rows1 = "<h3 style='margin-top: -32px;'>" + userName + " </h3>";
+    var rows1 = "<h3  >" + userName + " </h3>";
     $('#userchatinfoid').append(rows1);
     window.scrollTo(0, document.body.scrollHeight);
 }

@@ -1,10 +1,7 @@
 ﻿@{
     ViewData["Title"] = "دردشة";
     Layout = "~/Views/Shared/_LayoutForLogin.cshtml";
-}
-<section style="position:fixed; top:0; left:0; width:100%;">
-   
-</section>
+} 
 <style>
     .dr {
         border-radius: 15px;
@@ -61,30 +58,31 @@
         margin-left: 3%;
     }
 </style>
-<section class="session_chat">
-    <div class="chatwidth" style="">
-        <div class="text-center price-title wow fadeInDown">
-            <div class="row">
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <a class="" onclick="call_Action('Home/Index')"><i class='icon tf-ion-arrow-left-c' style="font-size:175%;"></i></a>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <a class="" onclick="call_Action(GetMessageList())" data-toggle='modal' data-target='#messagemodel'><i class='icon tf-ion-chatboxes' style="font-size:175%;"></i></a>
-                </div>
-                <div id="userchatinfoid" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " style="margin-left:30%">
-                </div>
+<section class="session_chat    card">
+    <div class="chatwidth " style="">
+        <div class="card-header card-header-info  row" style="text-align:right">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <a class="" onclick="call_Action('Home/Index')">  <i class="icon material-icons">arrow_back</i></a>
+            </div> 
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <a class="" onclick="call_Action(GetMessageList())" data-toggle='modal' data-target='#messagemodel'><i class="icon material-icons" >messages</i></a>
             </div>
-        </div>
-    </div>
-    <div id="messges" class="chatmassagewidth container text-center" style=" height: 90%;   overflow: visible; background-color: transparent;">
+            <div id="userchatinfoid" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 "  >
+            </div> 
+        </div> 
+    </div> 
+    <div class="card-body"></div>
+    <div id="messges" class="chatmassagewidth container text-center" style="  height: 90%;   overflow: visible; background-color: transparent;">
     </div>
 </section>
-<section style="position:fixed; top:88%; left:0px; width:100%;">
+<section class="card" style="position:fixed; top:82%; left:0px; width:100%; ">
+
+    <div class="card-body"></div>
     <div class="chatwidth" style="">
-        <div class="text-center price-title ">
+        <div class="text-center  card-header card-header-info  ">
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" style="margin-left:10%;  " class="bo form-control alignright" autocomplete="off" name="messagetext" id="messagetext" placeholder="اكتب رقم المستخدم"> 
+                    <input type="text" style="margin-left:10%;  " class="bo form-control alignright" autocomplete="off" name="messagetext" id="messagetext" placeholder="اكتب رسالتك"> 
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="margin-left:6%">
                     <button id="sendmessage" type='button' class='btn btn-success btnwidth' > <i class='material-icons'>send</i></button>

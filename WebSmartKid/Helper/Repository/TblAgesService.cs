@@ -82,6 +82,21 @@ namespace WebSmartKid.Helper.Repository
             await _context.SaveChangesAsync();
             return Result.Return(true, "تم الحفظ");
         }
+                  
+        public async Task<ResObj> SetSalactAllProductAndAge(ProductAndAge productAndAge)
+        {
+            List<ProductAndAge> re = await _context.ProductAndAge.Where(i => i.ProductsId == productAndAge.ProductsId).ToListAsync();
+            foreach (var item in re)
+            {
+                if (item.AgeId != 1)
+                {
+                    item.State = productAndAge.State;
+                    _context.Entry(item).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+            }
+            return Result.Return(true, "تم الحفظ");
+        }
 
         public async Task<ResObj> GetProductAndAge(int Id)
         {

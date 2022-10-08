@@ -139,7 +139,26 @@ namespace WebSmartKid.Controllers
 
                 ResObj res = await _TblAgesService.SetProductAndAge(productAndAge);
 
-                return Response(res.success, res.data);
+                return Response(res.success,res.msg);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "TblAgeController => SetProductAndAge ");
+                return Response(false, "حدث خطا اثناء عملية جلب البيانات");
+            }
+        }
+        #endregion  
+
+        #region SetProductAndAge  
+        [HttpPost]
+        public async Task<IActionResult> SetSalactAllProductAndAge(ProductAndAge productAndAge)
+        {
+            try
+            {
+
+                ResObj res = await _TblAgesService.SetSalactAllProductAndAge(productAndAge);
+
+                return Response(res.success,res.msg,productAndAge.ProductsId);
             }
             catch (Exception ex)
             {
