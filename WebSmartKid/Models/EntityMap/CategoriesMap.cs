@@ -13,6 +13,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.HasKey(x => x.CategoriesId);
             builder.Property(x => x.Image).IsRequired();
             builder.Property(x => x.CategoriesName).IsRequired(); 
+            builder.Property(x => x.No).IsRequired(); 
         }
     }
 }

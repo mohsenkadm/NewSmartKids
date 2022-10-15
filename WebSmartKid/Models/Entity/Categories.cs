@@ -11,5 +11,6 @@ namespace Entity.Entity
         public int CategoriesId { get; set; }
         public string CategoriesName { get; set; }
         public string Image { get; set; }
+        public int No { get; set; }
     }
 }

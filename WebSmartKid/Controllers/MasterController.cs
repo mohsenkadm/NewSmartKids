@@ -7,6 +7,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using OneSignalApi.Api;
+using OneSignalApi.Client;
+using OneSignalApi.Model;
+using Configuration = OneSignalApi.Client.Configuration;
 
 namespace WebSmartKid.Controllers
 {  
@@ -58,56 +63,61 @@ namespace WebSmartKid.Controllers
         }
 
         [NonAction]
-        public async Task OneSignalSender(string Title, string body, string[] id)
+        public async Task OneSignalSender(string Title, string body)
+        {
+            try
+            {
+                string onesignalAppID = "86509cbb-2e1b-49ab-af76-246c2772ac75";
+                string onesignalRestID = "MDMyNDU5NjAtMWVkMC00ZGM5LTg1MDMtNTEwMjlkNTdjYjVh";
+
+
+                // Configure the OneSignal Library
+                var appConfig = new Configuration();
+                appConfig.BasePath = "https://onesignal.com/api/v1";
+                appConfig.AccessToken = onesignalRestID;
+                var appInstance = new DefaultApi(appConfig);
+
+                // Create and send notification to all subscribed users
+                var notification = new Notification(appId: onesignalAppID)
+                {
+                    Contents = new StringMap(body), Headings=new StringMap(Title),Subtitle=new StringMap(body),
+                    IncludedSegments = new List<string> { "Subscribed Users" },
+                };
+                var response = await appInstance.CreateNotificationAsync(notification);
+
+                Console.WriteLine($"Notification created for {response.Recipients} recipients");
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }      
+        [NonAction]
+        public async Task OneSignalSenderUser(string Title, string body, List<string> id)
         {
             string onesignalAppID = "86509cbb-2e1b-49ab-af76-246c2772ac75";
             string onesignalRestID = "MDMyNDU5NjAtMWVkMC00ZGM5LTg1MDMtNTEwMjlkNTdjYjVh";
 
 
-            var request = WebRequest.Create("https://onesignal.com/api/v1/notifications") as HttpWebRequest;
+            // Configure the OneSignal Library
+            var appConfig = new Configuration();
+            appConfig.BasePath = "https://onesignal.com/api/v1";
+            appConfig.AccessToken = onesignalRestID;
+            var appInstance = new DefaultApi(appConfig);
 
-            request.KeepAlive = true;
-            request.Method = "POST";
-            request.ContentType = "application/json; charset=utf-8";
-
-            request.Headers.Add("authorization", "Basic " + onesignalRestID);
-
-            var obj = new
+            // Create and send notification to all subscribed users
+            var notification = new Notification(appId: onesignalAppID)
             {
-                app_id = onesignalAppID,
-                contents = new { en = body },
-                headings = new { en = Title },
-                channel_for_external_user_ids = "push",
-                include_external_user_ids = id
+                Contents = new StringMap(body),
+                Headings = new StringMap(Title),
+                Subtitle = new StringMap(body),
+                IncludeExternalUserIds = id ,
+                   ChannelForExternalUserIds = "push"
             };
+            var response = await appInstance.CreateNotificationAsync(notification);
 
-
-
-            var param = JsonConvert.SerializeObject(obj);
-            byte[] byteArray = Encoding.UTF8.GetBytes(param);
-
-            string responseContent = null;
-
-            try
-            {
-                using (var writer = request.GetRequestStream())
-                {
-                    writer.Write(byteArray, 0, byteArray.Length);
-                }
-
-                using (var response = request.GetResponse() as HttpWebResponse)
-                {
-                    using (var reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        responseContent = reader.ReadToEnd();
-                    }
-                }
-            }
-            catch (WebException ex)
-            { 
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                System.Diagnostics.Debug.WriteLine(new StreamReader(ex.Response.GetResponseStream()).ReadToEnd());
-            }
+            Console.WriteLine($"Notification created for {response.Recipients} recipients");
+                     
         }
     }
 }

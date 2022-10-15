@@ -73,14 +73,8 @@ namespace WebSmartKid.Controllers
         private async Task sendnot(Notification notifications)
         {
             try
-            {
-                List<string> ids = new List<string>();  
-                List<Users> users = await _Context.Users.ToListAsync();
-                foreach (var item in users)
-                {
-                    ids.Add(item.UserId.ToString());
-                }
-                await OneSignalSender(notifications.Title, notifications.Details, ids.ToArray());
+            {                                       
+                await OneSignalSender(notifications.Title, notifications.Details);
             }
             catch (Exception ex)
             { await _logger.WriteAsync(ex, " PostController => sendnot"); }

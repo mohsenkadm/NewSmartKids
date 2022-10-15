@@ -34,6 +34,6 @@ namespace AppSmartKidsXa.Entity
         public decimal NetAmount { get; set; }
         public decimal TotalDiscount { get; set; }
 
-        public string Image { get; set; }
+        public string Image { get; set; }          
     }
 }

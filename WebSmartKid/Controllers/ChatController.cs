@@ -117,8 +117,8 @@ namespace WebSmartKid.Controllers
                 };                                         
                 try
                 {
-                    await OneSignalSender(notifications.Title, notifications.Details,
-                        new string[] { HttpContext.Session.GetInt32("Id").ToString() });
+                    await OneSignalSenderUser(notifications.Title, notifications.Details,
+                        new List<string> { HttpContext.Session.GetInt32("Id").ToString() });
                 }
                 catch (Exception ex) { }
 

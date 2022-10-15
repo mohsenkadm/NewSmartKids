@@ -23,7 +23,7 @@ namespace WebSmartKid.Helper.Repository
 
         public async Task<ResObj> GetAll()
         {
-            List<Categories> data = await _context.Categories.ToListAsync() ;
+            List<Categories> data = await _context.Categories.OrderBy(i=>i.No).ToListAsync();
             return Result.Return(true, data);
         }
 
@@ -40,9 +40,13 @@ namespace WebSmartKid.Helper.Repository
             Categories Categories1 = await GetCategoriesById(Categories.CategoriesId);
             if (Categories1 is null)
                 return Result.Return(false, "حدث خطا اثناء عملية جلب البيانات");
-             
-            Categories1.Image = Categories.Image;
-            Categories1.CategoriesName = Categories.CategoriesName;
+            if (Categories.Image != null)
+            {
+                Categories1.Image = Categories.Image;
+            }
+                Categories1.CategoriesName = Categories.CategoriesName;
+      
+            Categories1.No = Categories.No;
             _context.Entry(Categories1).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

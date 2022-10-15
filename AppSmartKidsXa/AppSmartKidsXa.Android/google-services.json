@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "850008465881",
+    "project_id": "notificationsmartkids",
+    "storage_bucket": "notificationsmartkids.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850008465881:android:680986b537c926302cb9c8",
+        "android_client_info": {
+          "package_name": "com.companyname.AppSmartKids"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850008465881-pmbjth8asti6m6kc20ic5qr3vbu3atng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk974cL9MIS4AWTQTrcVrYAfEA6om3NWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850008465881-pmbjth8asti6m6kc20ic5qr3vbu3atng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

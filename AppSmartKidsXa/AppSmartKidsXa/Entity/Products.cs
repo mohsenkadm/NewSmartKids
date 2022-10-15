@@ -25,6 +25,7 @@ namespace AppSmartKidsXa.Entity
 
         // for filter                     
         public List<AgeFilter> AgeFilter { get; set; }
+        public int? Sort { get; set; }
 
     }
     public class AgeFilter

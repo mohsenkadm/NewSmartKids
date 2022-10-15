@@ -1,10 +1,10 @@
-﻿ LogDT = 10/8/2022 9:51:33 AM 
- LogMsg = TblAgeController => SetProductAndAge  
- LogDesc = Msg=TblAgeController => SetProductAndAge ;Ex.Msg=The entity type 'List<ProductAndAge>' was not found. Ensure that the entity type has been added to the model.; 
+﻿ LogDT = 10/14/2022 8:35:27 PM 
+ LogMsg = OrdersController => Delete 
+ LogDesc = Msg=OrdersController => Delete;Ex.Msg=The entity type 'List<OrderDetail>' was not found. Ensure that the entity type has been added to the model.; 
 
 ********************************************** 
 
-LogDT = 10/8/2022 9:51:33 AM 
+LogDT = 10/14/2022 8:35:27 PM 
  LogMsg = LoggerRepository=>;WriteAsync 
  LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'List'.; 
 

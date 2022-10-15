@@ -230,4 +230,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\telegram.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filter.png" />
+  </ItemGroup>
 </Project>

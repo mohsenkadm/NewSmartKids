@@ -140,8 +140,8 @@ namespace WebSmartKid.Controllers
                 }          
                 try
                 {
-                    await OneSignalSender(notifications.Title, notifications.Details,
-                      ids.ToArray());
+                    await OneSignalSenderUser(notifications.Title, notifications.Details,
+                      ids);
                 }
                 catch (Exception ex) { }
             }

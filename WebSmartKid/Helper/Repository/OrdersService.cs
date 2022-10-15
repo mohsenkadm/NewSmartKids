@@ -37,7 +37,10 @@ namespace WebSmartKid.Helper.Repository
             _context.Entry(Orders1).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
             List<OrderDetail> orderDetail = await GetOrdersDetailById(Id);
-            _context.Entry(orderDetail).State = EntityState.Deleted;
+            foreach (var item in orderDetail)
+            {
+                _context.Entry(item).State = EntityState.Deleted;
+            }
             await _context.SaveChangesAsync();
 
             return Result.Return(true, "تم حذف بنجاح");

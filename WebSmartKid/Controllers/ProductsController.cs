@@ -57,6 +57,24 @@ namespace WebSmartKid.Controllers
 
         #region Get Info Products       
         [HttpGet]
+        public async Task<IActionResult> ReportQtyGetAll(string? Name, int? CategoriesId, int index)
+        {
+            try
+            {
+                ResObj res = await _ProductsService.ReportQtyGetAll(Name,CategoriesId,index);
+
+                return Response(res.success, res.data);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "ProductsController => ReportQtyGetAll => name:");
+                return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
+            }
+        }
+        #endregion    
+
+        #region Get Info Products       
+        [HttpGet]
         public async Task<IActionResult> GetAll(string? Name, int? CategoriesId, int index)
         {
             try

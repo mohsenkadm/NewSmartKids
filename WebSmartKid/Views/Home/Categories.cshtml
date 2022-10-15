@@ -31,6 +31,7 @@
                                     <thead class=" ">
                                         <tr> 
                                             <th scope="col">الصورة</th> 
+                                            <th scope="col">رقم الصنف</th> 
                                             <th scope="col">اسم الصنف</th> 
                                             <th scope="col"></th>
                                         </tr>
@@ -63,9 +64,14 @@
                         <label class="text-primary">اختيار صورة</label>
                         <input type="file" placeholder="اختيار الصورة" class=" alignright" autocomplete="off" name="imageca" id="imageca" />
                     </div>
-                    <div class="form-group col-md-12  alignright">
+                    <div class="form-group col-md-9  alignright">
                         <label class="text-primary">اسم الصنف</label>
                         <input type="text" id="CategoriesName" autocomplete="off" name="CategoriesName" class="form-control alignright" placeholder="اكتب اسم الصنف" />
+
+                    </div>
+                    <div class="form-group col-md-3  alignright">
+                        <label class="text-primary">رقم الصنف</label>
+                        <input type="text" id="No" autocomplete="off" name="No" class="form-control alignright" placeholder="اكتب رقم الصنف" />
 
                     </div>
                 </div>
@@ -89,10 +95,15 @@
                 CategoriesId: _categoriesId,
                 Image: $("#imageca").val(), 
                 CategoriesName: $("#CategoriesName").val(),
+                No: $("#No").val(),
             };
              
             if (object.CategoriesName === "" || object.CategoriesName.trim() === "") {
                 md.showNotification("رجاءا ادخل اسم الصنف ");
+                return;
+            }
+            if (object.No === "" || object.No.trim() === "") {
+                md.showNotification("رجاءا ادخل رقم الصنف ");
                 return;
             }
 

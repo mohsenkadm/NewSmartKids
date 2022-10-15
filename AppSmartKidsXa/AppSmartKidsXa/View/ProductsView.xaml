@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:entity="clr-namespace:AppSmartKidsXa.Entity"
              x:Class="AppSmartKidsXa.View.ProductsView" x:Name="page" NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <StackLayout   >
-            <Grid >
+        <StackLayout>
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
@@ -12,8 +12,9 @@
                 <Frame Margin="0,-40,0,0" CornerRadius="50" HeightRequest="180" Grid.Row="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Primary},Light={StaticResource Primary}}">
 
                 </Frame>
-                <StackLayout HorizontalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
                     <ImageButton Style="{StaticResource back}" Source="arrow.png"></ImageButton>
+                    <ImageButton Style="{StaticResource back}" Command="{Binding ChooseFilter}" Scale="1" HorizontalOptions="EndAndExpand"  Source="filter.png"></ImageButton>
                 </StackLayout>
                 <Label Style="{StaticResource TitleLabel} " Margin="0,30,0,0" Text="المنتجات"></Label>
                 <Frame Grid.Row="0" CornerRadius="10" BackgroundColor="{x:StaticResource Black}" BorderColor="{StaticResource Primary}"  Grid.RowSpan="2"  
@@ -21,8 +22,31 @@
                     <SearchBar  TextColor="{x:StaticResource Primary}"   SearchCommand="{Binding SearchCommand}" Text="{Binding Searchtxt}" Placeholder="بحث عن اسم المنتج "></SearchBar>
                 </Frame>
             </Grid>
-            <StackLayout>
-                
+            <StackLayout HeightRequest="70">
+                <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                            Text="اختيار القسم"/>
+                <CollectionView  ItemsSource="{Binding ItemsCategories}" >
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="entity:Categories">
+                            <StackLayout>
+                                <Frame HorizontalOptions="CenterAndExpand" CornerRadius="5" BackgroundColor="{x:StaticResource Black}"  Padding="7" Margin="5" 
+                                       BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"  >
+                                    <StackLayout HorizontalOptions="CenterAndExpand" >
+                                        <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" 
+                                                            Text="{Binding CategoriesName}"/> 
+                                    </StackLayout>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding CategoriesId}"  
+                                                        Command="{Binding Source={x:Reference page}, Path=BindingContext.ChooseCategory}"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </StackLayout>
             <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" >

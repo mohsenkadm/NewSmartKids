@@ -7,7 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Entity.Entity;
-using System.Xml.Linq;               
+using System.Xml.Linq;
+using WebSmartKid.Models.Entity;
 
 namespace WebSmartKid.Helper.Repository
 {
@@ -16,12 +17,14 @@ namespace WebSmartKid.Helper.Repository
         // cotext only apply scopped 
         private readonly DB_Context _context;
         private readonly IDapperRepository<Products> _prodService;
+        private readonly IDapperRepository<ReportQty> _ReportQtyService;
 
         public ProductsService(
-            DB_Context context, IDapperRepository<Products> prodService)
+            DB_Context context, IDapperRepository<Products> prodService,IDapperRepository<ReportQty> repository)
         {
             _context = context;
             _prodService = prodService;
+            _ReportQtyService = repository;
         }
 
         public async Task<ResObj> GetAll(string? Name,int? CategoriesId,int index)
@@ -138,6 +141,7 @@ namespace WebSmartKid.Helper.Repository
             string? Name = productFilter.Name;
             int? CategoriesId = productFilter.CategoriesId;
             int? UserId = productFilter.UserId;
+            int? Sort = productFilter.Sort;
             string wherecode = " and 1=1 ";
             if(productFilter.AgeFilter!=null)
             {
@@ -148,7 +152,7 @@ namespace WebSmartKid.Helper.Repository
                 }
                 wherecode =wherecode+ " 1=0)";
             }
-            List<Products> data = await _prodService.GetEntityListAsync("dbo.GetProdForApp", new { Name, CategoriesId , wherecode, UserId });
+            List<Products> data = await _prodService.GetEntityListAsync("dbo.GetProdForApp", new { Name, CategoriesId , wherecode, UserId , Sort });
             return Result.Return(true, data);
         }
         public async Task<ResObj> RemoveLike(int ProductsId, int userId)
@@ -164,6 +168,21 @@ namespace WebSmartKid.Helper.Repository
                 + like.ProductsId + "," + like.UserId+")" +
                 " update Products set LikeCount=isnull(LikeCount,0)+1 where ProductsId=" + like.ProductsId);
             return Result.Return(true);
+        }
+
+        public async Task<ResObj> ReportQtyGetAll(string? Name, int? CategoriesId, int index)
+        {
+            List<ReportQty> data = await _ReportQtyService.GetEntityListAsync("dbo.ReportQtyGetAll", new { Name, CategoriesId, index });
+            var total = data.FirstOrDefault();
+            data.Add(new ReportQty()
+            {
+               Name="مجموع",
+               QtyCurrent=total.TotalQtyCurrent,
+               QtySales=total.TotalQtySales,
+               SumPriceQtyCurrent=total.TotalSumPriceQtySales,
+               SumPriceQtySales=total.TotalSumPriceQtySales,
+            });
+            return Result.Return(true, data);
         }
     }
 }

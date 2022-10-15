@@ -83,6 +83,10 @@ namespace WebSmartKid.Controllers
         public IActionResult TypeDiscount()
         {
             return View();
+        }     
+        public IActionResult ReportQty()
+        {
+            return View();
         }
         [Route("Home/Chat/{Id}")]
         public IActionResult Chat(int Id)

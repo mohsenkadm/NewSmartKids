@@ -25,6 +25,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.Ignore(x => x.Image);        
             builder.Ignore(x => x.UserId);        
             builder.Ignore(x => x.AgeFilter);        
+            builder.Ignore(x => x.Sort);        
         }
     }
 }

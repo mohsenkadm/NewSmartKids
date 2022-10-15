@@ -22,7 +22,7 @@ namespace AppSmartKidsXa.VM
     {
 
         #region prop    
-                                
+        int Sort = 1;
         public List<TblAges> listAgeParam;    
         public Products productFilter;
         public Products ProductFilter
@@ -52,6 +52,13 @@ namespace AppSmartKidsXa.VM
             get { return searchtxt; }
             set { searchtxt = value; Search(false); OnPropertyChanged(nameof(Searchtxt)); }
         }
+        public List<Categories> _ItemsCategories;
+        public List<Categories> ItemsCategories
+        {
+            get { return _ItemsCategories; }
+            set { _ItemsCategories = value; OnPropertyChanged(nameof(ItemsCategories)); }
+        }
+        GetDataUrlService<Categories> urlService;
         #endregion
 
         #region const
@@ -62,6 +69,8 @@ namespace AppSmartKidsXa.VM
             listAgeParam = tblAges;
             _service = new GetDataUrlService<Products>();
             _likeservice = new GetDataUrlService<Like>();
+            urlService = new GetDataUrlService<Categories>();
+            GetDataCategories();
             Search();
         }
         #endregion
@@ -86,13 +95,74 @@ namespace AppSmartKidsXa.VM
             {
             }
         });
-        #endregion   
+        #endregion
+        #region GetData Categories   
+        public async Task GetDataCategories()
+        {
+            try
+            {
+                if (!CheckConnection())
+                {
+                    await App.Current.MainPage.DisplayAlert("خطا", "لا يوجد اتصال بلانترنت", "نعم"); return;
+                }
+                IsRunning = true;
+                ResponseList<Categories> response = await urlService.GetListAllAsync("Categories/GetAll");
+
+                if (response.success == false)
+                {
+                    await App.Current.MainPage.DisplayAlert("خطا", "حدث خطا", "نعم");
+                }
+                else
+                {
+                    ItemsCategories = response.data;
+                }
+                IsRunning = false;
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("خطا", "حدث خطا", "نعم");
+            }
+        }
+        #endregion
         #region click event search
         public ICommand SearchCommand => new Command(async () =>
         {
             try
             {
+              await  Search();
+            }
+            catch (Exception ex)
+            {
+            }
+        });
+        #endregion    
+        
+        #region click event search
+        public ICommand ChooseCategory => new Command<int>(async (CategoriesId) =>
+        {
+            try
+            {
+                _CategoriesId = CategoriesId;
                 Search();
+            }
+            catch (Exception ex)
+            {
+            }
+        });
+        #endregion  
+        #region click event search
+        public ICommand ChooseFilter => new Command(async () =>
+        {
+            try
+            {
+                string action = await App.Current.MainPage.DisplayActionSheet("اختر الترتيب", "الغاء", null, "ترتيب تصاعدي", "ترتيب تنازلي");
+                switch (action)
+                {
+                    case "الغاء":return; break;
+                    case "ترتيب تصاعدي": Sort = 1; break;
+                    case "ترتيب تنازلي": Sort = 2; break;
+                }
+             await   Search();
             }
             catch (Exception ex)
             {
@@ -110,12 +180,13 @@ namespace AppSmartKidsXa.VM
                     await App.Current.MainPage.DisplayAlert("تنبيه","لا يوجد اتصال بلانترنت", "نعم");
                     return;
                 }
-                             if(f)
+                 if(f)
                 UserDialogs.Instance.ShowLoading("انتظار");
                 productFilter = new Products();
                 productFilter.Name = Searchtxt == null ? "" : Searchtxt;
                 productFilter.CategoriesId = _CategoriesId;
                 productFilter.UserId = InfoAccess.Id;
+                productFilter.Sort = Sort;
                 foreach(var item in listAgeParam) {
                     if (productFilter.AgeFilter == null)
                         productFilter.AgeFilter = new List<AgeFilter>();

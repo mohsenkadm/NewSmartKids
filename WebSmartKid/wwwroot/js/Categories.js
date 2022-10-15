@@ -5,6 +5,7 @@ function filltableCategories(data) {
     $.each(data, function (i, item) {
         var rows = "<tr>" + 
             "<td><img src='" + item.image + "' alt='' border=3 height=50 width=50></img></td>" +
+            "<td>" + item.no + "</td>" +
             "<td>" + item.categoriesName + "</td>" 
             + "<td> <button type='button' class='btn btn-danger' onclick='deleteCategories(" + item.categoriesId + ")'  >حذف</button>" +
             "  |  <button type='button' class='btn btn-primary' onclick='updateCategories(" + item.categoriesId + ")'  data-toggle='modal' data-target='#CategoriesModal'>تعديل</button></td></tr>";
@@ -35,6 +36,7 @@ function updateCategories(id) {
 
 function setdataCategories(data) {
     $("#CategoriesName").val(data.categoriesName);
+    $("#No").val(data.no);
 }
 function aftersaveCategories(Categories) {
     var fileUpload = $("#imageca").get(0);
@@ -60,6 +62,7 @@ function aftersaveCategories(Categories) {
     }
     $('#tableCategories').empty();
     $("#CategoriesName").val(''); 
+    $("#No").val(''); 
     _categoriesId = 0;
     call_ajax("GET", "Categories/GetAll", null, filltableCategories);
 }

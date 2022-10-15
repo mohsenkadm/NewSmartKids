@@ -117,8 +117,8 @@ namespace WebSmartKid.Controllers
                  await _noteService.Post(notifications);
                 try
                 {
-                      await OneSignalSender(notifications.Title, notifications.Details,
-                        ids.ToArray());
+                      await OneSignalSenderUser(notifications.Title, notifications.Details,
+                        ids);
                 }
                 catch (Exception ex) { }  
                 return Response(res.success, res.msg);
@@ -156,8 +156,8 @@ namespace WebSmartKid.Controllers
                 await _noteService.Post(notifications);
                 try
                 {
-                    await OneSignalSender(notifications.Title, notifications.Details,
-                      ids.ToArray());
+                    await OneSignalSenderUser(notifications.Title, notifications.Details,
+                      ids);
                 }
                 catch (Exception ex) { }
                 
@@ -198,8 +198,8 @@ namespace WebSmartKid.Controllers
                 await _noteService.Post(notifications);
                 try
                 {
-                    await OneSignalSender(notifications.Title, notifications.Details,
-                      ids.ToArray());
+                    await OneSignalSenderUser(notifications.Title, notifications.Details,
+                      ids);
                 }
                 catch (Exception ex) { }    
                 return Response(res.success, res.msg);

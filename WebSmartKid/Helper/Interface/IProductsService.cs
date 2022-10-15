@@ -21,5 +21,6 @@ namespace WebSmartKid.Helper.Interface
 
         Task<ResObj> RemoveLike(int ProductsId, int userId);
         Task<ResObj> PostLike(Like like);
+        Task<ResObj> ReportQtyGetAll(string? name, int? categoriesId, int index);
     }
 }
