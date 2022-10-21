@@ -8,6 +8,8 @@ using WebSmartKid.Model;
                                   
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseContentRoot(Directory.GetCurrentDirectory());
+builder.WebHost.UseWebRoot("wwwroot");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -48,7 +50,6 @@ app.UseCors("CorsPolicy");
 app.MapHub<Signalr>("/Signalr");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseCors();

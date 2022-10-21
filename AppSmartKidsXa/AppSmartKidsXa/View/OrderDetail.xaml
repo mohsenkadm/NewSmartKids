@@ -4,7 +4,9 @@
              x:Class="AppSmartKidsXa.View.OrderDetail" NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Content>
-        <ScrollView>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+            <ScrollView>
 
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid >
@@ -116,5 +118,9 @@
 
             </StackLayout>
         </ScrollView>
+            <StackLayout Margin="0,0,0,0">
+                <Button   Margin="30,10,30,5"   Command="{Binding MainAppBtn}" Text="القائمة الرئيسية"/>
+            </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -68,7 +68,7 @@
                 </StackLayout>
                 <StackLayout  Orientation="Horizontal" HeightRequest="50" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand">
                     <Frame  HorizontalOptions="FillAndExpand"   BorderColor="{x:DynamicResource Primary}"  CornerRadius="7" BackgroundColor="{x:DynamicResource White}" Margin="10,0,10,10" Padding="0" >
-                    <renderentry:BorderLessEntry HeightRequest="40"   FontFamily="FontTR" Text="{Binding MessageText}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Primary}" TextColor="{x:DynamicResource Black}" FontSize="14" 
+                    <renderentry:BorderLessEntry HeightRequest="40"   FontFamily="FontTR" Text="{Binding MessageText}" Margin="10,0,10,0" PlaceholderColor="{x:DynamicResource Secondary}" TextColor="{x:DynamicResource Primary}" FontSize="14" 
                                            HorizontalTextAlignment="Center" Keyboard="Chat"  Placeholder="اكتب رسالتك"/>
                     </Frame>
                     <Button Margin="0,0,10,10"     Command="{Binding BtnSend}" Text="ارسال"/>

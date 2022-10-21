@@ -19,12 +19,15 @@ using Acr.UserDialogs;
 using Xamarin.Essentials;
 using Com.OneSignal;
 using Orders = AppSmartKidsXa.Entity.Orders;
+using AppSmartKidsXa.ChatServices;
 
 namespace AppSmartKids.VM
 {
     public  class SendOrderVM:BaseVM
     {
         #region prop
+
+        private readonly ChatService _chatService;
         private ObservableCollection<OrderDetail> items;
         public ObservableCollection<OrderDetail> Items
         {
@@ -125,7 +128,8 @@ namespace AppSmartKids.VM
             this.Navigation = navigation;
             _Countriesservice = new GetDataUrlService<Countries>();
             _service = new GetDataUrlService<OrderDetail>();
-            _TypeDiscountservice = new GetDataUrlService<TypeDiscount>();
+            _TypeDiscountservice = new GetDataUrlService<TypeDiscount>(); 
+            _chatService = new ChatService();
             loadcombo();
             GetData();  
         }
@@ -320,7 +324,14 @@ namespace AppSmartKids.VM
                     InfoAccess.Id = response.data.UserId;
                     try {   OneSignal.Current.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
                 }
-                Total=NetAmount=TotalDiscount=DeliveryPrice = "0";
+                try
+                {
+                    await _chatService.connect();
+                    await _chatService.SendMessage("هناك طلب جديد", "GetOrder");
+                    await _chatService.DisConnect();
+                }
+                catch (Exception ex) { }
+                Total =NetAmount=TotalDiscount=DeliveryPrice = "0";
                 ListCart = new ObservableCollection<OrderDetail>();
                 Items = new ObservableCollection<OrderDetail>();                                    
                 await Navigation.PushAsync(new OrderDetailV(response.data.OrderId), true);                                     

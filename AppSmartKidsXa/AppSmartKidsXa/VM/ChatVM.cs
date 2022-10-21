@@ -118,7 +118,7 @@ namespace AppSmartKidsXa.VM
                     try
                     {
                         await _chatService.connect();
-                        await _chatService.SendMessage("هناك رسالة جديدة", "GetMessage");
+                        await _chatService.SendMessage("هناك رسالة جديدة", "OnGetMessage");
                         await _chatService.DisConnect();
                     }
                     catch (Exception ex) { }

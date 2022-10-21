@@ -29,6 +29,7 @@ namespace WebSmartKid.Controllers
             _OrdersService = OrdersService;
             _noteService = noteService;
             this.webHostEnvironment = webHostEnvironment;
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
         #endregion
 
@@ -288,6 +289,7 @@ namespace WebSmartKid.Controllers
         #endregion
 
         #region Print Info order 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Print(int Id)
         {
@@ -306,7 +308,7 @@ namespace WebSmartKid.Controllers
                 report.AddDataSource("DataSet1", res.data);
 
                 var result = report.Execute(RenderType.Pdf, 1, null, "");
-                return File(result.MainStream, "application/pdf", "Report-Order-" + Key.DateTimeIQ.Year + "-" + Key.DateTimeIQ.Month + "-" + Key.DateTimeIQ.Day + ".pdf");
+                return File(result.MainStream, "application/pdf");
                
             }
             catch (Exception ex)

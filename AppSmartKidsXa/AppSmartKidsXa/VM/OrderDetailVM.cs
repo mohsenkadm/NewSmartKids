@@ -92,7 +92,18 @@ namespace AppSmartKidsXa.VM
             GetData();
         }
         #endregion
-
+        #region click to open main app 
+        public ICommand MainAppBtn => new Command(async () =>
+        {
+            try
+            {
+                await Navigation.PushAsync(new MainPage(), true);
+            }
+            catch (Exception ex)
+            {
+            }
+        });
+        #endregion  
 
         #region pull to refresh data  
         public ICommand RefreshCommand => new Command(async () =>

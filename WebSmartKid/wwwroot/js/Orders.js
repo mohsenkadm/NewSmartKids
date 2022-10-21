@@ -33,7 +33,8 @@ function PrintOrder(id) {
     var obj = {
         Id: id
     }
-    Print("GET", "Orders/Print", obj);
+    window.open("/Orders/Print?Id=" + id);
+    //Print("GET", "Orders/Print", obj);
 }
 function deleteOrders(id) {
     var result = confirm("هل تريد الحذف؟!");
