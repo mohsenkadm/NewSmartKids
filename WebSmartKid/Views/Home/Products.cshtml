@@ -17,6 +17,18 @@
                         <select class="form-control alignright" style="background-color: #1a2035;" name="CategoriesIdse" id="CategoriesIdse">
                         </select>
                     </div>
+                    
+                    <div class="col-lg-6 col-md-6 col-sm-12 ">
+                        <label class="mb-2">المنتجات التي لا تحتوي على صور</label>
+                         <div class="form-check">
+                            <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" id="ConatinImage">
+                            <span class="form-check-sign">
+                            <span class="check"></span>
+                            </span>
+                            </label>
+                        </div>
+                    </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <div class="text-center wow fadeInDown" style="text-align:left;">
                             <label class="mb-2"> </label>
@@ -226,8 +238,11 @@
         };
         $(document).ready(function () { 
             call_ajax("GET", "Categories/GetAll", null, selectCategoriesId);
-
-            var obj = { Name: '', CategoriesId:0, index: 1 }
+            var ConatinImage = false;
+            if ($('#ConatinImage').is(":checked")) {
+                ConatinImage = true;
+            }
+            var obj = { Name: '', CategoriesId:0, index: 1,ConatinImage: ConatinImage, }
             call_ajax("GET", "Products/GetAll", obj, filltableProducts);
             $("#indexid").text(1);
         });
@@ -273,7 +288,11 @@
 
         $("#search-btn").on("click", (e) => {
             e.preventDefault();
-            var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: 1 }
+             var ConatinImage = false;
+            if ($('#ConatinImage').is(":checked")) {
+                ConatinImage = true;
+            }
+            var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: 1,ConatinImage:ConatinImage }
             call_ajax("GET", "Products/GetAll", obj, filltableProducts); 
             $("#indexid").text(1);
         });
@@ -282,16 +301,24 @@
             e.preventDefault();
             var count = $("#indexid").text();
             count++;
-            var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count }
+             var ConatinImage = false;
+            if ($('#ConatinImage').is(":checked")) {
+                ConatinImage = true;
+            }
+            var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count ,ConatinImage:ConatinImage}
             call_ajax("GET", "Products/GetAll", obj, filltableProducts);
             $("#indexid").text(count);
         });
         $("#prev").on("click", (e) => {
             e.preventDefault();
+               var ConatinImage = false;
+            if ($('#ConatinImage').is(":checked")) {
+                ConatinImage = true;
+            }
             var count = $("#indexid").text();
             if (count > 1) {
                 count--;
-                var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count }
+                var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count,ConatinImage:ConatinImage }
                 call_ajax("GET", "Products/GetAll", obj, filltableProducts);
                 $("#indexid").text(count);
             }

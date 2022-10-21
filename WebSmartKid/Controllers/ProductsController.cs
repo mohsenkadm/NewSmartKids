@@ -75,11 +75,11 @@ namespace WebSmartKid.Controllers
 
         #region Get Info Products       
         [HttpGet]
-        public async Task<IActionResult> GetAll(string? Name, int? CategoriesId, int index)
+        public async Task<IActionResult> GetAll(string? Name, int? CategoriesId, int index,bool? ConatinImage)
         {
             try
             {
-                ResObj res = await _ProductsService.GetAll(Name,CategoriesId,index);
+                ResObj res = await _ProductsService.GetAll(Name,CategoriesId,index, ConatinImage);
 
                 return Response(res.success, res.data);
             }

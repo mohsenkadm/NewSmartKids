@@ -79,9 +79,13 @@ function deleteProducts(id) {
     }
 }
 function RefreshProducts() {
+    var ConatinImage = false;
+    if ($('#ConatinImage').is(":checked")) {
+        ConatinImage = true;
+    }
     var count = $("#indexid").text();
     if (count > 1) {
-        var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count }
+        var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count, ConatinImage: ConatinImage }
         call_ajax("GET", "Products/GetAll", obj, filltableProducts);
     }
 }

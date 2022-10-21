@@ -3,9 +3,36 @@ function filltableOrders(data) {
     $('#tableOrders').empty();
     $.each(data, function (i, item) {
         var rows = "<tr>" +  
-            "<td><input type='checkbox' id='IsDone" + item.orderId + "'  /></td>" +
-            "<td><input type='checkbox' id='IsApporve" + item.orderId + "'  /></td>" +
-            "<td><input type='checkbox' id='IsCancel" + item.orderId + "'  /></td>" +
+            "<td>" +
+            "<div class='form-check'>" +
+            "<label class='form-check-label'>" +
+            "<input class='form-check-input' type='checkbox' id='IsDone" + item.orderId + "'>" +
+            "<span class='form-check-sign'>" +
+            "<span class='check'></span>" +
+            "</span>" +
+            "</label>" +
+            "</div>" +
+            "</td>" + 
+            "<td>" +
+            "<div class='form-check'>" +
+            "<label class='form-check-label'>" +
+            "<input class='form-check-input' type='checkbox' id='IsApporve" + item.orderId + "'>" +
+            "<span class='form-check-sign'>" +
+            "<span class='check'></span>" +
+            "</span>" +
+            "</label>" +
+            "</div>" +
+            "</td>" + 
+            "<td>" +
+            "<div class='form-check'>" +
+            "<label class='form-check-label'>" +
+            "<input class='form-check-input' type='checkbox' id='IsCancel" + item.orderId + "'>" +
+            "<span class='form-check-sign'>" +
+            "<span class='check'></span>" +
+            "</span>" +
+            "</label>" +
+            "</div>" +
+            "</td>" +
             "<td>" + item.netAmount + "</td>" +
             "<td>" + item.totalDiscount + "</td>" +
             "<td>" + item.total + "</td>" +
