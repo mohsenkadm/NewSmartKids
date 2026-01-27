@@ -128,5 +128,114 @@ namespace WebSmartKid.Helper.Repository
             List<Permission> permissions= await _permissionService.GetEntityListAsync("dbo.GetPermissionByUserId", new { UserId });
             return Result.Return(true, permissions);
         }
+
+        public async Task<ResObj> GetDashboardReports()
+        {
+            try
+            {
+                var dashboardData = new
+                {
+                    // Recent Orders
+                    recentOrders = await _context.Orders
+                        .OrderByDescending(o => o.OrderDate)
+                        .Take(10)
+                        .Select(o => new
+                        {
+                            o.OrderId,
+                            o.OrderNo,
+                            o.OrderDate,
+                            o.Name,
+                            o.Phone,
+                            o.FinalAmount,
+                            o.IsApporve,
+                            o.IsDone,
+                            o.IsCancel
+                        })
+                        .ToListAsync(),
+
+                    // Order Status Counts
+                    orderStatus = new
+                    {
+                        pending = await _context.Orders.CountAsync(o => !o.IsApporve && !o.IsCancel),
+                        approved = await _context.Orders.CountAsync(o => o.IsApporve && !o.IsDone),
+                        done = await _context.Orders.CountAsync(o => o.IsDone),
+                        cancelled = await _context.Orders.CountAsync(o => o.IsCancel)
+                    },
+
+                    // Top Products
+                    topProducts = await _context.Products
+                        .OrderByDescending(p => p.NoOfBuyers)
+                        .Take(5)
+                        .Select(p => new
+                        {
+                            p.ProductsId,
+                            p.Name,
+                            p.Price,
+                            p.NoOfBuyers,
+                            p.CategoriesName,
+                            p.Image
+                        })
+                        .ToListAsync(),
+
+                    // Sales by Category
+                    categorySales = await _context.Categories
+                        .Select(c => new
+                        {
+                            c.CategoriesId,
+                            c.CategoriesName,
+                            productCount = _context.Products.Count(p => p.CategoriesId == c.CategoriesId),
+                            totalSales = _context.Products.Where(p => p.CategoriesId == c.CategoriesId).Sum(p => (decimal?)p.NoOfBuyers * p.Price) ?? 0
+                        })
+                        .OrderByDescending(c => c.totalSales)
+                        .ToListAsync(),
+
+                    // Recent Users
+                    recentUsers = await _context.Users
+                        .OrderByDescending(u => u.UserId)
+                        .Take(10)
+                        .Select(u => new
+                        {
+                            u.UserId,
+                            u.Name,
+                            u.Phone,
+                            u.AccountBalance
+                        })
+                        .ToListAsync(),
+
+                    // Sales Trends (Last 7 days)
+                    salesTrends = await _context.Orders
+                        .Where(o => o.OrderDate >= DateTime.Now.AddDays(-7))
+                        .GroupBy(o => o.OrderDate.Date)
+                        .Select(g => new
+                        {
+                            date = g.Key,
+                            totalSales = g.Sum(o => o.FinalAmount),
+                            orderCount = g.Count()
+                        })
+                        .OrderBy(g => g.date)
+                        .ToListAsync(),
+
+                    // Low Stock Products
+                    lowStockProducts = await _context.Products
+                        .Where(p => p.Count < 10)
+                        .OrderBy(p => p.Count)
+                        .Take(10)
+                        .Select(p => new
+                        {
+                            p.ProductsId,
+                            p.Name,
+                            p.Count,
+                            p.Price
+                        })
+                        .ToListAsync()
+                };
+
+                return Result.Return(true, dashboardData);
+            }
+            catch (Exception ex)
+            {
+                return Result.Return(false, "حدث خطأ في جلب البيانات");
+            }
+        }
     }
 }

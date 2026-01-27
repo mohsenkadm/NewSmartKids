@@ -30,6 +30,20 @@ namespace WebSmartKid.Controllers
                 return Json(new { success = true, msg = "حدث خطأ اثناء عملية جلب البيانات" });
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDashboardReports()
+        {
+            try
+            {
+                var reports = await _AdminServices.GetDashboardReports();
+                return Json(new { success = true, data = reports.data });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = "حدث خطأ اثناء عملية جلب البيانات" });
+            }
+        }
         public IActionResult Index()
         {
             return View();

@@ -6,8 +6,7 @@ using Android.Runtime;
 using Android.OS;
 //using Com.OneSignal.Abstractions;
 using Acr.UserDialogs;
-using Com.OneSignal;
-using Com.OneSignal.Abstractions;
+using OneSignalSDK.Xamarin;
 
 namespace AppSmartKidsXa.Droid
 {
@@ -23,10 +22,9 @@ namespace AppSmartKidsXa.Droid
             UserDialogs.Init(this);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            OneSignal.Current.SetLogLevel(LOG_LEVEL.VERBOSE, LOG_LEVEL.NONE);
-            OneSignal.Current.StartInit("86509cbb-2e1b-49ab-af76-246c2772ac75");
+           OneSignal.Default.Initialize("86509cbb-2e1b-49ab-af76-246c2772ac75");
 
-            OneSignal.Current.RegisterForPushNotifications();
+            OneSignal.Default.PromptForPushNotificationsWithUserResponse();
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

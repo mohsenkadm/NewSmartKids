@@ -2,116 +2,618 @@
     ViewData["Title"] = "لوحة التحكم";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    .report-card {
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 25px;
+    }
+    .report-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin: 20px 0;
+    }
+    .table-responsive {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .status-badge {
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .badge-pending { background: #ffc107; color: #000; }
+    .badge-approved { background: #17a2b8; color: #fff; }
+    .badge-done { background: #28a745; color: #fff; }
+    .badge-cancelled { background: #dc3545; color: #fff; }
+    .product-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+    .gradient-purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .gradient-blue { background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%); }
+    .gradient-green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .gradient-orange { background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%); }
+    .gradient-pink { background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%); }
+</style>
+
 <div class="content">
     <div class="container-fluid">
+        <!-- Statistics Cards -->
         <div class="row">
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
+                <div class="card card-stats report-card">
+                    <div class="card-header card-header-warning card-header-icon gradient-orange">
                         <div class="card-icon">
                             <i class="material-icons">person</i>
                         </div>
                         <p class="card-category">عدد الزبائن</p>
-                        <h3 class="card-title" id="CountUser">
-                        </h3>
+                        <h3 class="card-title" id="CountUser">0</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
                             <i class="material-icons text-warning">person</i>
+                            <span>إجمالي المستخدمين</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
+                <div class="card card-stats report-card">
+                    <div class="card-header card-header-success card-header-icon gradient-green">
                         <div class="card-icon">
-                            <i class="material-icons">person</i>
+                            <i class="material-icons">shopping_cart</i>
                         </div>
-                        <p class="card-category">عدد القوائم</p>
-                        <h3 class="card-title" id="CountOrder"></h3>
+                        <p class="card-category">عدد الطلبات</p>
+                        <h3 class="card-title" id="CountOrder">0</h3>
                     </div>
-
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-success">person</i>
+                            <i class="material-icons text-success">shopping_cart</i>
+                            <span>إجمالي الطلبات</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-danger card-header-icon">
+                <div class="card card-stats report-card">
+                    <div class="card-header card-header-danger card-header-icon gradient-pink">
                         <div class="card-icon">
                             <i class="material-icons">attach_money</i>
                         </div>
-                        <p class="card-category">اجمالي المبيعات</p>
-                        <h3 class="card-title" id="PriceSale">90</h3>
+                        <p class="card-category">إجمالي المبيعات</p>
+                        <h3 class="card-title" id="PriceSale">0</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">attach_money</i>
+                            <i class="material-icons text-danger">trending_up</i>
+                            <span>القيمة الإجمالية</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-info card-header-icon">
+                <div class="card card-stats report-card">
+                    <div class="card-header card-header-info card-header-icon gradient-blue">
                         <div class="card-icon">
-                            <i class="material-icons">category</i>
+                            <i class="material-icons">inventory</i>
                         </div>
-                        <p class="card-category">عدد منتجات</p>
-                        <h3 class="card-title" id="CountItem">90</h3>
+                        <p class="card-category">عدد المنتجات</p>
+                        <h3 class="card-title" id="CountItem">0</h3>
                     </div>
-
                     <div class="card-footer">
                         <div class="stats">
                             <i class="material-icons text-info">category</i>
+                            <span>إجمالي المنتجات</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-info card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">category </i>
+        </div>
+
+        <!-- Order Status Report -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card report-card">
+                    <div class="card-header gradient-purple" style="padding: 20px;">
+                        <h4 class="card-title" style="color: white; margin: 0;">
+                            <i class="material-icons" style="vertical-align: middle;">assessment</i>
+                            تقرير حالة الطلبات
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="text-center p-3">
+                                    <i class="material-icons" style="font-size: 48px; color: #ffc107;">pending</i>
+                                    <h3 id="pendingOrders" style="color: #ffc107; margin: 10px 0;">0</h3>
+                                    <p style="margin: 0;">طلبات قيد الانتظار</p>
+                                </div>
                             </div>
-                        <p class="card-category">كمية المنتجات </p>
-                        <h3 class="card-title" id="CountItemQty">90</h3>
-                    </div>
-
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-info">category</i>
+                            <div class="col-md-3">
+                                <div class="text-center p-3">
+                                    <i class="material-icons" style="font-size: 48px; color: #17a2b8;">check_circle</i>
+                                    <h3 id="approvedOrders" style="color: #17a2b8; margin: 10px 0;">0</h3>
+                                    <p style="margin: 0;">طلبات معتمدة</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3">
+                                    <i class="material-icons" style="font-size: 48px; color: #28a745;">done_all</i>
+                                    <h3 id="doneOrders" style="color: #28a745; margin: 10px 0;">0</h3>
+                                    <p style="margin: 0;">طلبات مكتملة</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3">
+                                    <i class="material-icons" style="font-size: 48px; color: #dc3545;">cancel</i>
+                                    <h3 id="cancelledOrders" style="color: #dc3545; margin: 10px 0;">0</h3>
+                                    <p style="margin: 0;">طلبات ملغاة</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
+
+        <!-- Top Products & Category Sales -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card report-card">
+                    <div class="card-header gradient-blue" style="padding: 20px;">
+                        <h4 class="card-title" style="color: white; margin: 0;">
+                            <i class="material-icons" style="vertical-align: middle;">star</i>
+                            أفضل المنتجات مبيعاً
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>المنتج</th>
+                                        <th>الفئة</th>
+                                        <th>السعر</th>
+                                        <th>المبيعات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topProductsTable">
+                                    <tr>
+                                        <td colspan="4" class="text-center">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card report-card">
+                    <div class="card-header gradient-green" style="padding: 20px;">
+                        <h4 class="card-title" style="color: white; margin: 0;">
+                            <i class="material-icons" style="vertical-align: middle;">pie_chart</i>
+                            المبيعات حسب الفئة
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>الفئة</th>
+                                        <th>عدد المنتجات</th>
+                                        <th>إجمالي المبيعات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categorySalesTable">
+                                    <tr>
+                                        <td colspan="3" class="text-center">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Orders Report -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card report-card">
+                    <div class="card-header gradient-purple" style="padding: 20px;">
+                        <h4 class="card-title" style="color: white; margin: 0;">
+                            <i class="material-icons" style="vertical-align: middle;">receipt</i>
+                            أحدث الطلبات
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>رقم الطلب</th>
+                                        <th>التاريخ</th>
+                                        <th>العميل</th>
+                                        <th>الهاتف</th>
+                                        <th>المبلغ</th>
+                                        <th>كود الخصم</th>
+                                        <th>الحالة</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentOrdersTable">
+                                    <tr>
+                                        <td colspan="8" class="text-center">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Low Stock Products Alert -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card report-card">
+                    <div class="card-header gradient-orange" style="padding: 20px;">
+                        <h4 class="card-title" style="color: white; margin: 0;">
+                            <i class="material-icons" style="vertical-align: middle;">warning</i>
+                            تنبيه المخزون المنخفض
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>المنتج</th>
+                                        <th>الكمية المتبقية</th>
+                                        <th>السعر</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lowStockTable">
+                                    <tr>
+                                        <td colspan="3" class="text-center">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card report-card">
+                    <div class="card-header gradient-pink" style="padding: 20px;">
+                        <h4 class="card-title" style="color: white; margin: 0;">
+                            <i class="material-icons" style="vertical-align: middle;">people</i>
+                            أحدث المستخدمين
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>الاسم</th>
+                                        <th>الهاتف</th>
+                                        <th>الرصيد</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentUsersTable">
+                                    <tr>
+                                        <td colspan="3" class="text-center">جاري التحميل...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Trends Chart -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card report-card">
+                    <div class="card-header gradient-blue" style="padding: 20px;">
+                        <h4 class="card-title" style="color: white; margin: 0;">
+                            <i class="material-icons" style="vertical-align: middle;">show_chart</i>
+                            اتجاه المبيعات - آخر 7 أيام
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="salesTrendsChart" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 <div class="container-fluid">
     <div class="copyright float-right" id="date">
-        © 2022
-        , made with <i class="material-icons">favorite</i> by
+        © 2022, made with <i class="material-icons">favorite</i> by
         <a href="#">Developer mohsen</a> for a better web.
     </div>
 </div>
 
-
 <div id="mydiv">
-    <script>
-        $(document).ready(function () {
-            call_ajax("GET", "Home/GetCountForMain", null, filldatacount);
-        });
-        function filldatacount(data) { 
+<script>
+    $(document).ready(function () {
+        // Load Chart.js library dynamically
+        var chartScript = document.createElement('script');
+        chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js';
+        chartScript.onload = function() {
+            // Load dashboard reports after Chart.js is loaded
+            loadDashboardReports();
+        };
+        document.head.appendChild(chartScript);
+            
+        // Load main statistics
+        call_ajax("GET", "Home/GetCountForMain", null, filldatacount);
+    });
+
+        function filldatacount(data) {
             $("#CountUser").html(data.countUser);
             $("#CountOrder").html(data.countOrder);
-            $("#PriceSale").html(data.priceSale);
+            $("#PriceSale").html(data.priceSale + " د.ع");
             $("#CountItem").html(data.countItem);
-            $("#CountItemQty").html(data.countItemQty);
+        }
+
+        function loadDashboardReports() {
+            call_ajax("GET", "Home/GetDashboardReports", null, function(data) {
+                // Update order status
+                $("#pendingOrders").html(data.orderStatus.pending);
+                $("#approvedOrders").html(data.orderStatus.approved);
+                $("#doneOrders").html(data.orderStatus.done);
+                $("#cancelledOrders").html(data.orderStatus.cancelled);
+                
+                // Fill top products table
+                fillTopProductsTable(data.topProducts);
+                
+                // Fill category sales table
+                fillCategorySalesTable(data.categorySales);
+                
+                // Fill recent orders table
+                fillRecentOrdersTable(data.recentOrders);
+                
+                // Fill low stock table
+                fillLowStockTable(data.lowStockProducts);
+                
+                // Fill recent users table
+                fillRecentUsersTable(data.recentUsers);
+                
+                // Draw sales trends chart
+                drawSalesTrendsChart(data.salesTrends);
+            });
+        }
+
+        function fillTopProductsTable(products) {
+            let html = '';
+            if (products.length === 0) {
+                html = '<tr><td colspan="4" class="text-center">لا توجد بيانات</td></tr>';
+            } else {
+                products.forEach(function (product) {
+                    html += `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    ${product.image ? `<img src="${product.image}" class="product-img" alt="${product.name}">` : ''}
+                                    <span>${product.name}</span>
+                                </div>
+                            </td>
+                            <td>${product.categoriesName || 'غير محدد'}</td>
+                            <td>${product.price.toFixed(2)} د.ع</td>
+                            <td><span class="badge badge-success">${product.noOfBuyers}</span></td>
+                        </tr>
+                    `;
+                });
+            }
+            $("#topProductsTable").html(html);
+        }
+
+        function fillCategorySalesTable(categories) {
+            let html = '';
+            if (categories.length === 0) {
+                html = '<tr><td colspan="3" class="text-center">لا توجد بيانات</td></tr>';
+            } else {
+                categories.forEach(function (category) {
+                    html += `
+                        <tr>
+                            <td>${category.categoriesName}</td>
+                            <td><span class="badge badge-info">${category.productCount}</span></td>
+                            <td><strong>${category.totalSales.toFixed(2)} د.ع</strong></td>
+                        </tr>
+                    `;
+                });
+            }
+            $("#categorySalesTable").html(html);
+        }
+
+        function fillRecentOrdersTable(orders) {
+            let html = '';
+            if (orders.length === 0) {
+                html = '<tr><td colspan="8" class="text-center">لا توجد طلبات</td></tr>';
+            } else {
+                orders.forEach(function (order, index) {
+                    let status = '';
+                    if (order.isCancel) {
+                        status = '<span class="status-badge badge-cancelled">ملغي</span>';
+                    } else if (order.isDone) {
+                        status = '<span class="status-badge badge-done">مكتمل</span>';
+                    } else if (order.isApporve) {
+                        status = '<span class="status-badge badge-approved">معتمد</span>';
+                    } else {
+                        status = '<span class="status-badge badge-pending">قيد الانتظار</span>';
+                    }
+                    
+                    const orderDate = new Date(order.orderDate);
+                    const formattedDate = orderDate.toLocaleDateString('ar-EG');
+                    
+                    // Promo code display
+                    let promoDisplay = order.promoCodeName 
+                        ? `<span class="badge badge-primary" style="font-size: 11px;">
+                             <i class="material-icons" style="font-size:12px; vertical-align: middle;">local_offer</i>
+                             ${order.promoCodeName}
+                           </span>`
+                        : '<span class="text-muted" style="font-size: 11px;">-</span>';
+                    
+                    // Amount display with tooltip
+                    let amountDisplay = '';
+                    if (order.usedAccountBalance > 0) {
+                        amountDisplay = `
+                            <div style="line-height: 1.4;">
+                                <small class="text-muted" style="font-size: 10px;">إجمالي: ${order.total.toFixed(2)}</small><br>
+                                <small class="text-success" style="font-size: 10px;">رصيد: -${order.usedAccountBalance.toFixed(2)}</small><br>
+                                <strong style="color: ${order.finalAmount === 0 ? '#28a745' : '#dc3545'};">
+                                    ${order.finalAmount === 0 ? 'مدفوع' : order.finalAmount.toFixed(2) + ' د.ع'}
+                                </strong>
+                            </div>
+                        `;
+                    } else {
+                        amountDisplay = `<strong>${order.finalAmount.toFixed(2)} د.ع</strong>`;
+                    }
+                    
+                    html += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td><strong>#${order.orderNo}</strong></td>
+                            <td>${formattedDate}</td>
+                            <td>${order.name}</td>
+                            <td>${order.phone}</td>
+                            <td>${amountDisplay}</td>
+                            <td>${promoDisplay}</td>
+                            <td>${status}</td>
+                        </tr>
+                    `;
+                });
+            }
+            $("#recentOrdersTable").html(html);
+        }
+
+        function fillLowStockTable(products) {
+            let html = '';
+            if (products.length === 0) {
+                html = '<tr><td colspan="3" class="text-center">جميع المنتجات متوفرة</td></tr>';
+            } else {
+                products.forEach(function (product) {
+                    const alertClass = product.count < 5 ? 'badge-danger' : 'badge-warning';
+                    html += `
+                        <tr>
+                            <td>${product.name}</td>
+                            <td><span class="badge ${alertClass}">${product.count}</span></td>
+                            <td>${product.price.toFixed(2)} د.ع</td>
+                        </tr>
+                    `;
+                });
+            }
+            $("#lowStockTable").html(html);
+        }
+
+        function fillRecentUsersTable(users) {
+            let html = '';
+            if (users.length === 0) {
+                html = '<tr><td colspan="3" class="text-center">لا توجد بيانات</td></tr>';
+            } else {
+                users.forEach(function (user) {
+                    html += `
+                        <tr>
+                            <td>${user.name}</td>
+                            <td>${user.phone}</td>
+                            <td><strong>${user.accountBalance.toFixed(2)} د.ع</strong></td>
+                        </tr>
+                    `;
+                });
+            }
+            $("#recentUsersTable").html(html);
+        }
+
+        function drawSalesTrendsChart(trends) {
+            const ctx = document.getElementById('salesTrendsChart').getContext('2d');
+            
+            const labels = trends.map(t => {
+                const date = new Date(t.date);
+                return date.toLocaleDateString('ar-EG', { month: 'short', day: 'numeric' });
+            });
+            
+            const salesData = trends.map(t => t.totalSales);
+            const orderData = trends.map(t => t.orderCount);
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'المبيعات (د.ع)',
+                        data: salesData,
+                        borderColor: 'rgb(102, 126, 234)',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'عدد الطلبات',
+                        data: orderData,
+                        borderColor: 'rgb(118, 75, 162)',
+                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'المبيعات'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'الطلبات'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            }
+                        }
+                    }
+                }
+            });
         }
     </script>
 </div>

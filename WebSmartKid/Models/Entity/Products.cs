@@ -22,6 +22,7 @@ namespace Entity.Entity
         public string CategoriesName { get; set; }
         public int UserId { get; set; }                                                                        
         public string Image { get; set; }
+        public string? Url { get; set; }
 
         // for filter                     
         public List<AgeFilter>? AgeFilter { get; set; }

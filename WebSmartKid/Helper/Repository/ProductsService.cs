@@ -66,7 +66,8 @@ namespace WebSmartKid.Helper.Repository
             Products1.CategoriesId = Products.CategoriesId;  
             Products1.DiscountPercentage = Products.DiscountPercentage;
             Products1.IsDiscount = Products.IsDiscount;   
-            Products1.Count = Products.Count;   
+            Products1.Count = Products.Count; 
+            Products1.Url = Products.Url;  
 
             _context.Entry(Products1).State = EntityState.Modified;
             await _context.SaveChangesAsync();

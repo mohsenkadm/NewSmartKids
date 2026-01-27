@@ -101,7 +101,6 @@ namespace WebSmartKid.Controllers
         {
             try
             {
-
                 Messages messag = new Messages
                 {                            
                     MessageText = message,
@@ -109,10 +108,13 @@ namespace WebSmartKid.Controllers
                     UserSenderId = 1,
                 };
                 ResObj res = await _chatService.PostMessage(messag);
+                
+                // Send notification
                 Notification notifications = new Notification
                 {
-                    Title = "رسالة",
-                    Details = message, DateInsert = Key.DateTimeIQ,
+                    Title = "رسالة جديدة",
+                    Details = message, 
+                    DateInsert = Key.DateTimeIQ,
                     UserId = (int)HttpContext.Session.GetInt32("Id")
                 };                                         
                 try
@@ -126,8 +128,8 @@ namespace WebSmartKid.Controllers
             }
             catch (Exception ex)
             {                
-                await _logger.WriteAsync(ex, "ChatController => PostMessage => name:"  );
-                return Response(false, "حدث خطا اثناء عملية جلب البيانات");
+                await _logger.WriteAsync(ex, "ChatController => SendMessage");
+                return Response(false, "حدث خطأ أثناء إرسال الرسالة");
             }
         }
         #region PostMessage 

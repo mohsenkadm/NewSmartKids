@@ -22,17 +22,20 @@ namespace WebSmartKid.Controllers
         private readonly IProductsService _ProductsService;
         private string FilePath;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IStorageServices _storageServices;
         #endregion
 
         #region Const
         public ProductsController(
             ILoggerRepository logger,
             IProductsService ProductsService,
-             IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment,
+            IStorageServices storageServices)
         {
             _logger = logger;
             _ProductsService = ProductsService;
             _hostEnvironment=hostEnvironment;
+            _storageServices = storageServices;
         }
         #endregion
 
@@ -163,6 +166,68 @@ namespace WebSmartKid.Controllers
             catch (Exception ex)
             {
                 await _logger.WriteAsync(ex, "ProductsController => Post => name:"  );
+                return Response(false, "حدث خطا اثناء عملية الحفظ");
+            }
+        }
+        #endregion
+
+        #region insert or update Info Products with Files
+        [HttpPost]
+        [Route("Products/PostWithFiles")]
+        public async Task<IActionResult> PostWithFiles([FromForm] Products product, [FromForm] List<IFormFile> images, [FromForm] string? imageUrl)
+        {
+            try
+            {
+                ResObj res;
+                if (product.ProductsId == 0)
+                {
+                    res = await _ProductsService.Post(product);
+                }
+                else
+                {
+                    res = await _ProductsService.Update(product);
+                }
+
+                if (!res.success)
+                    return Response(res.success, res.msg);
+
+                var savedProduct = res.data as Products;
+                int productId = savedProduct.ProductsId;
+
+                // Upload images
+                if (images != null && images.Count > 0)
+                {
+                    foreach (var imageFile in images)
+                    {
+                        var uploadResult = await _storageServices.UploadImageAsync(imageFile, _hostEnvironment.WebRootPath);
+                        if (uploadResult.success)
+                        {
+                            string imagePath = Key.CurrentUrl + $@"/Uplouds/image-{uploadResult.data}";
+                            Images image = new Images
+                            {
+                                ImagePath = imagePath,
+                                ProductsId = productId
+                            };
+                            await _ProductsService.PostImages(image);
+                        }
+                    }
+                }
+                // Add image by URL if provided
+                if (!string.IsNullOrWhiteSpace(imageUrl))
+                {
+                    Images urlImage = new Images
+                    {
+                        ImagePath = imageUrl,
+                        ProductsId = productId
+                    };
+                    await _ProductsService.PostImages(urlImage);
+                }
+
+                return Response(res.success, res.msg, savedProduct);
+            }
+            catch (Exception ex)
+            {
+                await _logger.WriteAsync(ex, "ProductsController => PostWithFiles => name:");
                 return Response(false, "حدث خطا اثناء عملية الحفظ");
             }
         }

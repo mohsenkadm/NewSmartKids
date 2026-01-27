@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Animation Showcase</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/chat-animations.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .showcase-header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .showcase-header p {
+            font-size: 20px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .showcase-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .showcase-card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-item {
+            margin: 20px 0;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .demo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .demo-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .message-demo {
+            max-width: 300px;
+            margin: 15px auto;
+        }
+
+        .chat-message.admin .chat-message-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 18px;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-align: right;
+        }
+
+        .chat-message.user .chat-message-bubble {
+            background: white;
+            color: #333;
+            padding: 14px 18px;
+            border-radius: 18px;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: right;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .color-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .color-box:hover {
+            transform: scale(1.1);
+        }
+
+        .code-snippet {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .animation-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .animation-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .animation-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .icon-showcase {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .icon-item {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .icon-circle:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .typing-demo {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 18px;
+            display: inline-flex;
+            gap: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 15px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typingDots 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="showcase-container">
+        <!-- Header -->
+        <div class="showcase-header">
+            <h1>💬 Chat System Showcase</h1>
+            <p>Beautiful Animations & Design Elements</p>
+        </div>
+
+        <!-- Grid of Showcases -->
+        <div class="showcase-grid">
+            <!-- Color Palette -->
+            <div class="showcase-card" style="animation-delay: 0.1s">
+                <h2>
+                    <i class="material-icons">palette</i>
+                    لوحة الألوان
+                </h2>
+                <div class="color-palette">
+                    <div class="color-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" 
+                         title="#667eea - #764ba2">
+                        Primary
+                    </div>
+                    <div class="color-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"
+                         title="#f093fb - #f5576c">
+                        Secondary
+                    </div>
+                    <div class="color-box" style="background: #4ade80;" title="#4ade80">
+                        Success
+                    </div>
+                    <div class="color-box" style="background: #ef4444;" title="#ef4444">
+                        Error
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Bubbles -->
+            <div class="showcase-card" style="animation-delay: 0.2s">
+                <h2>
+                    <i class="material-icons">chat_bubble</i>
+                    فقاعات الرسائل
+                </h2>
+                <div class="demo-box">
+                    <div class="message-demo">
+                        <div class="chat-message admin">
+                            <div class="chat-message-bubble animate-slide-in-right">
+                                رسالة من الأدمن
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message-demo">
+                        <div class="chat-message user">
+                            <div class="chat-message-bubble animate-slide-in-left">
+                                رسالة من المستخدم
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="showcase-card" style="animation-delay: 0.3s">
+                <h2>
+                    <i class="material-icons">pending</i>
+                    مؤشر الكتابة
+                </h2>
+                <div class="demo-box">
+                    <div class="typing-demo">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                    <p style="margin-top: 15px; color: #666;">المستخدم يكتب الآن...</p>
+                </div>
+            </div>
+
+            <!-- Animations -->
+            <div class="showcase-card" style="animation-delay: 0.4s">
+                <h2>
+                    <i class="material-icons">animation</i>
+                    الحركات المتاحة
+                </h2>
+                <div class="animation-showcase">
+                    <div class="animation-box animate-slide-in-right">
+                        Slide Right
+                    </div>
+                    <div class="animation-box animate-slide-in-left">
+                        Slide Left
+                    </div>
+                    <div class="animation-box animate-bubble-pop">
+                        Bubble Pop
+                    </div>
+                    <div class="animation-box animate-bounce-in">
+                        Bounce In
+                    </div>
+                    <div class="animation-box animate-fade-in-up">
+                        Fade Up
+                    </div>
+                    <div class="animation-box animate-pulse">
+                        Pulse
+                    </div>
+                </div>
+            </div>
+
+            <!-- Icons -->
+            <div class="showcase-card" style="animation-delay: 0.5s">
+                <h2>
+                    <i class="material-icons">emoji_emotions</i>
+                    الأيقونات المستخدمة
+                </h2>
+                <div class="icon-showcase">
+                    <div class="icon-item">
+                        <div class="icon-circle">
+                            <i class="material-icons">send</i>
+                        </div>
+                        <small>إرسال</small>
+                    </div>
+                    <div class="icon-item">
+                        <div class="icon-circle">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <small>مستخدم</small>
+                    </div>
+                    <div class="icon-item">
+                        <div class="icon-circle">
+                            <i class="material-icons">forum</i>
+                        </div>
+                        <small>محادثات</small>
+                    </div>
+                    <div class="icon-item">
+                        <div class="icon-circle">
+                            <i class="material-icons">arrow_back</i>
+                        </div>
+                        <small>رجوع</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Example -->
+            <div class="showcase-card" style="animation-delay: 0.6s">
+                <h2>
+                    <i class="material-icons">code</i>
+                    مثال على الكود
+                </h2>
+                <div class="code-snippet">
+                    &lt;div class="chat-message admin"&gt;<br>
+                    &nbsp;&nbsp;&lt;div class="chat-message-bubble"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;رسالتك هنا<br>
+                    &nbsp;&nbsp;&lt;/div&gt;<br>
+                    &lt;/div&gt;
+                </div>
+                <button class="demo-button" onclick="copyCode()" style="margin-top: 15px;">
+                    <i class="material-icons">content_copy</i>
+                    نسخ الكود
+                </button>
+            </div>
+        </div>
+
+        <!-- Interactive Demo Section -->
+        <div class="showcase-card" style="animation: fadeInUp 1s ease-out 0.7s both;">
+            <h2>
+                <i class="material-icons">play_circle</i>
+                تجربة تفاعلية
+            </h2>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="demo-button" onclick="addDemoMessage('admin')">
+                    <i class="material-icons">add</i>
+                    إضافة رسالة أدمن
+                </button>
+                <button class="demo-button" onclick="addDemoMessage('user')" style="margin-left: 10px;">
+                    <i class="material-icons">add</i>
+                    إضافة رسالة مستخدم
+                </button>
+            </div>
+            <div id="demoMessages" style="margin-top: 30px; max-height: 400px; overflow-y: auto; padding: 20px; background: #f8f9fa; border-radius: 15px;">
+                <!-- Demo messages will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addDemoMessage(type) {
+            const messages = {
+                admin: ['مرحباً! كيف يمكنني مساعدتك؟', 'سأساعدك في حل المشكلة', 'تم إرسال الطلب بنجاح'],
+                user: ['لدي سؤال عن المنتج', 'شكراً على المساعدة', 'هل يمكن التوضيح أكثر؟']
+            };
+            
+            const randomMessage = messages[type][Math.floor(Math.random() * messages[type].length)];
+            const animationClass = type === 'admin' ? 'animate-slide-in-right' : 'animate-slide-in-left';
+            
+            const messageHtml = `
+                <div class="message-demo">
+                    <div class="chat-message ${type}">
+                        <div class="chat-message-bubble ${animationClass}">
+                            ${randomMessage}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('demoMessages').insertAdjacentHTML('beforeend', messageHtml);
+            document.getElementById('demoMessages').scrollTop = document.getElementById('demoMessages').scrollHeight;
+        }
+
+        function copyCode() {
+            const code = `<div class="chat-message admin">
+  <div class="chat-message-bubble">
+    رسالتك هنا
+  </div>
+</div>`;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                alert('تم نسخ الكود! ✅');
+            });
+        }
+
+        // Add some initial demo messages
+        setTimeout(() => {
+            addDemoMessage('user');
+        }, 1000);
+
+        setTimeout(() => {
+            addDemoMessage('admin');
+        }, 2000);
+    </script>
+</body>
+</html>

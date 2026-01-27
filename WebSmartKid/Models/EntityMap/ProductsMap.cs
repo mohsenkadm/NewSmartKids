@@ -20,6 +20,7 @@ namespace WebSmartKid.Model.EntityMap
             builder.Property(x => x.CategoriesId).IsRequired();  
             builder.Property(x => x.DiscountPercentage).IsRequired();   
             builder.Property(x => x.IsDiscount).IsRequired();   
+            builder.Property(x => x.Url).IsRequired(false);
             builder.Ignore(x => x.SourceLike);        
             builder.Ignore(x => x.CategoriesName);        
             builder.Ignore(x => x.Image);        

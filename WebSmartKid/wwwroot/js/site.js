@@ -177,3 +177,100 @@ function GetMessagechat(data) {
 function GetMessageList() {
     call_ajax("GET", "Chat/GetMessageList", null, messageList);
 };
+
+// Beautiful Message List for Modal
+function messageList(data) {
+    const container = $('#messageList');
+    
+    // Clear loading state
+    container.empty();
+    
+    // Check if no messages
+    if (!data || data.length === 0) {
+        const emptyHtml = `
+            <div class="message-list-empty">
+                <div class="message-list-empty-icon">
+                    <i class="material-icons" style="font-size: 80px;">chat_bubble_outline</i>
+                </div>
+                <h3 class="message-list-empty-title">لا توجد محادثات</h3>
+                <p class="message-list-empty-text">لم يتم العثور على أي محادثات حتى الآن</p>
+            </div>
+        `;
+        container.html(emptyHtml);
+        return;
+    }
+    
+    // Render message list items
+    data.forEach((item, index) => {
+        const userName = item.name || 'مستخدم';
+        const userInitial = userName.charAt(0).toUpperCase();
+        const messagePreview = item.messageText ? 
+            (item.messageText.length > 50 ? item.messageText.substring(0, 50) + '...' : item.messageText) : 
+            'لا توجد رسائل';
+        const timeAgo = formatMessageTime(item.date || item.dateShow);
+        const userId = item.userReciverId || item.userId || 0;
+        
+        const itemHtml = `
+            <div class="message-list-item" onclick="openChat(${userId})" style="animation-delay: ${index * 0.05}s">
+                <div class="message-list-item-avatar">
+                    ${userInitial}
+                </div>
+                <div class="message-list-item-content">
+                    <div class="message-list-item-name">${escapeHtmlSafe(userName)}</div>
+                    <div class="message-list-item-message">${escapeHtmlSafe(messagePreview)}</div>
+                </div>
+                <div class="message-list-item-time">
+                    <i class="material-icons" style="font-size: 16px;">access_time</i>
+                    <span>${timeAgo}</span>
+                </div>
+            </div>
+        `;
+        
+        container.append(itemHtml);
+    });
+}
+
+// Open chat for specific user
+function openChat(userId) {
+    $('#messagemodel').modal('hide');
+    if (userId && userId > 0) {
+        call_Action('Home/Chat?UserReciverId=' + userId);
+    } else {
+        call_Action('Home/Chat');
+    }
+}
+
+// Format message time
+function formatMessageTime(dateString) {
+    if (!dateString) return '';
+    
+    try {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diff = now - date;
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+        
+        if (minutes < 1) return 'الآن';
+        if (minutes < 60) return `منذ ${minutes} د`;
+        if (hours < 24) return `منذ ${hours} س`;
+        if (days < 7) return `منذ ${days} يوم`;
+        
+        return date.toLocaleDateString('ar-EG', { 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    } catch (e) {
+        return '';
+    }
+}
+
+// Safe HTML escape for modal
+function escapeHtmlSafe(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+

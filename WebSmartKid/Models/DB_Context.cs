@@ -35,6 +35,8 @@ namespace WebSmartKid.Model
             modelBuilder.ApplyConfiguration(new PermissionMap());   
             modelBuilder.ApplyConfiguration(new TypeDiscountMap());   
             modelBuilder.ApplyConfiguration(new ProductAndAgeMap());   
+            modelBuilder.ApplyConfiguration(new PromoCodeMap());
+            modelBuilder.ApplyConfiguration(new UserPromoCodeMap());
         }
                                       
         public DbSet<Users> Users { get; set; }         
@@ -52,6 +54,8 @@ namespace WebSmartKid.Model
         public DbSet<Posts> Posts { get; set; }        
         public DbSet<Permission> Permission { get; set; }        
         public DbSet<TypeDiscount> TypeDiscount { get; set; }        
-        public DbSet<ProductAndAge> ProductAndAge { get; set; }        
+        public DbSet<ProductAndAge> ProductAndAge { get; set; }
+        public DbSet<PromoCode> PromoCode { get; set; }
+        public DbSet<UserPromoCode> UserPromoCode { get; set; }        
     }
 }

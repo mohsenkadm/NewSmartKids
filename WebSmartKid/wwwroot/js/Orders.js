@@ -1,7 +1,28 @@
 ﻿
+
 function filltableOrders(data) {
     $('#tableOrders').empty();
     $.each(data, function (i, item) {
+        // Format promo code display
+        var promoCodeDisplay = item.promoCodeName 
+            ? "<span class='badge badge-primary' style='font-size: 12px;'><i class='material-icons' style='font-size:14px; vertical-align: middle;'>local_offer</i> " + item.promoCodeName + "</span>"
+            : "<span class='text-muted' style='font-size: 11px;'>-</span>";
+        
+        // Format used balance display
+        var usedBalanceDisplay = item.usedAccountBalance > 0
+            ? "<span class='text-success' style='font-weight: bold;'>" + item.usedAccountBalance.toFixed(2) + " د.ع</span>"
+            : "<span class='text-muted' style='font-size: 11px;'>0</span>";
+        
+        // Format final amount display with color coding
+        var finalAmountDisplay = '';
+        if (item.finalAmount === 0) {
+            finalAmountDisplay = "<span class='badge badge-success' style='font-size: 11px;'>مدفوع بالكامل</span>";
+        } else if (item.usedAccountBalance > 0) {
+            finalAmountDisplay = "<span class='text-warning' style='font-weight: bold;'>" + item.finalAmount.toFixed(2) + " د.ع</span>";
+        } else {
+            finalAmountDisplay = "<span style='font-weight: bold;'>" + item.finalAmount.toFixed(2) + " د.ع</span>";
+        }
+
         var rows = "<tr>" +  
             "<td>" +
             "<div class='form-check'>" +
@@ -33,16 +54,19 @@ function filltableOrders(data) {
             "</label>" +
             "</div>" +
             "</td>" +
-            "<td>" + item.netAmount + "</td>" +
-            "<td>" + item.totalDiscount + "</td>" +
-            "<td>" + item.total + "</td>" +
+            "<td>" + promoCodeDisplay + "</td>" +
+            "<td>" + finalAmountDisplay + "</td>" +
+            "<td>" + usedBalanceDisplay + "</td>" +
+            "<td>" + item.netAmount.toFixed(2) + " د.ع</td>" +
+            "<td>" + item.totalDiscount.toFixed(2) + "</td>" +
+            "<td><strong>" + item.total.toFixed(2) + " د.ع</strong></td>" +
             "<td>" + item.address + "</td>" + 
             "<td>" + item.countryName + "</td>" + 
             "<td>" + item.phone + "</td>" +
             "<td>" + item.details + "</td>" +
             "<td>" + item.name + "</td>" +
             "<td>" + item.orderDate + "</td>" +
-            "<td>" + item.orderNo + "</td>"
+            "<td><strong>#" + item.orderNo + "</strong></td>"
             + "<td> <button type='button' class='btn btn-primary' onclick='SetIsDone(" + item.orderId + ")'  >انتهاء الطلب</button></td>"
             + "<td> <button type='button' class='btn btn-info' onclick='PrintOrder(" + item.orderId + ")'  >طباعة الطلب</button></td>"
             + " <td>  <button type='button' class='btn btn-warning' onclick='SetIsCancel(" + item.orderId + ")'  >الغاء</button></td>"

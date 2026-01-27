@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;           
 using AppSmartKidsXa.Entity;
 using Xamarin.Essentials;
-using Com.OneSignal;
+using OneSignalSDK.Xamarin;
 
 namespace AppSmartKidsXa.Helper
 {
@@ -248,7 +248,7 @@ namespace AppSmartKidsXa.Helper
                 var json1 = await response.Content.ReadAsStringAsync();
                 Response<Users> res = JsonConvert.DeserializeObject<Response<Users>>(json1);
                 Users user = res.data;
-                try {   OneSignal.Current.SetExternalUserId(user.UserId.ToString()); } catch (Exception ex) { }
+                try {   OneSignal.Default.SetExternalUserId(user.UserId.ToString()); } catch (Exception ex) { }
                 await saveprop(user);
             }
             catch (Exception)

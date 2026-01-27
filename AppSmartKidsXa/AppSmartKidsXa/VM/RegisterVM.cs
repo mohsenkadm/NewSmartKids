@@ -11,7 +11,7 @@ using AppSmartKidsXa.View;
 using Xamarin.Forms;
 using System.Windows.Input;
 using Xamarin.Essentials;
-using Com.OneSignal;
+using OneSignalSDK.Xamarin;
 using Acr.UserDialogs;
 
 namespace AppSmartKidsXa.VM
@@ -141,7 +141,7 @@ namespace AppSmartKidsXa.VM
                         Preferences.Set("Details", "");
                         Preferences.Set("CountryId", CountryIdSelected.CountryId);
                         InfoAccess.Id = response.data.UserId;        
-                        try {   OneSignal.Current.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
+                        try {   OneSignal.Default.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
                         await App.Current.MainPage.DisplayAlert("حفظ", "تم تسجيل حساب  بنجاح", "نعم");
 
                         await Navigation.PushAsync(new ChatView(), true);

@@ -60,6 +60,7 @@
                                             <th scope="col">الصنف</th> 
                                             <th scope="col">كمية</th> 
                                             <th scope="col">السعر</th> 
+                                            <th scope="col">الرابط</th> 
                                             <th scope="col">التفاصيل</th> 
                                             <th scope="col">الاسم</th> 
                                             <th scope="col"></th>
@@ -117,6 +118,12 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="form-group col-md-12  alignright">
+                        <label class="text-primary">الرابط (اختياري)</label>
+                        <input type="url" id="Url" autocomplete="off" name="Url" class="form-control alignright" placeholder="اكتب الرابط" />
+                    </div>
+                </div>
+                <div class="row">
 
                     <div class="form-group col-md-4  alignright">
                         <label class="text-primary">الكمية</label>
@@ -141,9 +148,15 @@
 
                 <div class="row">
                     <div class="row col-md-6 alignright">
-                        <label class="text-primary">اختيار صورة</label>
-                        <input type="file" placeholder="اختيار الصورة" class=" alignright" autocomplete="off" name="imageca" id="imageca" multiple/>
+                        <label class="text-primary">اختيار صور (متعددة)</label>
+                        <input type="file" placeholder="اختيار الصور" class=" alignright" autocomplete="off" name="imageca" id="imageca" multiple accept="image/*"/>
                     </div>
+                    <div class="form-group row col-md-6 alignright">
+                        <label class="text-primary">رابط صورة خارجي (اختياري)</label>
+                        <input type="url" placeholder="ضع رابط الصورة" class="form-control alignright" autocomplete="off" name="ImageUrl" id="ImageUrl" />
+                    </div>
+                </div>
+                <div class="row">
                     <div class="form-group col-md-6  alignright">
                         <label class="text-primary">خصم</label>
                         <div class='form-check col-md-6  alignright'>
@@ -236,89 +249,76 @@
                 $('#CategoriesId').append(ss);
             });
         };
-        $(document).ready(function () { 
+        $(document).ready(function () {
+            // Initialize DOM cache
+            initializeCache();
+            
+            // Initialize event delegation
+            initializeEventDelegation();
+            
+            // Load categories
             call_ajax("GET", "Categories/GetAll", null, selectCategoriesId);
-            var ConatinImage = false;
-            if ($('#ConatinImage').is(":checked")) {
-                ConatinImage = true;
-            }
-            var obj = { Name: '', CategoriesId:0, index: 1,ConatinImage: ConatinImage, }
+            
+            // Load initial products
+            var obj = { Name: '', CategoriesId: 0, index: 1, ConatinImage: getContainImageStatus() };
             call_ajax("GET", "Products/GetAll", obj, filltableProducts);
             $("#indexid").text(1);
+            
+            // Modal events
+            $('#ProductsModal').on('show.bs.modal', handleProductModalShown);
+            $('#ProductsModal').on('hidden.bs.modal', handleProductModalHidden);
         });
 
         $("#save").on("click", (e) => {
             e.preventDefault();
 
-            var IsDiscount = false;
-            if ($('#IsDiscountca').is(":checked")) {
-                IsDiscount = true;
-            }
-            else { IsDiscount = false; }
-            var object = {
-                ProductsId: _ProductsId,
-                Name: $("#Name").val(),
-                Detail: $("#Detail").val(),
-                Price: $("#Price").val(),
-                Count: $("#Count").val(),
-                CategoriesId: $("#CategoriesId").val(),
-                DiscountPercentage: $("#DiscountPercentage").val(), 
-                IsDiscount: IsDiscount,
-            };
-
-            if (object.Name === "" || object.Name.trim() === "") {
-                md.showNotification("رجاءا ادخل الاسم ");
-                return;
-            }
-            if (object.Detail === "" || object.Detail.trim() === "") {
-                md.showNotification("رجاءا ادخل التفاصيل ");
-                return;
-            }
-            if (object.Price === "" || object.Price.trim() === "") {
-                md.showNotification("رجاءا ادخل السعر ");
-                return;
-            }
-            if (object.CategoriesId === 0 || object.CategoriesId.trim() === "0") {
-                md.showNotification("رجاءا ادخل الصنف ");
+            var validation = validateProductForm();
+            if (!validation.valid) {
+                md.showNotification(validation.message);
                 return;
             }
 
-            call_ajax("POST", "Products/Post", object, aftersaveProducts);
+            var productData = getProductDataFromForm();
+            saveProductWithFiles(productData);
         });
 
         $("#search-btn").on("click", (e) => {
             e.preventDefault();
-             var ConatinImage = false;
-            if ($('#ConatinImage').is(":checked")) {
-                ConatinImage = true;
-            }
-            var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: 1,ConatinImage:ConatinImage }
+            var obj = { 
+                Name: $("#namese").val() || '', 
+                CategoriesId: $("#CategoriesIdse").val() || 0, 
+                index: 1,
+                ConatinImage: getContainImageStatus()
+            };
             call_ajax("GET", "Products/GetAll", obj, filltableProducts); 
             $("#indexid").text(1);
         });
 
         $("#next").on("click", (e) => {
             e.preventDefault();
-            var count = $("#indexid").text();
+            var count = parseInt($("#indexid").text());
             count++;
-             var ConatinImage = false;
-            if ($('#ConatinImage').is(":checked")) {
-                ConatinImage = true;
-            }
-            var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count ,ConatinImage:ConatinImage}
+            var obj = { 
+                Name: $("#namese").val() || '', 
+                CategoriesId: $("#CategoriesIdse").val() || 0, 
+                index: count,
+                ConatinImage: getContainImageStatus()
+            };
             call_ajax("GET", "Products/GetAll", obj, filltableProducts);
             $("#indexid").text(count);
         });
+        
         $("#prev").on("click", (e) => {
             e.preventDefault();
-               var ConatinImage = false;
-            if ($('#ConatinImage').is(":checked")) {
-                ConatinImage = true;
-            }
-            var count = $("#indexid").text();
+            var count = parseInt($("#indexid").text());
             if (count > 1) {
                 count--;
-                var obj = { Name: $("#namese").val(), CategoriesId: $("#CategoriesIdse").val(), index: count,ConatinImage:ConatinImage }
+                var obj = { 
+                    Name: $("#namese").val() || '', 
+                    CategoriesId: $("#CategoriesIdse").val() || 0, 
+                    index: count,
+                    ConatinImage: getContainImageStatus()
+                };
                 call_ajax("GET", "Products/GetAll", obj, filltableProducts);
                 $("#indexid").text(count);
             }

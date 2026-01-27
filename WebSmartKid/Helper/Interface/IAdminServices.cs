@@ -7,6 +7,7 @@ namespace WebSmartKid.Helper.Interface
     {                    
         Task<ResObj> Login(string AdminNo, string password); 
         Task<ResObj> GetCountForMain();
+        Task<ResObj> GetDashboardReports();
         Task<ResObj> GetAll(string? name);
         Task<ResObj> Post(Admin Admin);
         Task<ResObj> Update(Admin Admin);

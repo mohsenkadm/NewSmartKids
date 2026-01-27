@@ -15,6 +15,10 @@ namespace Entity.Entity
         public decimal Total { get; set; }
         public decimal TotalDiscount { get; set; }
         public decimal NetAmount { get; set; }
+        public decimal UsedAccountBalance { get; set; }
+        public decimal FinalAmount { get; set; }
+        public int? PromoCodeId { get; set; }
+        public string? PromoCodeName { get; set; }
         // USER INFO
         public string Name { get; set; }
         public string Phone { get; set; }

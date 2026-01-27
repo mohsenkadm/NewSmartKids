@@ -56,10 +56,9 @@ namespace WebSmartKid.Helper.Repository
         public async Task<ResObj> PostMessage(Messages messages)
         {        
                 messages.Date = Key.DateTimeIQ;
-                _context.Add(messages);
-                _context.SaveChanges();
-            return Result.Return(true);
-        
+                await _context.AddAsync(messages);
+                await _context.SaveChangesAsync();
+                return Result.Return(true, messages);
         }
     }
 }

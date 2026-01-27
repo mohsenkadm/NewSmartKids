@@ -17,7 +17,7 @@ using OrderDetail = AppSmartKidsXa.Entity.OrderDetail;
 using OrderDetailV = AppSmartKidsXa.View.OrderDetail;
 using Acr.UserDialogs;
 using Xamarin.Essentials;
-using Com.OneSignal;
+using OneSignalSDK.Xamarin;
 using Orders = AppSmartKidsXa.Entity.Orders;
 using AppSmartKidsXa.ChatServices;
 
@@ -322,7 +322,7 @@ namespace AppSmartKids.VM
                     Preferences.Set("CountryId", CountryIdSelected.CountryId);
                     Preferences.Set("Address", Address);
                     InfoAccess.Id = response.data.UserId;
-                    try {   OneSignal.Current.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
+                    try {   OneSignal.Default.SetExternalUserId(response.data.UserId.ToString()); } catch (Exception ex) { }
                 }
                 try
                 {

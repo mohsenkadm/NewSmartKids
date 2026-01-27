@@ -141,51 +141,162 @@ namespace WebSmartKid.Helper.Repository
         public async Task<ResObj> Post(List<OrderDetail> orderDetail)
         {
             var firstrow = orderDetail.FirstOrDefault();
-            int UserId=firstrow.UserId;
+            int UserId = firstrow.UserId;
+            Users user = null;
+
+            // Handle User Creation/Update
             if (UserId == 0)
             {
-                Users users = new()
+                user = new Users
                 {
                     Name = firstrow.Name,
                     Details = firstrow.Detail,
-                    Phone = firstrow.Phone
-                    ,CountryId = firstrow.CountryId  
-                    ,Address = firstrow.Address
+                    Phone = firstrow.Phone,
+                    CountryId = firstrow.CountryId,
+                    Address = firstrow.Address,
+                    AccountBalance = 0
                 };
-                await _context.Users.AddAsync(users);
+                await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
-                firstrow.UserId=users.UserId;   
+                firstrow.UserId = user.UserId;
+                UserId = user.UserId;
             }
-            else  if(UserId>0)
+            else if (UserId > 0)
             {
-                Users users = await _context.Users.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
-                users.Name = firstrow.Name;
-                users.Details = firstrow.Detail;
-                users.Phone = firstrow.Phone;
-                users.CountryId = firstrow.CountryId;
-                users.Address = firstrow.Address;
-                _context.Entry(users).State = EntityState.Modified;
-                await _context.SaveChangesAsync();                                                                      
-                firstrow.UserId = users.UserId;
+                user = await _context.Users.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
+                if (user == null)
+                    return Result.Return(false, "المستخدم غير موجود");
+
+                user.Name = firstrow.Name;
+                user.Details = firstrow.Detail;
+                user.Phone = firstrow.Phone;
+                user.CountryId = firstrow.CountryId;
+                user.Address = firstrow.Address;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
+
+            // Handle Promo Code
+            PromoCode promoCode = null;
+            decimal promoAmount = 0;
+            
+            if (!string.IsNullOrEmpty(firstrow.PromoCode))
+            {
+                // Check if promo code exists and is active
+                promoCode = await _context.PromoCode
+                    .Where(p => p.Name == firstrow.PromoCode && p.IsActive)
+                    .FirstOrDefaultAsync();
+
+                if (promoCode == null)
+                {
+                    return Result.Return(false, "كود الخصم غير صحيح أو غير نشط");
+                }
+
+                // Check if user already used this promo code
+                var alreadyUsed = await _context.UserPromoCode
+                    .AnyAsync(up => up.UserId == UserId && up.PromoCodeId == promoCode.PromoCodeId);
+
+                if (alreadyUsed)
+                {
+                    return Result.Return(false, "لقد استخدمت هذا الكود من قبل");
+                }
+
+                promoAmount = promoCode.Amount;
+
+                // Add promo amount to user balance
+                user.AccountBalance += promoAmount;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                // Record promo code usage
+                var userPromoCode = new UserPromoCode
+                {
+                    UserId = UserId,
+                    PromoCodeId = promoCode.PromoCodeId,
+                    UsedDate = Key.DateTimeIQ
+                };
+                await _context.UserPromoCode.AddAsync(userPromoCode);
+                await _context.SaveChangesAsync();
+            }
+
+            // Calculate order amounts
+            decimal orderTotal = firstrow.Total;
+            decimal orderNetAmount = firstrow.NetAmount;
+            decimal orderTotalDiscount = firstrow.TotalDiscount;
+            
+            // Calculate how much balance to use
+            decimal usedBalance = 0;
+            decimal finalAmount = orderNetAmount;
+
+            if (user.AccountBalance > 0)
+            {
+                if (user.AccountBalance >= orderNetAmount)
+                {
+                    // User has enough balance to cover entire order
+                    usedBalance = orderNetAmount;
+                    finalAmount = 0;
+                }
+                else
+                {
+                    // Use all available balance
+                    usedBalance = user.AccountBalance;
+                    finalAmount = orderNetAmount - usedBalance;
+                }
+
+                // Deduct used balance from user account
+                user.AccountBalance -= usedBalance;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+
+            // Create Order
             Orders orders = new Orders
             {
                 OrderDate = Key.DateTimeIQ,
-                UserId =firstrow.UserId
-                ,  IsApporve = false, IsCancel = false, IsDone = false
-                , Total = firstrow.Total  ,NetAmount=firstrow.NetAmount,TotalDiscount=firstrow.TotalDiscount           
+                UserId = UserId,
+                IsApporve = false,
+                IsCancel = false,
+                IsDone = false,
+                Total = orderTotal,
+                NetAmount = orderNetAmount,
+                TotalDiscount = orderTotalDiscount,
+                UsedAccountBalance = usedBalance,
+                FinalAmount = finalAmount,
+                PromoCodeId = promoCode?.PromoCodeId,
+                PromoCodeName = promoCode?.Name
             };
 
             await _context.Orders.AddAsync(orders);
             await _context.SaveChangesAsync();
 
+            // Add Order Details
             orderDetail.ForEach(x => x.OrderId = orders.OrderId);
-             
             await _context.OrderDetail.AddRangeAsync(orderDetail);
             await _context.SaveChangesAsync();
-            orders.Token = JsonWebToken.GenerateToken(new UserManager() { Id = firstrow.UserId, Name = firstrow.Name });
 
-            return Result.Return(true, "تم حفظ الطلب بنجاح",orders);
+            // Generate token
+            orders.Token = JsonWebToken.GenerateToken(new UserManager() { Id = UserId, Name = firstrow.Name });
+
+            // Return success with order info
+            var resultMessage = $"تم حفظ الطلب بنجاح";
+            if (promoAmount > 0)
+            {
+                resultMessage += $"\nتم إضافة {promoAmount} د.ع إلى رصيدك";
+            }
+            if (usedBalance > 0)
+            {
+                resultMessage += $"\nتم استخدام {usedBalance} د.ع من رصيدك";
+            }
+            if (finalAmount > 0)
+            {
+                resultMessage += $"\nالمبلغ المتبقي للدفع: {finalAmount} د.ع";
+            }
+            else
+            {
+                resultMessage += $"\nتم الدفع بالكامل من رصيدك";
+            }
+
+            return Result.Return(true, resultMessage, orders);
         }
 
         public async Task<ResObj> GetOrdersByOrderNo(string OrderNo, int? Id)
