@@ -179,7 +179,7 @@ namespace WebSmartKid.Helper.Repository
             // Handle Promo Code
             PromoCode promoCode = null;
             decimal promoAmount = 0;
-            
+
             if (!string.IsNullOrEmpty(firstrow.PromoCode))
             {
                 // Check if promo code exists and is active
@@ -187,36 +187,36 @@ namespace WebSmartKid.Helper.Repository
                     .Where(p => p.Name == firstrow.PromoCode && p.IsActive)
                     .FirstOrDefaultAsync();
 
-                if (promoCode == null)
-                {
-                    return Result.Return(false, "كود الخصم غير صحيح أو غير نشط");
-                }
+                //if (promoCode == null)
+                //{
+                //    return Result.Return(false, "كود الخصم غير صحيح أو غير نشط");
+                //}
 
                 // Check if user already used this promo code
-                var alreadyUsed = await _context.UserPromoCode
-                    .AnyAsync(up => up.UserId == UserId && up.PromoCodeId == promoCode.PromoCodeId);
+                //var alreadyUsed = await _context.UserPromoCode
+                //    .AnyAsync(up => up.UserId == UserId && up.PromoCodeId == promoCode.PromoCodeId);
 
-                if (alreadyUsed)
-                {
-                    return Result.Return(false, "لقد استخدمت هذا الكود من قبل");
-                }
+                //if (alreadyUsed)
+                //{
+                //    return Result.Return(false, "لقد استخدمت هذا الكود من قبل");
+                //}
 
-                promoAmount = promoCode.Amount;
+                //promoAmount = promoCode.Amount;
 
-                // Add promo amount to user balance
-                user.AccountBalance += promoAmount;
-                _context.Entry(user).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+                //// Add promo amount to user balance
+                //user.AccountBalance += promoAmount;
+                //_context.Entry(user).State = EntityState.Modified;
+                //await _context.SaveChangesAsync();
 
-                // Record promo code usage
-                var userPromoCode = new UserPromoCode
-                {
-                    UserId = UserId,
-                    PromoCodeId = promoCode.PromoCodeId,
-                    UsedDate = Key.DateTimeIQ
-                };
-                await _context.UserPromoCode.AddAsync(userPromoCode);
-                await _context.SaveChangesAsync();
+                //// Record promo code usage
+                //var userPromoCode = new UserPromoCode
+                //{
+                //    UserId = UserId,
+                //    PromoCodeId = promoCode.PromoCodeId,
+                //    UsedDate = Key.DateTimeIQ
+                //};
+                //await _context.UserPromoCode.AddAsync(userPromoCode);
+                //await _context.SaveChangesAsync();
             }
 
             // Calculate order amounts
@@ -249,9 +249,27 @@ namespace WebSmartKid.Helper.Repository
                 await _context.SaveChangesAsync();
             }
 
+            // Generate OrderNo
+            var maxOrderNo = await _context.Orders
+                .Where(o => o.OrderNo != null)
+                .MaxAsync(o => (int?)o.OrderNo);
+            
+            int newOrderNo;
+            if (maxOrderNo == null || maxOrderNo == 0)
+            {
+                // First order - start from 1000
+                newOrderNo = 1000;
+            }
+            else
+            {
+                // Increment from max
+                newOrderNo = maxOrderNo.Value + 1;
+            }
+
             // Create Order
             Orders orders = new Orders
             {
+                OrderNo = newOrderNo,
                 OrderDate = Key.DateTimeIQ,
                 UserId = UserId,
                 IsApporve = false,
@@ -272,6 +290,32 @@ namespace WebSmartKid.Helper.Repository
             // Add Order Details
             orderDetail.ForEach(x => x.OrderId = orders.OrderId);
             await _context.OrderDetail.AddRangeAsync(orderDetail);
+            await _context.SaveChangesAsync();
+
+            // Update Product Inventory (reduce stock count)
+            foreach (var detail in orderDetail)
+            {
+                if (detail.ProductsId > 0)
+                {
+                    var product = await _context.Products
+                        .Where(p => p.ProductsId == detail.ProductsId)
+                        .FirstOrDefaultAsync();
+
+                    if (product != null)
+                    {
+                        // Reduce inventory by ordered quantity
+                        product.Count -= detail.Count;
+                        
+                        // Ensure count doesn't go negative (optional safety check)
+                        if (product.Count < 0)
+                        {
+                            product.Count = 0;
+                        }
+
+                        _context.Entry(product).State = EntityState.Modified;
+                    }
+                }
+            }
             await _context.SaveChangesAsync();
 
             // Generate token

@@ -31,6 +31,9 @@ namespace WebSmartKid.Model.EntityMap
             builder.Ignore(x => x.Total); 
             builder.Ignore(x => x.NetAmount); 
             builder.Ignore(x => x.TotalDiscount); 
+            builder.Ignore(x => x.FinalAmount); 
+            builder.Ignore(x => x.UsedAccountBalance); 
+            builder.Ignore(x => x.PromoCode); 
             builder.Ignore(x => x.IsCancel); 
             builder.Ignore(x => x.IsApporve); 
             builder.Ignore(x => x.IsDiscount); 

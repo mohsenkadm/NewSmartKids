@@ -23,6 +23,7 @@ var $cache = {
     searchNameInput: null,
     searchCategoryInput: null,
     containImageCheckbox: null,
+    sortOrderSelect: null,
     indexElement: null,
     productModal: null,
     imageModal: null,
@@ -47,6 +48,7 @@ function initializeCache() {
     $cache.searchNameInput = $("#namese");
     $cache.searchCategoryInput = $("#CategoriesIdse");
     $cache.containImageCheckbox = $('#ConatinImage');
+    $cache.sortOrderSelect = $('#SortOrder');
     $cache.indexElement = $("#indexid");
     $cache.productModal = $('#ProductsModal');
     $cache.imageModal = $('#ImageModal');
@@ -388,7 +390,8 @@ function RefreshProducts() {
             Name: $cache.searchNameInput.val() || '', 
             CategoriesId: $cache.searchCategoryInput.val() || 0, 
             index: count, 
-            ConatinImage: getContainImageStatus()
+            ConatinImage: getContainImageStatus(),
+            SortOrder: $cache.sortOrderSelect.val()
         };
         call_ajax("GET", "Products/GetAll", obj, filltableProducts);
     }

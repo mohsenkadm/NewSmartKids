@@ -1,8 +1,6 @@
-﻿using AspNetCore.Reporting;
-using Entity.Entity;
+﻿using Entity.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 using WebSmartKid.Classes;
 using WebSmartKid.Helper.Interface;
 
@@ -15,21 +13,17 @@ namespace WebSmartKid.Controllers
         private readonly ILoggerRepository _logger;
         private readonly IOrdersService _OrdersService;
         private readonly INotificationService _noteService;
-        private readonly IWebHostEnvironment webHostEnvironment;
         #endregion
 
         #region Const
         public OrdersController(
             ILoggerRepository logger,
-            IOrdersService OrdersService  ,
-            INotificationService noteService,
-            IWebHostEnvironment webHostEnvironment)
+            IOrdersService OrdersService,
+            INotificationService noteService)
         {
             _logger = logger;
             _OrdersService = OrdersService;
             _noteService = noteService;
-            this.webHostEnvironment = webHostEnvironment;
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
         #endregion
 
@@ -284,37 +278,6 @@ namespace WebSmartKid.Controllers
             {
                 await _logger.WriteAsync(ex, "OrdersController => Post");
                 return Response(false, "حدث خطا اثناء عملية جلب البيانات");
-            }
-        }
-        #endregion
-
-        #region Print Info order 
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> Print(int Id)
-        {
-            try
-            {
-                ResObj res = await _OrdersService.GetOrdersWithDetailAll(Id);
-
-                var path = $"{this.webHostEnvironment.WebRootPath}\\Rdlc\\ReportOrder.rdlc";
-                LocalReport report = new LocalReport(path);
-                BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-                FieldInfo field = report.GetType().GetField("localReport", bindFlags);
-                object rptObj = field.GetValue(report);
-                Type type = rptObj.GetType();
-                PropertyInfo pi = type.GetProperty("EnableExternalImages");
-                pi.SetValue(rptObj, true, null);
-                report.AddDataSource("DataSet1", res.data);
-
-                var result = report.Execute(RenderType.Pdf, 1, null, "");
-                return File(result.MainStream, "application/pdf");
-               
-            }
-            catch (Exception ex)
-            {
-                await _logger.WriteAsync(ex, "OrdersController => Print");
-                return Response(false, "حدث خطأ اثناء عملية جلب البيانات");
             }
         }
         #endregion

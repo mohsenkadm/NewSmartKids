@@ -93,7 +93,12 @@ namespace WebSmartKid.Controllers
         public IActionResult Orders()
         {
             return View();
-        }   
+        }
+        [AllowAnonymous]
+        public IActionResult PrintOrder()
+        {
+            return View();
+        }
         public IActionResult TypeDiscount()
         {
             return View();

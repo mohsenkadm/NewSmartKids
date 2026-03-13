@@ -128,7 +128,7 @@ namespace WebSmartKid.Controllers
             try
             {
                 ResObj res = await _promoCodeService.UsePromoCode(request.UserId, request.PromoCodeName);
-                return Response(res.success, res.data);
+                return Response(res.success,res.msg, res.data);
             }
             catch (Exception ex)
             {
@@ -145,7 +145,7 @@ namespace WebSmartKid.Controllers
             try
             {
                 ResObj res = await _promoCodeService.GetPromoCodeUsage(promoCodeId);
-                return Response(res.success, res.data);
+                return Response(res.success, res.msg, res.data);
             }
             catch (Exception ex)
             {
@@ -163,7 +163,7 @@ namespace WebSmartKid.Controllers
             try
             {
                 ResObj res = await _promoCodeService.CanUsePromoCode(request.UserId, request.PromoCodeName);
-                return Response(res.success, res.data);
+                return Response(res.success, res.msg, res.data);
             }
             catch (Exception ex)
             {

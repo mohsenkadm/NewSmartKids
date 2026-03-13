@@ -27,9 +27,9 @@ namespace WebSmartKid.Helper.Repository
             _ReportQtyService = repository;
         }
 
-        public async Task<ResObj> GetAll(string? Name,int? CategoriesId,int index, bool? ConatinImage)
+        public async Task<ResObj> GetAll(string? Name,int? CategoriesId,int index, bool? ConatinImage, string? SortOrder)
         {
-            List<Products> data = await _prodService.GetEntityListAsync("dbo.GetProdAll", new { Name, CategoriesId , index, ConatinImage });
+            List<Products> data = await _prodService.GetEntityListAsync("dbo.GetProdAll", new { Name, CategoriesId , index, ConatinImage, SortOrder });
             return Result.Return(true, data);
         }
 

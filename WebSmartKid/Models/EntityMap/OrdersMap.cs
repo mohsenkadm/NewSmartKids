@@ -17,9 +17,13 @@ namespace WebSmartKid.Model.EntityMap
             builder.Property(x => x.Total).IsRequired(); 
             builder.Property(x => x.TotalDiscount).IsRequired(); 
             builder.Property(x => x.NetAmount).IsRequired(); 
+            builder.Property(x => x.UsedAccountBalance); 
+            builder.Property(x => x.FinalAmount); 
             builder.Property(x => x.IsCancel).IsRequired(); 
             builder.Property(x => x.IsApporve).IsRequired(); 
             builder.Property(x => x.IsDone).IsRequired();       
+            builder.Property(x => x.PromoCodeId);       
+            builder.Ignore(x => x.PromoCodeName);       
             builder.Ignore(x => x.Name);       
             builder.Ignore(x => x.Details);       
             builder.Ignore(x => x.Phone);       

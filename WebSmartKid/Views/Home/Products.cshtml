@@ -19,6 +19,13 @@
                     </div>
                     
                     <div class="col-lg-6 col-md-6 col-sm-12 ">
+                        <label class="mb-2">ترتيب حسب المنتج</label>
+                        <select class="form-control alignright" style="background-color: #1a2035;" name="SortOrder" id="SortOrder">
+                            <option value="desc">من الأحدث إلى الأقدم</option>
+                            <option value="asc">من الأقدم إلى الأحدث</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 ">
                         <label class="mb-2">المنتجات التي لا تحتوي على صور</label>
                          <div class="form-check">
                             <label class="form-check-label">
@@ -260,7 +267,7 @@
             call_ajax("GET", "Categories/GetAll", null, selectCategoriesId);
             
             // Load initial products
-            var obj = { Name: '', CategoriesId: 0, index: 1, ConatinImage: getContainImageStatus() };
+            var obj = { Name: '', CategoriesId: 0, index: 1, ConatinImage: getContainImageStatus(), SortOrder: $('#SortOrder').val() };
             call_ajax("GET", "Products/GetAll", obj, filltableProducts);
             $("#indexid").text(1);
             
@@ -288,7 +295,8 @@
                 Name: $("#namese").val() || '', 
                 CategoriesId: $("#CategoriesIdse").val() || 0, 
                 index: 1,
-                ConatinImage: getContainImageStatus()
+                ConatinImage: getContainImageStatus(),
+                SortOrder: $('#SortOrder').val()
             };
             call_ajax("GET", "Products/GetAll", obj, filltableProducts); 
             $("#indexid").text(1);
@@ -302,12 +310,13 @@
                 Name: $("#namese").val() || '', 
                 CategoriesId: $("#CategoriesIdse").val() || 0, 
                 index: count,
-                ConatinImage: getContainImageStatus()
+                ConatinImage: getContainImageStatus(),
+                SortOrder: $('#SortOrder').val()
             };
             call_ajax("GET", "Products/GetAll", obj, filltableProducts);
             $("#indexid").text(count);
         });
-        
+
         $("#prev").on("click", (e) => {
             e.preventDefault();
             var count = parseInt($("#indexid").text());
@@ -317,7 +326,8 @@
                     Name: $("#namese").val() || '', 
                     CategoriesId: $("#CategoriesIdse").val() || 0, 
                     index: count,
-                    ConatinImage: getContainImageStatus()
+                    ConatinImage: getContainImageStatus(),
+                    SortOrder: $('#SortOrder').val()
                 };
                 call_ajax("GET", "Products/GetAll", obj, filltableProducts);
                 $("#indexid").text(count);

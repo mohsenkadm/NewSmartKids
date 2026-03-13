@@ -7,7 +7,7 @@ namespace WebSmartKid.Helper.Interface
 {
     public interface IProductsService
     {
-        Task<ResObj> GetAll(string? Name, int? CategoriesId,int index,bool? ConatinImage);
+        Task<ResObj> GetAll(string? Name, int? CategoriesId,int index,bool? ConatinImage, string? SortOrder);
         Task<ResObj> Post(Products Products); 
         Task<ResObj> Update(Products Products);
         Task<ResObj> Delete(int Id);

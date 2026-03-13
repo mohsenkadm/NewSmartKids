@@ -10,3 +10,15 @@ LogDT = 10/14/2022 8:35:27 PM
 
 ********************************************** 
 
+LogDT = 1/29/2026 11:54:38 PM 
+ LogMsg = OrdersController => Post 
+ LogDesc = Msg=OrdersController => Post;Ex.Msg=Value cannot be null. (Parameter 'source'); 
+
+********************************************** 
+
+LogDT = 1/29/2026 11:54:38 PM 
+ LogMsg = LoggerRepository=>;WriteAsync 
+ LogDesc = Msg=LoggerRepository=>;WriteAsyncEx.Msg=Incorrect syntax near 'source'.; 
+
+********************************************** 
+

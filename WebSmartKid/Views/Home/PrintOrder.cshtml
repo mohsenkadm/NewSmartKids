@@ -1,0 +1,345 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>طباعة الطلب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            direction: rtl;
+            padding: 20px;
+            background: #fff;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .print-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .print-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .order-info {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .order-info td {
+            padding: 6px 10px;
+            border: 1px solid #999;
+            font-size: 13px;
+        }
+
+        .order-info .label-cell {
+            background-color: #f0f0f0;
+            font-weight: 700;
+            width: 15%;
+            text-align: center;
+        }
+
+        .order-info .value-cell {
+            width: 35%;
+            text-align: right;
+        }
+
+        .totals-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .totals-table th {
+            background-color: LightSteelBlue;
+            padding: 8px 10px;
+            border: 1px solid #999;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .totals-table td {
+            padding: 8px 10px;
+            border: 1px solid #999;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .details-table th {
+            background-color: LightSteelBlue;
+            padding: 8px 10px;
+            border: 1px solid #999;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .details-table td {
+            padding: 6px 10px;
+            border: 1px solid #999;
+            font-size: 13px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .details-table img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .btn-print {
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: #2196F3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+
+        .btn-print:hover {
+            background-color: #1976D2;
+        }
+
+        .btn-close {
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: #757575;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+
+        .btn-close:hover {
+            background-color: #616161;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        @@media print {
+            .actions {
+                display: none !important;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loadingMsg">جاري تحميل بيانات الطلب...</div>
+
+    <div id="printContent" style="display:none;">
+        <div class="print-header">
+            <h2>تفاصيل الطلب</h2>
+        </div>
+
+        <table class="order-info">
+            <tr>
+                <td class="label-cell">رقم الطلب</td>
+                <td class="value-cell" id="pOrderNo"></td>
+                <td class="label-cell">تاريخ الطلب</td>
+                <td class="value-cell" id="pOrderDate"></td>
+            </tr>
+            <tr>
+                <td class="label-cell">اسم الزبون</td>
+                <td class="value-cell" id="pName"></td>
+                <td class="label-cell">رقم الهاتف</td>
+                <td class="value-cell" id="pPhone"></td>
+            </tr>
+            <tr>
+                <td class="label-cell">المحافظة</td>
+                <td class="value-cell" id="pCountryName" colspan="3"></td>
+            </tr>
+        </table>
+
+        <table class="totals-table">
+            <thead>
+                <tr>
+                    <th>مجموع الطلب</th>
+                    <th>مجموع الخصم</th>
+                    <th>صافي المبلغ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="pTotal"></td>
+                    <td id="pTotalDiscount"></td>
+                    <td id="pNetAmount"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="order-info" style="margin-bottom:20px;">
+            <tr>
+                <td class="label-cell">ملاحظات</td>
+                <td class="value-cell" id="pDetails" colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="label-cell">العنوان الكامل</td>
+                <td class="value-cell" id="pAddress" colspan="3"></td>
+            </tr>
+        </table>
+
+        <table class="details-table">
+            <thead>
+                <tr>
+                    <th>صورة</th>
+                    <th>اسم المنتج</th>
+                    <th>سعر المنتج</th>
+                    <th>الكمية</th>
+                    <th>المجموع</th>
+                </tr>
+            </thead>
+            <tbody id="pDetailsBody">
+            </tbody>
+        </table>
+
+        <div class="actions">
+            <button class="btn-print" onclick="window.print();">طباعة <i class='material-icons' style='vertical-align:middle;font-size:18px;'>print</i></button>
+            <button class="btn-close" onclick="window.close();">اغلاق</button>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.toString().replace(/[&<>"']/g, function (m) { return map[m]; });
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            try {
+                var d = new Date(dateStr);
+                return d.toLocaleDateString('ar-IQ') + ' ' + d.toLocaleTimeString('ar-IQ', { hour: '2-digit', minute: '2-digit' });
+            } catch (e) {
+                return escapeHtml(dateStr);
+            }
+        }
+
+        $(document).ready(function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var orderId = urlParams.get('Id');
+
+            if (!orderId) {
+                $('#loadingMsg').text('لم يتم تحديد رقم الطلب');
+                return;
+            }
+
+            var userToken = getCookie("token2");
+
+            $.ajax({
+                method: "GET",
+                url: "/Orders/GetOrdersWithDetailAll",
+                data: { Id: orderId },
+                headers: {
+                    'Authorization': 'Bearer ' + userToken,
+                },
+                success: function (respons) {
+                    if (respons.success && respons.data && respons.data.length > 0) {
+                        fillPrintData(respons.data);
+                    } else {
+                        $('#loadingMsg').text('لا توجد بيانات لهذا الطلب');
+                    }
+                },
+                error: function () {
+                    $('#loadingMsg').text('حدث خطأ اثناء جلب البيانات');
+                }
+            });
+        });
+
+        function fillPrintData(data) {
+            var first = data[0];
+
+            $('#pOrderNo').text('#' + first.orderNo);
+            $('#pOrderDate').text(formatDate(first.orderDate));
+            $('#pName').text(escapeHtml(first.name));
+            $('#pPhone').text(escapeHtml(first.phone));
+            $('#pCountryName').text(escapeHtml(first.countryName));
+            $('#pTotal').text(parseFloat(first.total).toFixed(2));
+            $('#pTotalDiscount').text(parseFloat(first.totalDiscount).toFixed(2));
+            $('#pNetAmount').text(parseFloat(first.netAmount).toFixed(2));
+            $('#pDetails').text(escapeHtml(first.details));
+            $('#pAddress').text(escapeHtml(first.address));
+
+            var rows = '';
+            $.each(data, function (i, item) {
+                var lineTotal = (parseFloat(item.price) * parseInt(item.count)).toFixed(2);
+                var imgTag = item.image
+                    ? '<img src="' + escapeHtml(item.image) + '" alt="صورة المنتج" />'
+                    : '-';
+                rows += '<tr>' +
+                    '<td>' + imgTag + '</td>' +
+                    '<td>' + escapeHtml(item.prodName) + '</td>' +
+                    '<td>' + parseFloat(item.price).toFixed(2) + '</td>' +
+                    '<td>' + item.count + '</td>' +
+                    '<td>' + lineTotal + '</td>' +
+                    '</tr>';
+            });
+            $('#pDetailsBody').html(rows);
+
+            $('#loadingMsg').hide();
+            $('#printContent').show();
+        }
+    </script>
+</body>
+</html>

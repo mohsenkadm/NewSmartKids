@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace WebSmartKid.Helper.Repository
 {
@@ -128,11 +129,39 @@ namespace WebSmartKid.Helper.Repository
 
         public async Task<ResObj> UsePromoCode(int userId, string promoCodeName)
         {
-            var result = await _promoCodeRepository.GetEntityAsync(
-                "dbo.UsePromoCode",
-                new { UserId = userId, PromoCodeName = promoCodeName });
+            try
+            {
+                // Use Dapper to call stored procedure with correct result type
+                var connection = _context.Database.GetDbConnection();
+                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    "dbo.UsePromoCode",
+                    new { UserId = userId, PromoCodeName = promoCodeName },
+                    commandType: System.Data.CommandType.StoredProcedure);
                 
-            return Result.Return(true, result);
+                if (result == null)
+                {
+                    return Result.Return(false, "حدث خطأ أثناء استخدام الكود");
+                }
+                
+                // Convert result to proper response
+                bool success = result.Success == 1;
+                string message = result.Message;
+                
+                // Build response data object
+                var responseData = new 
+                { 
+                    success = success, 
+                    message = message,
+                    newBalance = result.NewBalance != null ? (decimal?)result.NewBalance : null,
+                    amount = result.Amount != null ? (decimal?)result.Amount : null
+                };
+                
+                return Result.Return(success, message, responseData);
+            }
+            catch (Exception ex)
+            {
+                return Result.Return(false, "حدث خطأ أثناء استخدام الكود");
+            }
         }
 
         public async Task<ResObj> GetPromoCodeUsage(int? promoCodeId)
@@ -146,11 +175,34 @@ namespace WebSmartKid.Helper.Repository
 
         public async Task<ResObj> CanUsePromoCode(int userId, string promoCodeName)
         {
-            var result = await _promoCodeRepository.GetEntityAsync(
-                "dbo.CanUsePromoCode",
-                new { UserId = userId, PromoCodeName = promoCodeName });
+            try
+            {
+                // Use Dapper to call stored procedure with correct result type
+                var connection = _context.Database.GetDbConnection();
+                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    "dbo.CanUsePromoCode",
+                    new { UserId = userId, PromoCodeName = promoCodeName },
+                    commandType: System.Data.CommandType.StoredProcedure);
                 
-            return Result.Return(true, result);
+                if (result == null)
+                {
+                    return Result.Return(false, "حدث خطأ أثناء التحقق من الكود");
+                }
+                
+                // Convert result to proper response
+                bool canUse = result.CanUse == 1;
+                string message = result.Message;
+                
+                return Result.Return(canUse, message, new 
+                { 
+                    canUse = canUse, 
+                    message = message 
+                });
+            }
+            catch (Exception ex)
+            {
+                return Result.Return(false, "حدث خطأ أثناء التحقق من الكود");
+            }
         }
 
         public async Task<ResObj> ValidatePromoCodeForOrder(int userId, string promoCodeName)
